@@ -9,6 +9,20 @@ p {
   margin: 0;
 }
 
+ul {
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+}
+
 header {
   background: $backgroundImage;
 
@@ -53,11 +67,11 @@ header {
 
       .logo_container__text {
         .logo_container__text_main {
-          font-size: 1.2em;
+          font-size: 1.5em;
         }
 
         .logo_container__text_second {
-          font-size: 0.65em;
+          font-size: .8em;
         }
       }
     }
@@ -67,9 +81,15 @@ header {
     .logo_container {
         width: 60%;
 
+        .logo_container__image {
+            img {
+              max-width: 100px;
+            }
+          }
+
         .logo_container__text {
             .logo_container__text_main {
-              font-size: 1.9em;
+              font-size: 2em;
             }
 
             .logo_container__text_second {
@@ -80,4 +100,120 @@ header {
     }
 
 }
+}
+
+footer {
+    background: $backgroundImage;
+    font-size: 1em;
+    display: flex;
+    padding: 1em 4em;
+    align-items: center;
+    color: $secondTextColor;
+
+    .logo {
+        img {
+            max-width: 120px;
+        }
+    }
+
+    .navigation {
+        text-decoration: underline;
+        font-weight: 600;
+
+        ul {
+            padding-left: 1em;
+            li {
+                padding: .2em;
+                a {
+                    padding: .2em;
+                }
+            }
+        }
+    }
+
+    .contacts {
+        margin-left: auto;
+        font-weight: 500;
+
+        a {
+            display: block;
+            
+            &:last-child {
+                text-align: center;
+                padding-top: .2em;
+            }
+        }
+    }
+
+    .copyright {
+        margin-left: auto;
+
+        p:last-child {
+            padding-top: .2em;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    @media screen and (max-width: $mobile) {
+        padding: 1em 3em;
+        flex-direction: column;
+        
+        
+        background-size: cover;
+
+        .logo {
+            margin-bottom: 1em;
+            img {
+                max-width: 80px;
+            }
+        }
+
+        .navigation {
+            display: none;
+        }
+
+        .contacts {
+            margin-bottom: 1em;
+            margin-left: 0;
+        }
+
+        .copyright {
+            margin-left: 0;
+
+            p {
+                font-size: .7em;
+                text-align: center;
+            }
+        }
+
+    }
+
+    @media screen and (min-width: $mobile) and (max-width: $tablet) {
+        padding: 1em;
+        justify-content: space-between;
+
+        .logo {
+            img {
+                max-width: 100px;
+            }
+        }
+
+        .navigation {
+            display: none;
+        }
+
+        .contacts {
+            margin-left: 0;
+        }
+
+        .copyright {
+            margin-left: 0;
+            font-size: .8em;
+            text-align: center;
+        }
+
+    }
 }
