@@ -30,44 +30,46 @@
 }
 
 @media screen and (max-width: 768px) {
-  .header .header_logo_container {
+  .header .header_logo {
     width: 80%;
   }
-  .header .header_logo_container .header_logo_container_image .header_logo_container_image {
+  .header .header_logo .header_logo_container .header_logo_container_image {
     max-width: 80px;
   }
-  .header .header_logo_container .header_logo_text .header_logo_text_main {
+  .header .header_logo .header_logo_text .header_logo_text_main {
     font-size: 1.5em;
   }
-  .header .header_logo_container .header_logo_text .header_logo_text_second {
+  .header .header_logo .header_logo_text .header_logo_text_second {
     font-size: 0.8em;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1240px) {
-  .header .header_logo_container {
+  .header .header_logo {
     width: 60%;
+    justify-content: center;
   }
-  .header .header_logo_container .header_logo_container_image .header_logo_container_image {
+  .header .header_logo .header_logo_container .header_logo_container_image {
     max-width: 100px;
   }
-  .header .header_logo_container .header_logo_text .header_logo_text_main {
+  .header .header_logo .header_logo_text .header_logo_text_main {
     font-size: 2em;
   }
-  .header .header_logo_container .header_logo_text .header_logo_text_second {
+  .header .header_logo .header_logo_text .header_logo_text_second {
     font-size: 1em;
   }
 }
 
 .navigation {
   display: flex;
-  padding: 10px 2em;
+  box-sizing: border-box;
   border-bottom: 1px black solid;
   z-index: 1;
 }
 
 .navigation .navigation_mobile {
   display: none;
+  padding: 10px 0 10px 2em;
 }
 
 .navigation .navigation_mobile.show .navigation_mobile_menu {
@@ -76,8 +78,8 @@
 
 .navigation .navigation_mobile .navigation_mobile_btn-container button {
   background: url(../imgs/icons/burger.svg) no-repeat;
-  width: 22px;
-  height: 22px;
+  width: 25px;
+  height: 26px;
   border: 0;
   border-radius: 0;
   cursor: pointer;
@@ -86,13 +88,14 @@
 .navigation .navigation_mobile .navigation_mobile_menu {
   display: block;
   position: absolute;
-  width: 70%;
+  width: 80%;
   top: 0;
   left: -100%;
   background: white;
   font-weight: 600;
   box-shadow: 2px 2px 5px #F3F3F3;
   transition: left 0.5s linear;
+  font-size: 1.2em;
   z-index: 2;
 }
 
@@ -130,11 +133,11 @@
   max-height: 0;
   background-color: #f0f0f0;
   color: black;
-  transition: max-height .4s linear;
+  transition: max-height 0.4s linear;
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu .navigation_mobile_menu_list .dropdown .dropdown_inner-list li {
-  transition: visibility .3s linear;
+  transition: visibility 0.3s linear;
   visibility: hidden;
   padding-left: 10px;
 }
@@ -160,12 +163,13 @@
   display: none;
   margin-left: 1em;
   margin-right: auto;
+  padding: 10px 0;
   align-items: center;
 }
 
 .navigation .navigation_search .navigation_search_btn-container button {
-  width: 22px;
-  height: 22px;
+  width: 25px;
+  height: 26px;
   background: url(../imgs/icons/search-btn.svg) no-repeat;
   border: 0;
   border-radius: 0;
@@ -174,11 +178,12 @@
 
 .navigation .navigation_search .navigation_search_input-container input {
   max-width: 0px;
+  height: 25px;
   padding: 0 1em;
   border: 1px black solid;
   border-radius: 30px;
   visibility: hidden;
-  transition: max-width .5s linear, visibility .5s linear;
+  transition: max-width 0.5s linear, visibility 0.5s linear;
 }
 
 .navigation .navigation_search .navigation_search_input-container.show input {
@@ -186,10 +191,90 @@
   visibility: visible;
 }
 
+.navigation .navigation_menu {
+  width: 60%;
+  margin: 0 auto;
+  font-weight: 600;
+  align-content: center;
+}
+
+.navigation .navigation_menu .navigation_menu-list {
+  display: flex;
+}
+
+.navigation .navigation_menu .navigation_menu-list li a {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-left: 1px white solid;
+  border-right: 1px white solid;
+  transition: color 0.3s linear, border 0.3s linear;
+}
+
+.navigation .navigation_menu .navigation_menu-list li a:hover {
+  color: #0072B6;
+  border-left: 1px #0072B6 solid;
+  border-right: 1px #0072B6 solid;
+}
+
+.navigation .navigation_menu .navigation_menu-list .dropdown {
+  position: relative;
+}
+
+.navigation .navigation_menu .navigation_menu-list .dropdown .dropdown_title::after {
+  position: relative;
+  content: url(../imgs/icons/arrow.svg);
+  left: 5px;
+  top: 2px;
+}
+
+.navigation .navigation_menu .navigation_menu-list .dropdown .dropdown_title:hover::after {
+  content: url(../imgs/icons/arrow-active.svg);
+}
+
+.navigation .navigation_menu .navigation_menu-list .dropdown .dropdown_list {
+  display: none;
+  position: absolute;
+  width: max-content;
+  box-sizing: border-box;
+  border: 1px #0072B6 solid;
+  background: white;
+}
+
+.navigation .navigation_menu .navigation_menu-list .dropdown .dropdown_list li {
+  color: black;
+}
+
+.navigation .navigation_menu .navigation_menu-list .dropdown .dropdown_list li a {
+  transition: color .3s linear, background .3s linear;
+}
+
+.navigation .navigation_menu .navigation_menu-list .dropdown .dropdown_list li a:hover {
+  border-left: 0;
+  border-right: 0;
+  background-color: #f0f0f0;
+}
+
+.navigation .navigation_menu .navigation_menu-list .dropdown:hover {
+  color: #0072B6;
+}
+
+.navigation .navigation_menu .navigation_menu-list .dropdown:hover .dropdown_title::after {
+  content: url(../imgs/icons/arrow-active.svg);
+}
+
+.navigation .navigation_menu .navigation_menu-list .dropdown:hover .dropdown_list {
+  display: block;
+}
+
 .navigation .navigation_facebook {
   display: none;
   margin-left: auto;
   margin-right: 1em;
+  padding: 10px 0;
 }
 
 .navigation .navigation_facebook .navigation_facebook-link {
@@ -201,6 +286,7 @@
 
 .navigation .navigation_instagram {
   display: none;
+  padding: 10px 2em 10px 0;
 }
 
 .navigation .navigation_instagram .navigation_instagram-link {
@@ -216,6 +302,9 @@
   }
   .navigation .navigation_search {
     display: flex;
+  }
+  .navigation .navigation_menu {
+    display: none;
   }
   .navigation .navigation_facebook {
     display: block;

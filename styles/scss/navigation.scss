@@ -2,12 +2,13 @@
 
 .navigation {
   display: flex;
-  padding: 10px 2em;
+  box-sizing: border-box;
   border-bottom: 1px $borderColor solid;
   z-index: 1;
 
   .navigation_mobile {
     display: none;
+    padding: 10px 0 10px 2em;
 
     &.show {
       .navigation_mobile_menu {
@@ -18,8 +19,8 @@
     .navigation_mobile_btn-container {
       button {
         background: url(../imgs/icons/burger.svg) no-repeat;
-        width: 22px;
-        height: 22px;
+        width: 25px;
+        height: 26px;
         border: 0;
         border-radius: 0;
         cursor: pointer;
@@ -29,13 +30,14 @@
     .navigation_mobile_menu {
       display: block;
       position: absolute;
-      width: 70%;
+      width: 80%;
       top: 0;
       left: -100%;
       background: $backgroundColorMain;
       font-weight: 600;
       box-shadow: 2px 2px 5px $blockShadowColor;
       transition: left 0.5s linear;
+      font-size: 1.2em;
       z-index: 2;
 
       .navigation_mobile_menu_list {
@@ -61,7 +63,6 @@
         }
 
         .dropdown {
-
           .dropdown_title {
             &::after {
               position: relative;
@@ -79,11 +80,11 @@
             max-height: 0;
             background-color: #f0f0f0;
             color: $mainTextColor;
-            transition: max-height .4s linear;
+            transition: max-height 0.4s linear;
 
             li {
-              transition: visibility .3s linear;  
-              visibility: hidden;  
+              transition: visibility 0.3s linear;
+              visibility: hidden;
               padding-left: 10px;
             }
           }
@@ -113,36 +114,119 @@
     display: none;
     margin-left: 1em;
     margin-right: auto;
+    padding: 10px 0;
     align-items: center;
 
     .navigation_search_btn-container {
-        button {
-            width: 22px;
-            height: 22px;
-            background: url(../imgs/icons/search-btn.svg) no-repeat;
-            border: 0;
-            border-radius: 0;
-            cursor: pointer;
-        }
+      button {
+        width: 25px;
+        height: 26px;
+        background: url(../imgs/icons/search-btn.svg) no-repeat;
+        border: 0;
+        border-radius: 0;
+        cursor: pointer;
+      }
     }
 
     .navigation_search_input-container {
+      input {
+        max-width: 0px;
+        height: 25px;
+        padding: 0 1em;
+        border: 1px black solid;
+        border-radius: 30px;
+        visibility: hidden;
+        transition: max-width 0.5s linear, visibility 0.5s linear;
+      }
 
+      &.show {
         input {
-            max-width: 0px;
-            padding: 0 1em;
-            border: 1px black solid;
-            border-radius: 30px;
-            visibility: hidden;
-            transition: max-width .5s linear, visibility .5s linear;
+          max-width: 150px;
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  .navigation_menu {
+    width: 60%;
+    margin: 0 auto;
+    font-weight: 600;
+    align-content: center;
+
+    .navigation_menu-list {
+      display: flex;
+      li {
+        a {
+          display: block;
+          width: 100%;
+          padding: 10px;
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          -webkit-box-sizing: border-box;
+          border-left: 1px $backgroundColorMain solid;
+          border-right: 1px $backgroundColorMain solid;
+          transition: color 0.3s linear, border 0.3s linear;
+
+          &:hover {
+            color: $hoverColor;
+            border-left: 1px $hoverColor solid;
+            border-right: 1px $hoverColor solid;
+          }
+        }
+      }
+
+      .dropdown {
+        position: relative;
+
+        .dropdown_title {
+          &::after {
+            position: relative;
+            content: url(../imgs/icons/arrow.svg);
+            left: 5px;
+            top: 2px;
+          }
+
+          &:hover::after {
+            content: url(../imgs/icons/arrow-active.svg);
+          }
         }
 
-        &.show {
-           input {
-            max-width: 150px;
-            visibility: visible;
-           }
+        .dropdown_list {
+          display: none;
+          position: absolute;
+          width: max-content;
+          box-sizing: border-box;
+          border: 1px $hoverColor solid;
+          background: $backgroundColorMain;
+
+          li {
+            color: $mainTextColor;
+            a {
+              transition: color .3s linear, background .3s linear;
+
+              &:hover {
+                border-left: 0;
+                border-right: 0;
+                background-color: #f0f0f0;
+              }
+            }
+          }
+
         }
+
+        &:hover {
+          color: $hoverColor;
+
+          .dropdown_title::after {
+            content: url(../imgs/icons/arrow-active.svg);
+          }
+
+          .dropdown_list {
+            display: block;
+          }
+        }
+      }
     }
   }
 
@@ -150,24 +234,26 @@
     display: none;
     margin-left: auto;
     margin-right: 1em;
+    padding: 10px 0;
 
-        .navigation_facebook-link {
-            display: block;
-            width: 25px;
-            height: 26px;
-            background: url(../imgs/icons/facebook.svg) no-repeat;
-        }
+    .navigation_facebook-link {
+      display: block;
+      width: 25px;
+      height: 26px;
+      background: url(../imgs/icons/facebook.svg) no-repeat;
+    }
   }
 
   .navigation_instagram {
     display: none;
-    
-        .navigation_instagram-link {
-            display: block;
-            width: 25px;
-            height: 26px;
-            background: url(../imgs/icons/instagram.svg) no-repeat;
-        }
+    padding: 10px 2em 10px 0;
+
+    .navigation_instagram-link {
+      display: block;
+      width: 25px;
+      height: 26px;
+      background: url(../imgs/icons/instagram.svg) no-repeat;
+    }
   }
 
   @media screen and (max-width: $mobile) {
@@ -176,15 +262,19 @@
     }
 
     .navigation_search {
-        display: flex;
+      display: flex;
+    }
+
+    .navigation_menu {
+      display: none;
     }
 
     .navigation_facebook {
-        display: block;
+      display: block;
     }
 
     .navigation_instagram {
-        display: block;
+      display: block;
     }
   }
 }

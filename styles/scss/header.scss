@@ -33,10 +33,10 @@
   }
 
   @media screen and (max-width: $mobile) {
-    .header_logo_container {
+    .header_logo {
       width: 80%;
 
-      .header_logo_container_image {
+      .header_logo_container{
         .header_logo_container_image {
           max-width: 80px;
         }
@@ -55,10 +55,11 @@
   }
 
   @media screen and (min-width: $mobile) and (max-width: $tablet) {
-    .header_logo_container {
+    .header_logo {
       width: 60%;
+      justify-content: center;
 
-      .header_logo_container_image {
+      .header_logo_container {
         .header_logo_container_image {
           max-width: 100px;
         }
