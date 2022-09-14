@@ -77,26 +77,87 @@
   </head>
 
   <body>
-    <header>
-      <div class="logo_container">
-        <div class="logo_container__image">
-          <img src="./imgs/logo.png" alt="Донецький екзархат УГКЦ" />
+    <header class="header">
+      <div class="header_logo">
+        <div class="header_logo_container">
+          <img src="./imgs/logo.png" alt="Донецький екзархат УГКЦ"  class="header_logo_container_image"/>
         </div>
-        <div class="logo_container__text">
-          <p class="logo_container__text_main">Донецький екзархат</p>
-          <p class="logo_container__text_second">
+        <div class="header_logo_text">
+          <p class="header_logo_text_main">Донецький екзархат</p>
+          <p class="header_logo_text_second">
             Українська Греко-Католицька Церква
           </p>
         </div>
       </div>
     </header>
+    <div class="navigation">
+        <div class="navigation_mobile">
+            <div class="navigation_mobile_btn-container">
+                <button id="mobile_menu"></button>
+            </div>
+            <div class="navigation_mobile_menu">
+                <ul class="navigation_mobile_menu_list">
+                    <li class="navigation_mobile_menu_list-title">Навігація</li>
+                    <li><a href="#">Головна</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown_title">Новини</a>
+                        <ul class="dropdown_inner-list">
+                            <li><a href="#">Новини екзархату</a></li>
+                            <li><a href="#">Новини церкви</a></li>
+                            <li><a href="#">Публікації</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown_title">Екзархат</a>
+                        <ul class="dropdown_inner-list">
+                            <li><a href="#">Єпископ</a></li>
+                            <li><a href="#">Курія</a></li>
+                            <li><a href="#">Комісії</a></li>
+                            <li><a href="#">Духовенство</a></li>
+                            <li><a href="#">Пресслужба</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Парафії та монастирі</a></li>
+                    <li><a href="#">Документи</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown_title">Про нас</a>
+                        <ul class="dropdown_inner-list">
+                            <li><a href="#">Глава і Отець УГКЦ</a></li>
+                            <li><a href="#">Структура Церкви</a></li>
+                            <li><a href="#">Історія Донецького екзархату</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Контакти</a></li>
+                </ul>
+            </div>
+        </div>
+         <div class="navigation_search">
+          <div class="navigation_search_btn-container">
+            <button id="search_button"></button>
+          </div>
+          <div class="navigation_search_input-container">
+            <input type="text" placeholder="Пошук новин">
+          </div>
+        </div>
+        <!--<div class="menu">
+            <ul>
+                <li></li>
+            </ul>
+        </div>-->
+        <div class="navigation_facebook">
+          <a href="#" class="navigation_facebook-link"></a>
+        </div>
+        <div class="navigation_instagram">
+          <a href="#" class="navigation_instagram-link"></a>
+        </div>
+    </div>
 
-    <footer>
-      <div class="logo">
-        <img src="./imgs/logo.png" alt="Донецький екзархат УГКЦ" />
+    <footer class="footer">
+      <div class="footer_logo">
+        <img src="./imgs/logo.png" alt="Донецький екзархат УГКЦ" class="footer_logo_image"/>
       </div>
-      <div class="navigation">
-        <ul>
+      <div class="footer_nav">
+        <ul class="footer_nav_list">
           <li><a href="#">Новини</a></li>
           <li><a href="#">Екзархат</a></li>
           <li><a href="#">Парафії та монастирі</a></li>
@@ -105,14 +166,17 @@
           <li><a href="#">Контакти</a></li>
         </ul>
       </div>
-      <div class="contacts">
+      <div class="footer_contacts">
         <a href="http://maps.google.com/?q=м. Запоріжжя, вул. Вербова,11, 69095">м. Запоріжжя, вул. Вербова,11, 69095</a>
         <a href="mailto:press.don.ugcc@gmail.com">press.don.ugcc@gmail.com</a>
       </div>
-      <div class="copyright">
+      <div class="footer_copyright">
         <p>© 2016 Донецький екзархат УГКЦ. Всі права застережено.</p>
         <p>Developed by <a href="#">Helgen</a>. September, 2022.</p>
       </div>
     </footer>
+
+    <script src="./scripts/jquery-3.6.1.min.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>

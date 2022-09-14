@@ -1,0 +1,190 @@
+@import "vars.scss";
+
+.navigation {
+  display: flex;
+  padding: 10px 2em;
+  border-bottom: 1px $borderColor solid;
+  z-index: 1;
+
+  .navigation_mobile {
+    display: none;
+
+    &.show {
+      .navigation_mobile_menu {
+        left: 0;
+      }
+    }
+
+    .navigation_mobile_btn-container {
+      button {
+        background: url(../imgs/icons/burger.svg) no-repeat;
+        width: 22px;
+        height: 22px;
+        border: 0;
+        border-radius: 0;
+        cursor: pointer;
+      }
+    }
+
+    .navigation_mobile_menu {
+      display: block;
+      position: absolute;
+      width: 70%;
+      top: 0;
+      left: -100%;
+      background: $backgroundColorMain;
+      font-weight: 600;
+      box-shadow: 2px 2px 5px $blockShadowColor;
+      transition: left 0.5s linear;
+      z-index: 2;
+
+      .navigation_mobile_menu_list {
+        .navigation_mobile_menu_list-title {
+          text-align: center;
+          border-bottom: 1px $borderColor solid;
+          margin-top: 10px;
+        }
+
+        li {
+          a {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            transition: background-color 0.3s linear, color 0.3s linear;
+
+            &:hover {
+              background-color: #f0f0f0;
+              color: $hoverColor;
+            }
+          }
+        }
+
+        .dropdown {
+
+          .dropdown_title {
+            &::after {
+              position: relative;
+              content: url(../imgs/icons/arrow.svg);
+              left: 5px;
+              top: 2px;
+            }
+
+            &:hover::after {
+              content: url(../imgs/icons/arrow-active.svg);
+            }
+          }
+
+          .dropdown_inner-list {
+            max-height: 0;
+            background-color: #f0f0f0;
+            color: $mainTextColor;
+            transition: max-height .4s linear;
+
+            li {
+              transition: visibility .3s linear;  
+              visibility: hidden;  
+              padding-left: 10px;
+            }
+          }
+
+          &.show {
+            background-color: #f0f0f0;
+            color: $hoverColor;
+
+            .dropdown_title::after {
+              content: url(../imgs/icons/arrow-active.svg);
+            }
+
+            .dropdown_inner-list {
+              max-height: 400px;
+
+              li {
+                visibility: visible;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .navigation_search {
+    display: none;
+    margin-left: 1em;
+    margin-right: auto;
+    align-items: center;
+
+    .navigation_search_btn-container {
+        button {
+            width: 22px;
+            height: 22px;
+            background: url(../imgs/icons/search-btn.svg) no-repeat;
+            border: 0;
+            border-radius: 0;
+            cursor: pointer;
+        }
+    }
+
+    .navigation_search_input-container {
+
+        input {
+            max-width: 0px;
+            padding: 0 1em;
+            border: 1px black solid;
+            border-radius: 30px;
+            visibility: hidden;
+            transition: max-width .5s linear, visibility .5s linear;
+        }
+
+        &.show {
+           input {
+            max-width: 150px;
+            visibility: visible;
+           }
+        }
+    }
+  }
+
+  .navigation_facebook {
+    display: none;
+    margin-left: auto;
+    margin-right: 1em;
+
+        .navigation_facebook-link {
+            display: block;
+            width: 25px;
+            height: 26px;
+            background: url(../imgs/icons/facebook.svg) no-repeat;
+        }
+  }
+
+  .navigation_instagram {
+    display: none;
+    
+        .navigation_instagram-link {
+            display: block;
+            width: 25px;
+            height: 26px;
+            background: url(../imgs/icons/instagram.svg) no-repeat;
+        }
+  }
+
+  @media screen and (max-width: $mobile) {
+    .navigation_mobile {
+      display: block;
+    }
+
+    .navigation_search {
+        display: flex;
+    }
+
+    .navigation_facebook {
+        display: block;
+    }
+
+    .navigation_instagram {
+        display: block;
+    }
+  }
+}

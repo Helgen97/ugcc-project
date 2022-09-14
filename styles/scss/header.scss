@@ -1,0 +1,78 @@
+@import "vars.scss";
+
+.header {
+  background: $backgroundImage;
+
+  .header_logo {
+    display: flex;
+    width: 40%;
+    margin: 0 auto;
+    padding: 1em 0;
+    align-items: center;
+
+    .header_logo_container {
+      .header_logo_container_image {
+        max-width: 130px;
+      }
+    }
+
+    .header_logo_text {
+      color: $secondTextColor;
+
+      .header_logo_text_main {
+        font-weight: bold;
+        font-size: 2em;
+      }
+
+      .header_logo_text_second {
+        font-size: 1em;
+        font-weight: 600;
+        text-align: center;
+      }
+    }
+  }
+
+  @media screen and (max-width: $mobile) {
+    .header_logo_container {
+      width: 80%;
+
+      .header_logo_container_image {
+        .header_logo_container_image {
+          max-width: 80px;
+        }
+      }
+
+      .header_logo_text {
+        .header_logo_text_main {
+          font-size: 1.5em;
+        }
+
+        .header_logo_text_second {
+          font-size: 0.8em;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: $mobile) and (max-width: $tablet) {
+    .header_logo_container {
+      width: 60%;
+
+      .header_logo_container_image {
+        .header_logo_container_image {
+          max-width: 100px;
+        }
+      }
+
+      .header_logo_text {
+        .header_logo_text_main {
+          font-size: 2em;
+        }
+
+        .header_logo_text_second {
+          font-size: 1em;
+        }
+      }
+    }
+  }
+}
