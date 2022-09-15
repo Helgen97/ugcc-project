@@ -181,6 +181,7 @@
   box-sizing: border-box;
   border: 1px #0072B6 solid;
   background: white;
+  z-index: 3;
 }
 
 .navigation .navigation_menu .navigation_menu-list .dropdown .dropdown_list li {

@@ -73,6 +73,7 @@
     />
 
     <link rel="stylesheet" href="./styles/normalize.css" />
+    <link rel="stylesheet" href="./styles/itc-slider.min.css">
     <link rel="stylesheet" href="./styles/index.css" />
   </head>
 
@@ -184,7 +185,67 @@
         <a href="#" class="navigation_instagram-link"></a>
       </div>
     </div>
-    <div style="height: 400px;"></div>
+
+    <main>
+      <div class="left">
+
+      </div>
+      <div class="right">
+
+      </div>
+    </main>
+
+
+    <div class="friends">
+      <div class="slider" data-slider="itc-slider" data-loop="true" data-autoplay="true" data-interval="3000">
+        <div class="slider__wrapper">
+          <div class="slider__items">
+            <div class="slider__item">
+              <div class="friends_block">
+                <a href="#">
+                  <img src="./imgs/logos/ugcc.png" alt="Герб УГКЦ" class="friends_block_logo">
+                  <p class="friends_block_description">Офіційний сайт УГКЦ</p>
+                </a>
+              </div>
+            </div>
+            <div class="slider__item">
+              <div class="friends_block">
+                <a href="#">
+                  <img src="./imgs/logos/synod.png" alt="Герб Синоду Єпископів УГКЦ" class="friends_block_logo">
+                  <p class="friends_block_description">Синод Єпископів УГКЦ</p>
+                </a>
+              </div>
+            </div>
+            <div class="slider__item">
+              <div class="friends_block">
+                <a href="">
+                  <img src="./imgs/logos/map_ugcc.png" alt="Лого мапи УГКЦ" class="friends_block_logo">
+                  <p class="friends_block_description">Інтерактивна мапа УГКЦ</p>
+                </a>
+              </div>
+            </div>
+            <div class="slider__item">
+              <div class="friends_block">
+                <a href="#">
+                  <img src="./imgs/logos/karitas.png" alt="Герб Карітасу" class="friends_block_logo">
+                  <p class="friends_block_description">Карітас України</p>
+                </a>
+              </div>
+            </div>
+            <div class="slider__item">
+              <div class="friends_block">
+                <a href="#"><img src="./imgs/logos/zhiveTB.png" alt="Живе Телебачення" class="friends_block_logo"></a>
+              </div>
+            </div>
+            <div class="slider__item">
+              <div class="friends_block">
+                <a href="#"><img src="./imgs/logos/divenSvit.png" alt="ДивенСвіт" class="friends_block_logo"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <footer class="footer">
       <div class="footer_logo">
@@ -217,6 +278,7 @@
     </footer>
 
     <script src="./scripts/jquery-3.6.1.min.js"></script>
+    <script src="./scripts/itc-slider.min.js" defer></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

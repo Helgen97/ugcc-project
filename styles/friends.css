@@ -1,0 +1,57 @@
+.friends {
+  width: fit-content;
+  margin: 2em auto;
+  overflow: hidden;
+  padding: 0.5em;
+  background-color: #F9F9F9;
+  border-radius: 30px;
+}
+
+.friends .friends_block {
+  align-items: center;
+  width: max-content;
+  margin: 1em;
+  text-align: center;
+}
+
+.friends .friends_block a .friends_block_logo {
+  max-width: 90px;
+  max-height: 110px;
+}
+
+.friends .friends_block a .friends_block_description {
+  margin-top: 10px;
+  font-size: 0.8em;
+  font-weight: 600;
+  transition: color 0.2s linear;
+}
+
+.friends .friends_block a:hover .friends_block_description {
+  color: #0072B6;
+}
+
+.friends .slider__item {
+  flex: 0 0 20%;
+  max-width: 20%;
+  align-self: baseline;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1240px) {
+  .friends {
+    width: 70%;
+  }
+  .friends .slider__item {
+    flex: 0 0 33.3333333333%;
+    max-width: 33.3333333333%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .friends {
+    width: 90%;
+  }
+  .friends .slider__item {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}

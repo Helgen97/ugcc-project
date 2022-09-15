@@ -200,6 +200,7 @@
           box-sizing: border-box;
           border: 1px $hoverColor solid;
           background: $backgroundColorMain;
+          z-index: 3;
 
           li {
             color: $mainTextColor;           
