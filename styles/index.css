@@ -362,7 +362,7 @@ main .right-block .right-block_search .right-block_search_title {
 
 main .right-block .right-block_search .right-block_search_input {
   align-items: center;
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 
 main .right-block .right-block_search .right-block_search_input input {
@@ -411,6 +411,40 @@ main .right-block .right-block_live .right-block_live-title {
   font-weight: 700;
 }
 
+main .right-block .right-block_live .right-block_live-content {
+  text-align: center;
+}
+
+main .right-block .right-block_live .right-block_live-content p {
+  margin: 0.2em 0;
+  font-weight: 500;
+}
+
+main .right-block .right-block_live .right-block_live-content .right-block_live-content-img {
+  margin: 0.5em 0;
+}
+
+main .right-block .right-block_live .right-block_live-content .right-block_live-content-img img {
+  max-width: 120px;
+}
+
+main .right-block .right-block_live .right-block_live-content .right-block_live-content_btn {
+  padding: 1em;
+  color: white;
+  font-weight: 600;
+  border: 0;
+  border-radius: 20px;
+  background-color: #0072B6;
+  cursor: pointer;
+}
+
+main .right-block .right-block_live .right-block_live-content .right-block_live_modal {
+  position: absolute;
+  width: 500px;
+  height: 400px;
+  background-color: red;
+}
+
 main .right-block .right-block_socials {
   margin-bottom: 2em;
   padding: 1em;
@@ -426,15 +460,15 @@ main .right-block .right-block_socials .right-block_socials-title {
 }
 
 main .right-block .right-block_socials .right-block_socials-buttons {
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 
 main .right-block .right-block_socials .right-block_socials-buttons a {
   display: block;
   position: relative;
-  padding-top: .3em;
-  padding-bottom: .7em;
-  margin-bottom: .5em;
+  padding-top: 0.3em;
+  padding-bottom: 0.7em;
+  margin-bottom: 0.5em;
   border-radius: 20px;
   text-align: center;
   font-weight: 700;
