@@ -109,13 +109,6 @@ main .right-block .right-block_live .right-block_live-content .right-block_live-
   cursor: pointer;
 }
 
-main .right-block .right-block_live .right-block_live-content .right-block_live_modal {
-  position: absolute;
-  width: 500px;
-  height: 400px;
-  background-color: red;
-}
-
 main .right-block .right-block_socials {
   margin-bottom: 2em;
   padding: 1em;

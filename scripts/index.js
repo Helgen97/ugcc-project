@@ -25,3 +25,14 @@ $(document).mouseup(function (e) {
 $("#search_button").on("click", () => {
     $(".navigation_search_input-container").toggleClass("show");
 })
+
+$("#modal").on("click", () => {
+    $(".modal-dialog").toggleClass("show");
+})
+
+$(document).mouseup(function (e) {
+    var container = $(".modal-dialog");
+    if (container.has(e.target).length === 0){
+        container.removeClass("show");
+    }
+});

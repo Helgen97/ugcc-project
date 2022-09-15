@@ -1,0 +1,15 @@
+.modal-dialog {
+  display: none;
+  position: fixed;
+  width: 300px;
+  height: 200px;
+  top: 20%;
+  left: 35%;
+  background-color: #F9F9F9;
+  box-shadow: 0px 5px 4px #F3F3F3;
+  z-index: 5;
+}
+
+.modal-dialog.show {
+  display: block;
+}

@@ -327,6 +327,22 @@
   }
 }
 
+.modal-dialog {
+  display: none;
+  position: fixed;
+  width: 300px;
+  height: 200px;
+  top: 20%;
+  left: 35%;
+  background-color: #F9F9F9;
+  box-shadow: 0px 5px 4px #F3F3F3;
+  z-index: 5;
+}
+
+.modal-dialog.show {
+  display: block;
+}
+
 main {
   display: flex;
   margin: 2em;
@@ -436,13 +452,6 @@ main .right-block .right-block_live .right-block_live-content .right-block_live-
   border-radius: 20px;
   background-color: #0072B6;
   cursor: pointer;
-}
-
-main .right-block .right-block_live .right-block_live-content .right-block_live_modal {
-  position: absolute;
-  width: 500px;
-  height: 400px;
-  background-color: red;
 }
 
 main .right-block .right-block_socials {
