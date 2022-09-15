@@ -1,0 +1,13 @@
+@import "vars.scss";
+
+@mixin blockBackground {
+  background-color: $backgroundBlockColor;
+  box-shadow: 0px 5px 4px $blockShadowColor;
+  border-radius: 30px;
+}
+
+@mixin blocksInRightMain {
+  margin-bottom: 2em;
+  padding: 1em;
+  @include blockBackground;
+}

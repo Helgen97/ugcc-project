@@ -1,0 +1,145 @@
+@import "vars.scss";
+@import "mixins.scss";
+
+main {
+    display: flex;
+    margin: 2em;
+    justify-content: space-between;
+    box-sizing: border-box;
+
+    .left-block {
+        width: 73%;
+        height: 100px;
+        @include blockBackground;
+    }
+
+    .right-block {
+        width: 25%;
+
+        .right-block_search {
+            @include blocksInRightMain;
+
+            .right-block_search_title {
+                font-size: 1.1em;
+                text-align: center;
+                font-weight: 700;
+            }
+
+            .right-block_search_input {
+                align-items: center;
+                margin-top: .5em;
+                input {
+                    width: 90%;
+                    height: 26px;
+                    padding: 0 1em;
+                    border: 1px black solid;
+                    border-radius: 30px;
+                    transition: max-width 0.5s linear, visibility 0.5s linear;
+                    box-sizing: border-box;
+                  }
+
+                .right-block_search_input-button {
+                        width: 21px;
+                        height: 21px;
+                        background: url(../imgs/icons/search-btn_small.svg) no-repeat;
+                        border: 0;
+                        border-radius: 0;
+                        cursor: pointer;
+                }
+            }
+        }
+
+        .right-block_calendar {
+            @include blocksInRightMain;
+            text-align: center;
+
+            iframe {
+                border-radius: 16px 16px 6px 6px;
+            }
+        }
+
+        .right-block_socials {
+            @include blocksInRightMain;
+
+            .right-block_socials-title {
+                font-size: 1.1em;
+                font-weight: 700;
+                text-align: center;
+            }
+
+            .right-block_socials-buttons {
+                margin-top: .5em;
+
+                a {
+                    display: block;
+                    position: relative;
+                    padding-top: .3em;
+                    padding-bottom: .7em;
+                    margin-bottom: .5em;
+                    border-radius: 20px;
+                    text-align: center;
+                    font-weight: 700;
+                    color: $secondTextColor;
+                }
+
+                .facebook {
+                    background-color: $facebookButtonBackgroundColor;   
+                    &::before {
+                        content: url(../imgs/icons/facebook_small.svg);
+                        position: relative;
+                        width: 21px;
+                        height: 21px;
+                        right: 5px;
+                        top: 5px;
+                    }
+                }
+
+                .instagram {
+                    background-color: $instagramButtonBackgroundColor;
+
+                    &::before {
+                        content: url(../imgs/icons/instagram_small.svg);
+                        position: relative;
+                        width: 21px;
+                        height: 21px;
+                        right: 5px;
+                        top: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: $mobile) and (max-width: $tablet) {
+        flex-direction: column;
+
+        .left-block {
+            width: 100%;
+        }
+
+        .right-block {
+            margin: 0 auto;
+            margin-top: 2em;
+            width: 50%;
+        }
+    }
+
+    @media screen and (max-width: $mobile) {
+        flex-direction: column;
+
+        .left-block {
+            width: 100%;
+        }
+
+        .right-block {
+            margin: 0 auto;
+            margin-top: 2em;
+            width: 100%;
+
+            .right-block_search {
+                display: none;
+            }
+        }
+
+    }
+  }
