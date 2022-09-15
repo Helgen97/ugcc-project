@@ -68,6 +68,20 @@ main .right-block .right-block_calendar iframe {
   border-radius: 16px 16px 6px 6px;
 }
 
+main .right-block .right-block_live {
+  margin-bottom: 2em;
+  padding: 1em;
+  background-color: #F9F9F9;
+  box-shadow: 0px 5px 4px #F3F3F3;
+  border-radius: 30px;
+}
+
+main .right-block .right-block_live .right-block_live-title {
+  font-size: 1.1em;
+  text-align: center;
+  font-weight: 700;
+}
+
 main .right-block .right-block_socials {
   margin-bottom: 2em;
   padding: 1em;
@@ -78,8 +92,8 @@ main .right-block .right-block_socials {
 
 main .right-block .right-block_socials .right-block_socials-title {
   font-size: 1.1em;
-  font-weight: 700;
   text-align: center;
+  font-weight: 700;
 }
 
 main .right-block .right-block_socials .right-block_socials-buttons {
@@ -125,16 +139,21 @@ main .right-block .right-block_socials .right-block_socials-buttons .instagram::
 }
 
 @media screen and (min-width: 768px) and (max-width: 1240px) {
-  main {
-    flex-direction: column;
-  }
   main .left-block {
-    width: 100%;
+    width: 55%;
   }
   main .right-block {
     margin: 0 auto;
-    margin-top: 2em;
-    width: 50%;
+    width: 40%;
+  }
+  main .right-block .right-block_search {
+    align-items: center;
+  }
+  main .right-block .right-block_search .right-block_search_input input {
+    width: 85%;
+  }
+  main .right-block .right-block_search .right-block_search_input-button {
+    vertical-align: middle;
   }
 }
 

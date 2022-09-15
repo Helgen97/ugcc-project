@@ -20,9 +20,7 @@ main {
             @include blocksInRightMain;
 
             .right-block_search_title {
-                font-size: 1.1em;
-                text-align: center;
-                font-weight: 700;
+                @include titleInRightMainBlocks;
             }
 
             .right-block_search_input {
@@ -58,13 +56,19 @@ main {
             }
         }
 
+        .right-block_live {
+            @include blocksInRightMain;
+
+            .right-block_live-title {
+                @include titleInRightMainBlocks;
+            }
+        }
+
         .right-block_socials {
             @include blocksInRightMain;
 
             .right-block_socials-title {
-                font-size: 1.1em;
-                font-weight: 700;
-                text-align: center;
+                @include titleInRightMainBlocks;
             }
 
             .right-block_socials-buttons {
@@ -111,16 +115,27 @@ main {
     }
 
     @media screen and (min-width: $mobile) and (max-width: $tablet) {
-        flex-direction: column;
-
         .left-block {
-            width: 100%;
+            width: 55%;
         }
 
         .right-block {
             margin: 0 auto;
-            margin-top: 2em;
-            width: 50%;
+            width: 40%;
+
+            .right-block_search{
+                align-items: center;
+
+                .right-block_search_input {
+                    input {
+                        width: 85%;
+                    }
+                }
+                .right-block_search_input-button {
+                   vertical-align: middle;
+                }
+            }
+
         }
     }
 
