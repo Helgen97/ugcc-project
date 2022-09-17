@@ -46,8 +46,11 @@
 
 @media screen and (min-width: $mobile) and (max-width: $tablet) {
   .friends {
-    width: 70%;
+    width: 75%;
    
+    .slider__wrapper {
+      margin-left: 1.5em;
+    }
     .slider__item {
       flex: 0 0 33.3333333333%;
       max-width: 33.3333333333%;
@@ -57,7 +60,11 @@
 
 @media screen and (max-width: $mobile) {
   .friends {
-    width: 90%;
+    width: 60%;
+
+    .slider__wrapper {
+      margin-left: 2em;
+    }
     .slider__item {
       flex: 0 0 50%;
       max-width: 50%;

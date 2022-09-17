@@ -1,11 +1,11 @@
 document.addEventListener('click', (ev) => {
-    if(ev.target.classList.contains("dropdown_title")){
+    if (ev.target.classList.contains("dropdown_title")) {
         ev.target.parentNode.classList.toggle("show");
     };
 })
 
 $(document).on("click", (e) => {
-    if(e.target.classList.contains("dropdown_title")) {
+    if (e.target.classList.contains("dropdown_title")) {
         e.target.classList.toggle("show")
     }
 })
@@ -17,7 +17,7 @@ $("#mobile_menu").on('click', (e) => {
 
 $(document).mouseup(function (e) {
     var container = $(".navigation_mobile");
-    if (container.has(e.target).length === 0){
+    if (container.has(e.target).length === 0) {
         container.removeClass("show");
     }
 });
@@ -27,12 +27,12 @@ $("#search_button").on("click", () => {
 })
 
 $("#modal").on("click", () => {
-    $(".modal-dialog").toggleClass("show");
+    $(".modal").toggleClass("show");
 })
 
 $(document).mouseup(function (e) {
-    var container = $(".modal-dialog");
-    if (container.has(e.target).length === 0){
+    var container = $(".modal");
+    if (container.has(e.target).length === 0 || e.target.classList.contains("close-btn")) {
         container.removeClass("show");
     }
 });
