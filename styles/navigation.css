@@ -145,6 +145,7 @@
 
 .navigation .navigation_menu .navigation_menu-list {
   display: flex;
+  align-items: baseline;
 }
 
 .navigation .navigation_menu .navigation_menu-list li a {
