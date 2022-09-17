@@ -45,6 +45,11 @@
     background: url(../imgs/icons/close-btn.svg) no-repeat;
     border: 0;
     cursor: pointer;
+    transition: background .2s linear;
+  }
+
+  .close-btn:hover {
+    background: url(../imgs/icons/close-btn_active.svg) no-repeat;
   }
 }
 
@@ -87,6 +92,11 @@
       font-weight: 700;
       color: $secondTextColor;
       background-color: $youTubeButtonBackgroundColor;
+      transition: box-shadow .2s linear;
+
+      &:hover {
+        box-shadow: 0px 1px 3px $youTubeButtonShadowColor;
+      }
 
       &::before {
         content: url(../imgs/icons/youtube-small.svg);
@@ -110,7 +120,7 @@
 @media screen and (max-width: $mobile) {
     .modal-dialog {
         width: 300px;
-        margin-left: -150px;
+        margin-left: -160px;
 
         .modal-dialog_content {
             justify-content: center;

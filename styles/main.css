@@ -39,9 +39,6 @@ main .right-block .right-block_search .right-block_search_input {
 main .right-block .right-block_search .right-block_search_input input {
   width: 90%;
   height: 26px;
-  padding: 0 1em;
-  border: 1px black solid;
-  border-radius: 30px;
   transition: max-width 0.5s linear, visibility 0.5s linear;
   box-sizing: border-box;
 }
@@ -53,6 +50,11 @@ main .right-block .right-block_search .right-block_search_input .right-block_sea
   border: 0;
   border-radius: 0;
   cursor: pointer;
+  transition: background .2s linear;
+}
+
+main .right-block .right-block_search .right-block_search_input .right-block_search_input-button:hover {
+  background: url(../imgs/icons/search-btn_small_active.svg) no-repeat;
 }
 
 main .right-block .right-block_calendar {
@@ -107,6 +109,11 @@ main .right-block .right-block_live .right-block_live-content .right-block_live-
   border-radius: 20px;
   background-color: #0072B6;
   cursor: pointer;
+  transition: box-shadow .2s linear;
+}
+
+main .right-block .right-block_live .right-block_live-content .right-block_live-content_btn:hover {
+  box-shadow: 0px 1px 3px #0072B4;
 }
 
 main .right-block .right-block_socials {
@@ -137,6 +144,7 @@ main .right-block .right-block_socials .right-block_socials-buttons a {
   text-align: center;
   font-weight: 700;
   color: white;
+  transition: box-shadow 0.2s linear;
 }
 
 main .right-block .right-block_socials .right-block_socials-buttons .facebook {
@@ -152,6 +160,10 @@ main .right-block .right-block_socials .right-block_socials-buttons .facebook::b
   top: 5px;
 }
 
+main .right-block .right-block_socials .right-block_socials-buttons .facebook:hover {
+  box-shadow: 0px 1px 3px #455791;
+}
+
 main .right-block .right-block_socials .right-block_socials-buttons .instagram {
   background-color: #1D3366;
 }
@@ -163,6 +175,10 @@ main .right-block .right-block_socials .right-block_socials-buttons .instagram::
   height: 21px;
   right: 5px;
   top: 5px;
+}
+
+main .right-block .right-block_socials .right-block_socials-buttons .instagram:hover {
+  box-shadow: 0px 1px 3px #1D3366;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1240px) {
@@ -194,7 +210,7 @@ main .right-block .right-block_socials .right-block_socials-buttons .instagram::
   main .right-block {
     margin: 0 auto;
     margin-top: 2em;
-    width: 100%;
+    width: 80%;
   }
   main .right-block .right-block_search {
     display: none;

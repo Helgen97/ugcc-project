@@ -21,6 +21,11 @@
   border: 0;
   border-radius: 0;
   cursor: pointer;
+  transition: background .2s linear;
+}
+
+.navigation .navigation_mobile .navigation_mobile_btn-container button:hover {
+  background: url(../imgs/icons/burger-active.svg) no-repeat;
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu {
@@ -112,14 +117,16 @@
   border: 0;
   border-radius: 0;
   cursor: pointer;
+  transition: background .2s linear;
+}
+
+.navigation .navigation_search .navigation_search_btn-container button:hover {
+  background: url(../imgs/icons/search-btn_active.svg) no-repeat;
 }
 
 .navigation .navigation_search .navigation_search_input-container input {
   max-width: 0px;
   height: 25px;
-  padding: 0 1em;
-  border: 1px black solid;
-  border-radius: 30px;
   visibility: hidden;
   transition: max-width 0.5s linear, visibility 0.5s linear;
 }

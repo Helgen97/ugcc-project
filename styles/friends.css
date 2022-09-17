@@ -53,10 +53,7 @@
 
 @media screen and (max-width: 768px) {
   .friends {
-    width: 60%;
-  }
-  .friends .slider__wrapper {
-    margin-left: 2em;
+    width: 80%;
   }
   .friends .slider__item {
     flex: 0 0 50%;

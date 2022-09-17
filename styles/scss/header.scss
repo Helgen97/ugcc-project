@@ -2,6 +2,8 @@
 
 .header {
   background: $backgroundImage;
+  background-repeat: no-repeat;
+  background-size: cover;
 
   .header_logo {
     display: flex;
@@ -9,6 +11,7 @@
     margin: 0 auto;
     padding: 1em 0;
     align-items: center;
+    justify-content: center;
 
     .header_logo_container {
       .header_logo_container_image {

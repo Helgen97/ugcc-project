@@ -29,3 +29,14 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+input[type="text"] {
+  padding: 0 1em;
+  border: 1.5px black solid;
+  border-radius: 30px;
+
+  &:focus {
+    outline: none;
+    border-color: $hoverColor;
+  }
+}

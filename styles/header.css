@@ -1,5 +1,7 @@
 .header {
   background: url(../imgs/bg.png) no-repeat;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .header .header_logo {
@@ -8,6 +10,7 @@
   margin: 0 auto;
   padding: 1em 0;
   align-items: center;
+  justify-content: center;
 }
 
 .header .header_logo .header_logo_container .header_logo_container_image {
