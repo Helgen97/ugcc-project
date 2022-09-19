@@ -44,14 +44,14 @@
     height: 24px;
     top: -3px;
     right: 5px;
-    background: url(../imgs/icons/close-btn.svg) no-repeat;
+    background: url(../../imgs/icons/close-btn.svg) no-repeat;
     border: 0;
     cursor: pointer;
     transition: background .2s linear;
   }
 
   .close-btn:hover {
-    background: url(../imgs/icons/close-btn_active.svg) no-repeat;
+    background: url(../../imgs/icons/close-btn_active.svg) no-repeat;
   }
 }
 
@@ -101,7 +101,7 @@
       }
 
       &::before {
-        content: url(../imgs/icons/youtube-small.svg);
+        content: url(../../imgs/icons/youtube-small.svg);
         position: relative;
         width: 21px;
         height: 21px;

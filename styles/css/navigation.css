@@ -15,7 +15,7 @@
 }
 
 .navigation .navigation_mobile .navigation_mobile_btn-container button {
-  background: url(../imgs/icons/burger.svg) no-repeat;
+  background: url(../../imgs/icons/burger.svg) no-repeat;
   width: 25px;
   height: 26px;
   border: 0;
@@ -25,7 +25,7 @@
 }
 
 .navigation .navigation_mobile .navigation_mobile_btn-container button:hover {
-  background: url(../imgs/icons/burger-active.svg) no-repeat;
+  background: url(../../imgs/icons/burger-active.svg) no-repeat;
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu {
@@ -63,13 +63,13 @@
 
 .navigation .navigation_mobile .navigation_mobile_menu .navigation_mobile_menu_list .dropdown .dropdown_title::after {
   position: relative;
-  content: url(../imgs/icons/arrow.svg);
+  content: url(../../imgs/icons/arrow.svg);
   left: 5px;
   top: 2px;
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu .navigation_mobile_menu_list .dropdown .dropdown_title:hover::after {
-  content: url(../imgs/icons/arrow-active.svg);
+  content: url(../../imgs/icons/arrow-active.svg);
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu .navigation_mobile_menu_list .dropdown .dropdown_inner-list {
@@ -91,7 +91,7 @@
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu .navigation_mobile_menu_list .dropdown.show .dropdown_title::after {
-  content: url(../imgs/icons/arrow-active.svg);
+  content: url(../../imgs/icons/arrow-active.svg);
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu .navigation_mobile_menu_list .dropdown.show .dropdown_inner-list {
@@ -113,7 +113,7 @@
 .navigation .navigation_search .navigation_search_btn-container button {
   width: 25px;
   height: 26px;
-  background: url(../imgs/icons/search-btn.svg) no-repeat;
+  background: url(../../imgs/icons/search-btn.svg) no-repeat;
   border: 0;
   border-radius: 0;
   cursor: pointer;
@@ -121,7 +121,7 @@
 }
 
 .navigation .navigation_search .navigation_search_btn-container button:hover {
-  background: url(../imgs/icons/search-btn_active.svg) no-repeat;
+  background: url(../../imgs/icons/search-btn_active.svg) no-repeat;
 }
 
 .navigation .navigation_search .navigation_search_input-container input {
@@ -173,13 +173,13 @@
 
 .navigation .navigation_menu .navigation_menu-list .dropdown .dropdown_title::after {
   position: relative;
-  content: url(../imgs/icons/arrow.svg);
+  content: url(../../imgs/icons/arrow.svg);
   left: 5px;
   top: 2px;
 }
 
 .navigation .navigation_menu .navigation_menu-list .dropdown .dropdown_title:hover::after {
-  content: url(../imgs/icons/arrow-active.svg);
+  content: url(../../imgs/icons/arrow-active.svg);
 }
 
 .navigation .navigation_menu .navigation_menu-list .dropdown .dropdown_list {
@@ -216,7 +216,7 @@
 }
 
 .navigation .navigation_menu .navigation_menu-list .dropdown:hover .dropdown_title::after {
-  content: url(../imgs/icons/arrow-active.svg);
+  content: url(../../imgs/icons/arrow-active.svg);
 }
 
 .navigation .navigation_menu .navigation_menu-list .dropdown:hover .dropdown_list {
@@ -234,7 +234,7 @@
   display: block;
   width: 25px;
   height: 26px;
-  background: url(../imgs/icons/facebook.svg) no-repeat;
+  background: url(../../imgs/icons/facebook.svg) no-repeat;
 }
 
 .navigation .navigation_instagram {
@@ -246,7 +246,7 @@
   display: block;
   width: 25px;
   height: 26px;
-  background: url(../imgs/icons/instagram.svg) no-repeat;
+  background: url(../../imgs/icons/instagram.svg) no-repeat;
 }
 
 @media screen and (max-width: 768px) {

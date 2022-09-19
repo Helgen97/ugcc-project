@@ -3,8 +3,12 @@
 @import "navigation.scss";
 @import "modal.scss";
 @import "main.scss";
+@import "news.scss";
+@import "news-list.scss";
+@import "contacts.scss";
 @import "friends.scss";
 @import "footer.scss";
+@import "mixins.scss";
 
 * {
   box-sizing: border-box;
@@ -49,4 +53,34 @@ input[type="text"] {
     outline: none;
     border-color: $hoverColor;
   }
+}
+
+.main-btn {
+  margin: 1.5em 0;
+  text-align: center;
+  color: $secondTextColor;
+  font-weight: 700;
+
+  a {
+    padding: 0.75em 2em;
+    background-color: $hoverColor;
+    border-radius: 20px;
+    transition: box-shadow 0.2s linear;
+
+    &:hover {
+      box-shadow: 0 1px 3px $hoverShadowColor;
+    }
+  }
+}
+
+.block {
+  padding: 1.5em;
+  @include blockBackground;
+}
+
+.block-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.2em;
+  border-bottom: 1px $borderColor solid;
 }

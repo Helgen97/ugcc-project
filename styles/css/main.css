@@ -9,18 +9,6 @@ main .left-block {
   width: 73%;
 }
 
-main .left-block .main-news {
-  padding: 1.5em;
-  background-color: #F9F9F9;
-  box-shadow: 0px 5px 4px #F3F3F3;
-  border-radius: 30px;
-}
-
-main .left-block .main-news .main-news_title {
-  text-align: center;
-  border-bottom: 1px black solid;
-}
-
 main .left-block .main-news .main-news_container {
   display: flex;
   flex-wrap: wrap;
@@ -85,9 +73,6 @@ main .left-block .other-news > div {
   flex: 0 0 48%;
   max-width: 48%;
   padding: 1em;
-  background-color: #F9F9F9;
-  box-shadow: 0px 5px 4px #F3F3F3;
-  border-radius: 30px;
 }
 
 main .left-block .other-news .other-news__title {
@@ -125,24 +110,6 @@ main .left-block .other-news .other-news__block a:hover .news_text-title {
   text-decoration: underline;
 }
 
-main .left-block .other-news .other-news__btn {
-  margin: 1.5em 0;
-  text-align: center;
-  color: white;
-  font-weight: 700;
-}
-
-main .left-block .other-news .other-news__btn a {
-  padding: 0.75em 2em;
-  background-color: #0072B6;
-  border-radius: 20px;
-  transition: box-shadow 0.2s linear;
-}
-
-main .left-block .other-news .other-news__btn a:hover {
-  box-shadow: 0 1px 3px #0072B4;
-}
-
 main .right-block {
   width: 25%;
 }
@@ -176,7 +143,7 @@ main .right-block .right-block_search .right-block_search_input input {
 main .right-block .right-block_search .right-block_search_input .right-block_search_input-button {
   width: 21px;
   height: 21px;
-  background: url(../imgs/icons/search-btn_small.svg) no-repeat;
+  background: url(../../imgs/icons/search-btn_small.svg) no-repeat;
   border: 0;
   border-radius: 0;
   cursor: pointer;
@@ -184,7 +151,7 @@ main .right-block .right-block_search .right-block_search_input .right-block_sea
 }
 
 main .right-block .right-block_search .right-block_search_input .right-block_search_input-button:hover {
-  background: url(../imgs/icons/search-btn_small_active.svg) no-repeat;
+  background: url(../../imgs/icons/search-btn_small_active.svg) no-repeat;
 }
 
 main .right-block .right-block_calendar {
@@ -282,7 +249,7 @@ main .right-block .right-block_socials .right-block_socials-buttons .facebook {
 }
 
 main .right-block .right-block_socials .right-block_socials-buttons .facebook::before {
-  content: url(../imgs/icons/facebook_small.svg);
+  content: url(../../imgs/icons/facebook_small.svg);
   position: relative;
   width: 21px;
   height: 21px;
@@ -299,7 +266,7 @@ main .right-block .right-block_socials .right-block_socials-buttons .instagram {
 }
 
 main .right-block .right-block_socials .right-block_socials-buttons .instagram::before {
-  content: url(../imgs/icons/instagram_small.svg);
+  content: url(../../imgs/icons/instagram_small.svg);
   position: relative;
   width: 21px;
   height: 21px;

@@ -1,0 +1,3 @@
+.news_page .left-block .main-news:not(:first-child) {
+  margin-top: 2em;
+}

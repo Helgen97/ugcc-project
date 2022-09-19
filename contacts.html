@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Донецький екзархат - Українська Греко-Католицька Церква</title>
+    <meta name="title" content="Донецький екзархат - Українська Греко-Католицька Церква" />
+    <meta name="description" content="" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://metatags.io/" />
+    <meta property="og:title" content="Донецький екзархат - Українська Греко-Католицька Церква" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://metatags.io/" />
+    <meta property="twitter:title" content="Донецький екзархат - Українська Греко-Католицька Церква" />
+    <meta property="twitter:description" content="" />
+    <meta property="twitter:image" content="" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./imgs/favicons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./imgs/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./imgs/favicons/favicon-16x16.png" />
+    <link rel="manifest" href="./imgs/favicons/site.webmanifest" />
+    <link rel="mask-icon" href="./imgs/favicons/safari-pinned-tab.svg" color="#00b9ee" />
+    <link rel="shortcut icon" href="./imgs/favicons/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#2d89ef" />
+    <meta name="msapplication-config" content="./imgs/favicons/browserconfig.xml" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <meta name="author" content="Dmytro Donchenko" />
+    <meta name="copyright" content="2016 Донецький екзархат УГКЦ" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./styles/css/normalize.css" />
+    <link rel="stylesheet" href="./styles/css/itc-slider.min.css">
+    <link rel="stylesheet" href="./styles/css/index.css" />
+</head>
+
+<body>
+    <header class="header">
+        <div class="header_logo">
+            <div class="header_logo_container">
+                <img src="./imgs/logo.png" alt="Донецький екзархат УГКЦ" class="header_logo_container_image" />
+            </div>
+            <div class="header_logo_text">
+                <p class="header_logo_text_main">Донецький екзархат</p>
+                <p class="header_logo_text_second">
+                    Українська Греко-Католицька Церква
+                </p>
+            </div>
+        </div>
+    </header>
+    <div class="navigation">
+        <div class="navigation_mobile">
+            <div class="navigation_mobile_btn-container">
+                <button id="mobile_menu"></button>
+            </div>
+            <div class="navigation_mobile_menu">
+                <ul class="navigation_mobile_menu_list">
+                    <li class="navigation_mobile_menu_list-title">Навігація</li>
+                    <li><a href="./index.html">Головна</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown_title">Новини</a>
+                        <ul class="dropdown_inner-list">
+                            <li><a href="./news_list.html">Новини екзархату</a></li>
+                            <li><a href="./news_list.html">Новини церкви</a></li>
+                            <li><a href="./news_list.html">Публікації</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown_title">Екзархат</a>
+                        <ul class="dropdown_inner-list">
+                            <li><a href="./universal.html">Єпископи</a></li>
+                            <li><a href="./universal.html">Курія</a></li>
+                            <li><a href="./universal.html">Комісії</a></li>
+                            <li><a href="./universal.html">Духовенство</a></li>
+                            <li><a href="./universal.html">Пресслужба</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="./universal.html">Парафії та монастирі</a></li>
+                    <li><a href="./documents.html">Документи</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown_title">Про нас</a>
+                        <ul class="dropdown_inner-list">
+                            <li><a href="./universal.html">Глава і Отець УГКЦ</a></li>
+                            <li><a href="./universal.html">Структура Церкви</a></li>
+                            <li><a href="./universal.html">Історія Донецького екзархату</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="./contacts.html">Контакти</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="navigation_search">
+            <div class="navigation_search_btn-container">
+                <button id="search_button"></button>
+            </div>
+            <div class="navigation_search_input-container">
+                <input type="text" placeholder="Пошук новин" />
+            </div>
+        </div>
+        <div class="navigation_menu">
+            <ul class="navigation_menu-list">
+                <li><a href="./index.html">Головна</a></li>
+                <li class="dropdown">
+                    <a href="./news.html" class="dropdown_title">Новини</a>
+                    <ul class="dropdown_list">
+                        <li><a href="./news_list.html">Новини Екзархату</a></li>
+                        <li><a href="./news_list.html">Новини Церкви</a></li>
+                        <li><a href="./news_list.html">Публікації</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="./universal.html" class="dropdown_title">Екзархат</a>
+                    <ul class="dropdown_list">
+                        <li><a href="./universal.html">Єпископи</a></li>
+                        <li><a href="./universal.html">Курія</a></li>
+                        <li><a href="./universal.html">Комісії</a></li>
+                        <li><a href="./universal.html">Духовенство</a></li>
+                        <li><a href="./universal.html">Пресслужба</a></li>
+                    </ul>
+                </li>
+                <li><a href="./universal.html">Парафії та монастирі</a></li>
+                <li><a href="./documents.html">Документи</a></li>
+                <li class="dropdown">
+                    <a href="./universal.html" class="dropdown_title">Про нас</a>
+                    <ul class="dropdown_list">
+                        <li><a href="./universal.html">Глава і Отець УГКЦ</a></li>
+                        <li><a href="./universal.html">Структура Церкви</a></li>
+                        <li><a href="./universal.html">Історія Донецького Екзархату</a></li>
+                    </ul>
+                </li>
+                <li><a href="./contacts.html">Контакти</a></li>
+            </ul>
+        </div>
+        <div class="navigation_facebook">
+            <a href="#" class="navigation_facebook-link"></a>
+        </div>
+        <div class="navigation_instagram">
+            <a href="#" class="navigation_instagram-link"></a>
+        </div>
+    </div>
+    <div class="modal">
+        <div class="modal-dialog">
+            <div class="modal-dialog_title">
+                <p>
+                    Список трансляцій
+                    <button class="close-btn"></button>
+                </p>
+            </div>
+            <div class="modal-dialog_content">
+                <div class="modal-dialog_content-block">
+                    <p class="modal-dialog_content-block_title">Трансляція</p>
+                    <p>Божественної Літургії</p>
+                    <p>з храму</p>
+                    <p>Матері Божої Неустанної Помочі</p>
+                    <p>(Запоріжжя)</p>
+                    <img src="./imgs/youtube-live.jpeg" alt="Храм Матері Божої Неустанної Помочі"
+                        class="modal-dialog_content-block_image">
+                    <a href="#" class="youtube-btn">YouTube</a>
+                </div>
+                <div class="modal-dialog_content-block">
+                    <p class="modal-dialog_content-block_title">Трансляція</p>
+                    <p>Божественної Літургії</p>
+                    <p>з храму</p>
+                    <p>Матері Божої Неустанної Помочі</p>
+                    <p>(Запоріжжя)</p>
+                    <img src="./imgs/youtube-live.jpeg" alt="Храм Матері Божої Неустанної Помочі"
+                        class="modal-dialog_content-block_image">
+                    <a href="#" class="youtube-btn">YouTube</a>
+                </div>
+                <div class="modal-dialog_content-block">
+                    <p class="modal-dialog_content-block_title">Трансляція</p>
+                    <p>Божественної Літургії</p>
+                    <p>з храму</p>
+                    <p>Матері Божої Неустанної Помочі</p>
+                    <p>(Запоріжжя)</p>
+                    <img src="./imgs/youtube-live.jpeg" alt="Храм Матері Божої Неустанної Помочі"
+                        class="modal-dialog_content-block_image">
+                    <a href="#" class="youtube-btn">YouTube</a>
+                </div>
+                <div class="modal-dialog_content-block">
+                    <p class="modal-dialog_content-block_title">Трансляція</p>
+                    <p>Божественної Літургії</p>
+                    <p>з храму</p>
+                    <p>Матері Божої Неустанної Помочі</p>
+                    <p>(Запоріжжя)</p>
+                    <img src="./imgs/youtube-live.jpeg" alt="Храм Матері Божої Неустанної Помочі"
+                        class="modal-dialog_content-block_image">
+                    <a href="#" class="youtube-btn">YouTube</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="contacts_page">
+        <div class="left-block">
+            <div class="contacts block">
+                <div class="block-title">
+                    <h1>Контактна інформація</h1>
+                </div>
+                <div class="contacts_paragraph">
+                    <div class="contacts_paragraph__title">
+                        <h2>Адреса офісу:</h2>
+                    </div>
+                    <div class="contacts_paragraph__left-info">
+                        <p>м. Запоріжжя, 69095</p>
+                        <p>вул. Вербова,11</p>
+                        <p>Україна</p>
+                    </div>
+                    <div class="contacts_paragraph__right-info">
+                        <p>Тел./факс: <a href="tel:+38(098) 23 096 19">+38 (098) 23 096 19</a></p>
+                        <p>Ел. пошта: <a href="mailto:press.don.ugcc@gmail.com">press.don.ugcc@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="contacts_map">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2678.2033387316656!2d35.163186215638504!3d47.83565397920061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dc675714661707%3A0xe38bbacd381c4416!2z0JLQtdGA0LHQvtCy0LDRjyDRg9C7LiwgMTEsINCX0LDQv9C-0YDQvtC20YzQtSwg0JfQsNC_0L7RgNC-0LbRgdC60LDRjyDQvtCx0LvQsNGB0YLRjCwgNjkwMDA!5e0!3m2!1sru!2sua!4v1663595380292!5m2!1sru!2sua"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="right-block">
+            <div class="right-block_search">
+                <div class="right-block_search_title">
+                    <p>Пошук</p>
+                </div>
+                <div class="right-block_search_input">
+                    <input type="text" placeholder="Пошук новин">
+                    <button class="right-block_search_input-button"></button>
+                </div>
+            </div>
+            <div class="right-block_calendar">
+                <iframe width='260' height='260' frameborder='no' scrolling='no'
+                    src='https://prayer-service.online/u-widget.html'></iframe>
+            </div>
+            <div class="right-block_live">
+                <div class="right-block_live-title">
+                    <p>Трансляції</p>
+                </div>
+                <div class="right-block_live-content">
+                    <p>Розклад трансляцій</p>
+                    <p>богослужінь та літургій</p>
+                    <div class="right-block_live-content-img">
+                        <img src="./imgs/icons/youtube-big.svg" alt="youtube logo">
+                    </div>
+                    <button class="right-block_live-content_btn" id="modal">До списку трансляцій</button>
+                </div>
+            </div>
+            <div class="right-block_socials">
+                <div class="right-block_socials-title">
+                    <p>Ми у соц. мережах</p>
+                </div>
+                <div class="right-block_socials-buttons">
+                    <a href="#" class="facebook">Facebook</a>
+                    <a href="#" class="instagram">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="friends">
+        <div class="slider" data-slider="itc-slider" data-loop="true" data-autoplay="true" data-interval="3000">
+            <div class="slider__wrapper">
+                <div class="slider__items">
+                    <div class="slider__item">
+                        <div class="friends_block">
+                            <a href="#">
+                                <img src="./imgs/logos/ugcc.png" alt="Герб УГКЦ" class="friends_block_logo">
+                                <p class="friends_block_description">Офіційний сайт УГКЦ</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="slider__item">
+                        <div class="friends_block">
+                            <a href="#">
+                                <img src="./imgs/logos/synod.png" alt="Герб Синоду Єпископів УГКЦ"
+                                    class="friends_block_logo">
+                                <p class="friends_block_description">Синод Єпископів УГКЦ</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="slider__item">
+                        <div class="friends_block">
+                            <a href="">
+                                <img src="./imgs/logos/map_ugcc.png" alt="Лого мапи УГКЦ" class="friends_block_logo">
+                                <p class="friends_block_description">Інтерактивна мапа УГКЦ</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="slider__item">
+                        <div class="friends_block">
+                            <a href="#">
+                                <img src="./imgs/logos/karitas.png" alt="Герб Карітасу" class="friends_block_logo">
+                                <p class="friends_block_description">Карітас України</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="slider__item">
+                        <div class="friends_block">
+                            <a href="#"><img src="./imgs/logos/zhyveTB.png" alt="Живе Телебачення"
+                                    class="friends_block_logo"></a>
+                        </div>
+                    </div>
+                    <div class="slider__item">
+                        <div class="friends_block">
+                            <a href="#">
+                                <img src="./imgs/logos/molitvaChurch.png" alt="Молитва Церкви"
+                                    class="friends_block_logo">
+                                <p class="friends_block_description">Молитва Церкви</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer_logo">
+            <img src="./imgs/logo.png" alt="Донецький екзархат УГКЦ" class="footer_logo_image" />
+        </div>
+        <div class="footer_nav">
+            <ul class="footer_nav_list">
+                <li><a href="./news.html">Новини</a></li>
+                <li><a href="./universal.html">Екзархат</a></li>
+                <li><a href="./universal.html">Парафії та монастирі</a></li>
+                <li><a href="./documents.html">Документи</a></li>
+                <li><a href="./about.html">Про нас</a></li>
+                <li><a href="./contacts.html">Контакти</a></li>
+            </ul>
+        </div>
+        <div class="footer_contacts">
+            <a href="http://maps.google.com/?q=м. Запоріжжя, вул. Вербова,11, 69095">м. Запоріжжя, вул. Вербова,11,
+                69095</a>
+            <a href="mailto:press.don.ugcc@gmail.com">press.don.ugcc@gmail.com</a>
+        </div>
+        <div class="footer_copyright">
+            <p>© 2016 Донецький екзархат УГКЦ. Всі права застережено.</p>
+            <p>Developed by <a href="#">Helgen</a>. September, 2022.</p>
+        </div>
+    </footer>
+
+    <script src="./scripts/jquery-3.6.1.min.js"></script>
+    <script src="./scripts/itc-slider.min.js" defer></script>
+    <script src="./scripts/index.js"></script>
+</body>
+
+</html>
