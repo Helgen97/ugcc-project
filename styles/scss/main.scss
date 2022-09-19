@@ -21,52 +21,50 @@ main {
           display: flex;
           flex: 0 0 100%;
 
-          a {
-            display: flex;
-
-            .news_image {
-              img {
-                max-width: 550px;
-              }
+          .news_image {
+            width: 100%;
+            img {
+              max-width: 450px;
+              height: auto;
             }
-            .news_text {
-              padding: 1em;
+          }
+          .news_text {
+            padding: 1em;
 
-              .news_text-date {
-                margin-top: 0;
-                margin-bottom: 1em;
-              }
+            .news_text-date {
+              margin-top: 0;
+              margin-bottom: 1em;
+            }
 
-              .news_text-title {
-                margin-bottom: 1em;
-              }
+            .news_text-title {
+              margin-bottom: 1em;
             }
           }
         }
 
         .news {
+          width: min-content;
           margin-top: 1em;
-          flex: 1 1 25%;
 
-          a {
-            .news_image {
-              img {
-                max-width: 200px;
-              }
+          .news_image {
+            width: 100%;
+            img {
+              max-width: 200px;
+              height: 120px;
             }
+          }
 
-            .news_text-date {
-              margin: 0.5em 0;
-            }
+          .news_text-date {
+            margin: 0.5em 0;
+          }
 
+          .news_text-title {
+            font-weight: 600;
+          }
+
+          &:hover {
             .news_text-title {
-              font-weight: 600;
-            }
-
-            &:hover {
-              .news_text-title {
-                text-decoration: underline;
-              }
+              text-decoration: underline;
             }
           }
         }
@@ -273,14 +271,13 @@ main {
 
           .news {
             display: block !important;
+            width: 100%;
             margin-bottom: 2em;
-
-            a {
-              display: block !important;
 
               .news_image {
                 img {
-                  max-width: 350px !important;
+                  max-width: 100% !important;
+                  height: auto !important;
                 }
               }
 
@@ -291,7 +288,6 @@ main {
               .news_text-description {
                 display: none;
               }
-            }
           }
         }
       }
@@ -338,14 +334,12 @@ main {
 
           .news {
             display: block !important;
+            width: 100%;
             margin-bottom: 2em;
-
-            a {
-              display: block !important;
 
               .news_image {
                 img {
-                  max-width: 300px !important;
+                  max-width: 100% !important;
                 }
               }
 
@@ -356,7 +350,6 @@ main {
               .news_text-description {
                 display: none;
               }
-            }
           }
         }
       }
