@@ -1,0 +1,88 @@
+@import "vars.scss";
+
+.main-doc {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .block-title {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .main-doc__image {
+    width: 45%;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .main-doc__description-block {
+    width: 45%;
+    padding: 1em;
+
+    .main-doc__description-block__date {
+      text-align: end;
+    }
+
+    .main-doc__description-block__desctription {
+      margin: 1em 0;
+      font-weight: 500;
+    }
+
+    .main-doc__description-block__btn {
+      display: flex;
+      margin: 0 auto;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.3em;
+      font-weight: 600;
+      transition: color 0.2s linear;
+
+      .btn-icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 0.5em;
+        background: url(../../imgs/icons/download.svg);
+        transition: background 0.2s linear;
+      }
+
+      &:hover {
+        color: $hoverColor;
+        .btn-icon {
+          background-image: url(../../imgs/icons/download-active.svg);
+        }
+      }
+    }
+  }
+}
+
+.other-docs {
+  margin-top: 2em;
+}
+
+.doc-container {
+  padding: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .doc {
+    justify-self: center;
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .main-doc {
+    display: block;
+
+    .main-doc__image {
+      width: 100%;
+    }
+
+    .main-doc__description-block {
+      width: 100%;
+    }
+  }
+}

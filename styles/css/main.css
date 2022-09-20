@@ -89,30 +89,32 @@ main .left-block .other-news .other-news__title {
 }
 
 main .left-block .other-news .other-news__block {
+  display: block;
   padding: 1em;
 }
 
-main .left-block .other-news .other-news__block a .news_image {
-  text-align: center;
+main .left-block .other-news .other-news__block .news_image {
+  width: 90%;
+  margin: 0 auto;
 }
 
-main .left-block .other-news .other-news__block a .news_image img {
-  max-width: 350px;
+main .left-block .other-news .other-news__block .news_image img {
+  max-width: 100%;
 }
 
-main .left-block .other-news .other-news__block a .news_text {
+main .left-block .other-news .other-news__block .news_text {
   padding: 0 1em;
 }
 
-main .left-block .other-news .other-news__block a .news_text .news_text-date {
+main .left-block .other-news .other-news__block .news_text .news_text-date {
   margin: 0.5em 0;
 }
 
-main .left-block .other-news .other-news__block a .news_text .news_text-title {
+main .left-block .other-news .other-news__block .news_text .news_text-title {
   font-weight: 600;
 }
 
-main .left-block .other-news .other-news__block a:hover .news_text-title {
+main .left-block .other-news .other-news__block:hover .news_text-title {
   text-decoration: underline;
 }
 
@@ -293,7 +295,8 @@ main .right-block .right-block_socials .right-block_socials-buttons .instagram:h
   }
   main .left-block .main-news .main-news_container .news {
     display: block !important;
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     margin-bottom: 2em;
   }
   main .left-block .main-news .main-news_container .news .news_image img {
@@ -342,11 +345,13 @@ main .right-block .right-block_socials .right-block_socials-buttons .instagram:h
   }
   main .left-block .main-news .main-news_container .news {
     display: block !important;
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     margin-bottom: 2em;
   }
   main .left-block .main-news .main-news_container .news .news_image img {
     max-width: 100% !important;
+    height: auto !important;
   }
   main .left-block .main-news .main-news_container .news .news_text {
     padding: 0 !important;
@@ -362,12 +367,6 @@ main .right-block .right-block_socials .right-block_socials-buttons .instagram:h
     margin-top: 1em;
     flex: none;
     max-width: 100%;
-  }
-  main .left-block .other-news .other-news__block a .news_image {
-    text-align: center;
-  }
-  main .left-block .other-news .other-news__block a .news_image img {
-    max-width: 300px;
   }
   main .right-block {
     margin: 0 auto;
