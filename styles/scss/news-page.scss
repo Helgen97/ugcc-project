@@ -16,38 +16,19 @@
   }
 
   .article_main-image {
-    width: 80%;
-    margin: 0 auto;
+    @include centerBlock(80%);
     text-align: center;
 
     img {
       max-width: 100%;
     }
   }
-
-  .article_text {
-    p {
-      margin: 1em auto;
-    }
-
-    .author {
-      margin: 0;
-      text-align: end;
-      font-weight: 600;
-    }
-
-    .second_image {
-      text-align: center;
-    }
-  }
 }
 
 .other-articles {
   .small-articles {
-    display: flex;
-    margin: 0 auto;
+    @include flexWithWrapAndJustifyingContent;
     margin-top: 1em;
-    justify-content: space-between;
 
     .small-article {
       display: block;

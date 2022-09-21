@@ -9,7 +9,8 @@ let mobileSearchInput = $("#mobile_search_input");
 let desktopSearchInput = $("#desktop_search_input");
 let desktopSearchButton = $("#desktop_search_button");
 
-modalOpenButton.on("click", () => {
+modalOpenButton.on("click", (event) => {
+    event.preventDefault();
     modalWindowContainer.addClass("show");
 });
 

@@ -3,10 +3,10 @@
 }
 
 .section .section-text .section-text__main-img {
-  float: right;
-  margin: 0 0 .5em .5em;
-  text-align: center;
   width: 40%;
+  margin: 0 0 0.5em 0.5em;
+  float: right;
+  text-align: center;
 }
 
 .section .section-text .section-text__main-img img {
@@ -14,57 +14,53 @@
 }
 
 .section .section-text .section-text__main-img p {
-  margin: .5em 0;
+  margin: 0.5em 0;
   font-weight: 600;
-}
-
-.section .section-text h3 {
-  text-align: center;
 }
 
 .other-sections {
   width: 70%;
-  margin: 2em auto 0;
+  margin: 0 auto;
+  margin-top: 2em;
 }
 
 .other-sections .other-sections__container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   margin-top: 1em;
   padding: 0 1em;
-  justify-content: space-between;
 }
 
 .other-sections .other-sections__container .other-section {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .other-sections .other-sections__container .other-section .other-section__icon {
   width: 30px;
   height: 30px;
-  margin-right: .5em;
-  background: url(../../imgs/icons/section.svg) no-repeat;
-  transition: background .2s linear;
+  margin-right: 0.5em;
+  background: url(../../imgs/icons.png) -388px 0;
 }
 
 .other-sections .other-sections__container .other-section .other-section__title {
   font-size: 1.2em;
   font-weight: 500;
-  transition: color .2s linear;
 }
 
 .other-sections .other-sections__container .other-section:hover {
-  color: #0072B6;
+  color: #0072b6;
 }
 
 .other-sections .other-sections__container .other-section:hover .other-section__icon {
-  background-image: url(../../imgs/icons/section-active.svg);
+  background-position: -348px 0;
 }
 
 @media screen and (max-width: 1240px) {
   .section {
-    padding: 2em .5em;
+    padding: 2em 0.5em;
   }
   .section .section-text .section-text__main-img {
     width: 65%;

@@ -33,25 +33,22 @@
 
     .main-doc__description-block__btn {
       display: flex;
-      margin: 0 auto;
+      @include centerBlock(100%);
       justify-content: center;
       align-items: center;
-      font-size: 1.3em;
-      font-weight: 600;
-      transition: color 0.2s linear;
+      @include fontStyling(1.3em, 600);
 
       .btn-icon {
         width: 40px;
         height: 40px;
         margin-right: 0.5em;
-        background: url(../../imgs/icons/download.svg);
-        transition: background 0.2s linear;
+        background: url(../../imgs/icons.png) -166px 0;
       }
 
       &:hover {
         color: $hoverColor;
         .btn-icon {
-          background-image: url(../../imgs/icons/download-active.svg);
+          background-position: -116px 0;
         }
       }
     }
@@ -63,10 +60,8 @@
 }
 
 .doc-container {
+  @include flexWithWrapAndJustifyingContent;
   padding: 1em;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
 
   .doc {
     justify-self: center;

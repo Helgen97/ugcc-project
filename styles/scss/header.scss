@@ -1,17 +1,14 @@
 @import "vars.scss";
+@import "mixins.scss";
 
 .header {
-  background: $backgroundImage;
-  background-repeat: no-repeat;
-  background-size: cover;
+  @include backgroundImage;
 
   .header_logo {
     display: flex;
-    width: 40%;
-    margin: 0 auto;
+    @include centerBlock(40%);
     padding: 1em 0;
-    align-items: center;
-    justify-content: center;
+    @include alignAndJustifyToCenter;
 
     .header_logo_container {
       .header_logo_container_image {
@@ -23,13 +20,11 @@
       color: $secondTextColor;
 
       .header_logo_text_main {
-        font-weight: bold;
-        font-size: 2em;
+        @include fontStyling(2em, 700);
       }
 
       .header_logo_text_second {
-        font-size: 1em;
-        font-weight: 600;
+        @include fontStyling(1em, 600);
         text-align: center;
       }
     }
@@ -39,7 +34,7 @@
     .header_logo {
       width: 80%;
 
-      .header_logo_container{
+      .header_logo_container {
         .header_logo_container_image {
           max-width: 80px;
         }
@@ -60,7 +55,6 @@
   @media screen and (min-width: $mobile) and (max-width: $tablet) {
     .header_logo {
       width: 60%;
-      justify-content: center;
 
       .header_logo_container {
         .header_logo_container_image {

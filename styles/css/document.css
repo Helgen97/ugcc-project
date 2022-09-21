@@ -63,9 +63,6 @@
 
 .doc-container {
   padding: 1em;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
 }
 
 .doc-container .doc {

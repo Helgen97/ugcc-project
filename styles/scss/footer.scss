@@ -1,14 +1,12 @@
 @import "vars.scss";
+@import "mixins.scss";
 
 .footer {
   display: flex;
   padding: 1em 4em;
-  align-items: center;
-  background: $backgroundImage;
-  background-repeat: no-repeat;
-  background-size: cover;
+  @include alignAndJustifyToCenter;
+  @include backgroundImage;
   color: $secondTextColor;
-  font-size: 1em;
 
   .footer_logo {
     .footer_logo_image {
@@ -17,18 +15,15 @@
   }
 
   .footer_nav {
+    margin-left: 1em;
     font-weight: 500;
     text-decoration: underline;
 
     .footer_nav_list {
-      padding-left: 1em;
-
       li {
         padding: 0.2em;
-
         a {
           padding: 0.2em;
-
           &:hover {
             font-weight: 600;
           }
@@ -74,7 +69,6 @@
   @media screen and (max-width: $mobile) {
     flex-direction: column;
     padding: 1em 3em;
-    background-size: cover;
 
     .footer_logo {
       margin-bottom: 1em;
@@ -89,8 +83,7 @@
     }
 
     .footer_contacts {
-      margin-bottom: 1em;
-      margin-left: 0;
+      margin: 0 0 1em;
     }
 
     .footer_copyright {
