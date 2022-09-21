@@ -30,6 +30,20 @@ body {
   @media screen and (min-width: 1600px) {
     font-size: 25px;
   }
+
+  &:after {
+    display: block;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    content: url(../../imgs/icons/arrow-active.svg),
+      url(../../imgs/icons/burger-active.svg),
+      url(../../imgs/icons/search-btn_small_active.svg),
+      url(../../imgs/icons/close-btn_active.svg),
+      url(../../imgs/icons/document-active.svg),
+      url(../../imgs/icons/download-active.svg),
+      url(../../imgs/icons/section-active.svg);
+  }
 }
 
 h1,

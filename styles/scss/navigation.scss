@@ -18,7 +18,7 @@
 
     .navigation_mobile_btn-container {
       button {
-        @include customButton(25px, 26px, -563px 0, -528px 0);
+        @include customButtonV2(25px, 26px, url(../../imgs/icons/burger.svg), url(../../imgs/icons/burger-active.svg));
       }
     }
 
@@ -74,7 +74,7 @@
             color: $hoverColor;
 
             .dropdown_title::after {
-              content: url(../../imgs/icons/arrow-active.svg);
+              background-position: 0 0;
             }
 
             .dropdown_inner-list {
@@ -98,7 +98,7 @@
 
     .navigation_search_btn-container {
       button {
-        @include customButton(25px, 26px, -313px 0, -216px 0);
+        @include customButtonV2(25px, 25px, url(../../imgs/icons/search-btn.svg), url(../../imgs/icons/search-btn_active.svg));
       }
     }
 
@@ -179,7 +179,7 @@
           }
 
           .dropdown_title::after {
-            content: url(../../imgs/icons/arrow-active.svg);
+            background-position: 0 0;
           }
 
           .dropdown_list {

@@ -120,7 +120,7 @@
     }
 
     .right-block_search_input-button {
-      @include customButton(21px, 20px, -282px 0, -251px 0);
+      @include customButtonV2(21px, 20px, url(../../imgs/icons/search-btn_small.svg), url(../../imgs/icons/search-btn_small_active.svg));
     }
   }
 }

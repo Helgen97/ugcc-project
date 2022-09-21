@@ -42,13 +42,13 @@
         width: 40px;
         height: 40px;
         margin-right: 0.5em;
-        background: url(../../imgs/icons.png) -166px 0;
+        background: url(../../imgs/icons/download.svg);
       }
 
       &:hover {
         color: $hoverColor;
         .btn-icon {
-          background-position: -116px 0;
+          background-image: url(../../imgs/icons/download-active.svg);
         }
       }
     }

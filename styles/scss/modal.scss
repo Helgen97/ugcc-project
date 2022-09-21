@@ -40,7 +40,7 @@
   @include fontStyling(1.1em, 700);
 
   .close-btn {
-    @include customButton(24px, 24px, -82px 0, -48px 0);
+    @include customButtonV2(24px, 24px, url(../../imgs/icons/close-btn.svg), url(../../imgs/icons/close-btn_active.svg));
     position: absolute;
     top: -3px;
     right: 5px;

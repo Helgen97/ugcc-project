@@ -79,14 +79,14 @@
 .navigation .navigation_mobile .navigation_mobile_btn-container button {
   width: 25px;
   height: 26px;
-  background: url(../../imgs/icons.png) -563px 0;
+  background: url(../../imgs/icons/burger.svg);
   border: 0;
   border-radius: 0;
   cursor: pointer;
 }
 
 .navigation .navigation_mobile .navigation_mobile_btn-container button:hover {
-  background-position: -528px 0;
+  background-image: url(../../imgs/icons/burger-active.svg);
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu {
@@ -140,7 +140,7 @@
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu .navigation_mobile_menu_list .dropdown.show .dropdown_title::after {
-  content: url(../../imgs/icons/arrow-active.svg);
+  background-position: 0 0;
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu .navigation_mobile_menu_list .dropdown.show .dropdown_inner-list {
@@ -161,15 +161,15 @@
 
 .navigation .navigation_search .navigation_search_btn-container button {
   width: 25px;
-  height: 26px;
-  background: url(../../imgs/icons.png) -313px 0;
+  height: 25px;
+  background: url(../../imgs/icons/search-btn.svg);
   border: 0;
   border-radius: 0;
   cursor: pointer;
 }
 
 .navigation .navigation_search .navigation_search_btn-container button:hover {
-  background-position: -216px 0;
+  background-image: url(../../imgs/icons/search-btn_active.svg);
 }
 
 .navigation .navigation_search .navigation_search_input-container input {
@@ -247,7 +247,7 @@
 }
 
 .navigation .navigation_menu .navigation_menu-list .dropdown:hover .dropdown_title::after {
-  content: url(../../imgs/icons/arrow-active.svg);
+  background-position: 0 0;
 }
 
 .navigation .navigation_menu .navigation_menu-list .dropdown:hover .dropdown_list {
@@ -355,7 +355,7 @@
 .modal-dialog_title .close-btn {
   width: 24px;
   height: 24px;
-  background: url(../../imgs/icons.png) -82px 0;
+  background: url(../../imgs/icons/close-btn.svg);
   border: 0;
   border-radius: 0;
   cursor: pointer;
@@ -365,7 +365,7 @@
 }
 
 .modal-dialog_title .close-btn:hover {
-  background-position: -48px 0;
+  background-image: url(../../imgs/icons/close-btn_active.svg);
 }
 
 .modal-dialog_content {
@@ -566,14 +566,14 @@
 .right-block_search .right-block_search_input .right-block_search_input-button {
   width: 21px;
   height: 20px;
-  background: url(../../imgs/icons.png) -282px 0;
+  background: url(../../imgs/icons/search-btn_small.svg);
   border: 0;
   border-radius: 0;
   cursor: pointer;
 }
 
 .right-block_search .right-block_search_input .right-block_search_input-button:hover {
-  background-position: -251px 0;
+  background-image: url(../../imgs/icons/search-btn_small_active.svg);
 }
 
 .right-block_calendar {
@@ -992,7 +992,7 @@
   width: 40px;
   height: 40px;
   margin: 0 1em 0 auto;
-  background: url(../../imgs/icons.png) -478px 0;
+  background: url(../../imgs/icons/document.svg);
 }
 
 .doc .doc_text {
@@ -1006,7 +1006,7 @@
 }
 
 .doc:hover .doc_icon {
-  background-position: -428px 0;
+  background: url(../../imgs/icons/document-active.svg);
 }
 
 .doc:hover .doc_text-title {
@@ -1081,7 +1081,7 @@
   width: 40px;
   height: 40px;
   margin-right: 0.5em;
-  background: url(../../imgs/icons.png) -166px 0;
+  background: url(../../imgs/icons/download.svg);
 }
 
 .main-doc .main-doc__description-block .main-doc__description-block__btn:hover {
@@ -1089,7 +1089,7 @@
 }
 
 .main-doc .main-doc__description-block .main-doc__description-block__btn:hover .btn-icon {
-  background-position: -116px 0;
+  background-image: url(../../imgs/icons/download-active.svg);
 }
 
 .other-docs {
@@ -1163,7 +1163,7 @@
   width: 30px;
   height: 30px;
   margin-right: 0.5em;
-  background: url(../../imgs/icons.png) -388px 0;
+  background: url(../../imgs/icons/section.svg);
 }
 
 .other-sections .other-sections__container .other-section .other-section__title {
@@ -1176,7 +1176,7 @@
 }
 
 .other-sections .other-sections__container .other-section:hover .other-section__icon {
-  background-position: -348px 0;
+  background-image: url(../../imgs/icons/section-active.svg);
 }
 
 @media screen and (max-width: 1240px) {
@@ -1388,6 +1388,14 @@ body {
   body {
     font-size: 25px;
   }
+}
+
+body:after {
+  display: block;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  content: url(../../imgs/icons/arrow-active.svg), url(../../imgs/icons/burger-active.svg), url(../../imgs/icons/search-btn_small_active.svg), url(../../imgs/icons/close-btn_active.svg), url(../../imgs/icons/document-active.svg), url(../../imgs/icons/download-active.svg), url(../../imgs/icons/section-active.svg);
 }
 
 h1,

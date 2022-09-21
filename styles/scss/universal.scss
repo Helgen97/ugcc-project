@@ -41,7 +41,7 @@
         width: 30px;
         height: 30px;
         margin-right: 0.5em;
-        background: url(../../imgs/icons.png) -388px 0;
+        background: url(../../imgs/icons/section.svg);
       }
 
       .other-section__title {
@@ -52,7 +52,7 @@
         color: $hoverColor;
 
         .other-section__icon {
-          background-position: -348px 0;
+          background-image: url(../../imgs/icons/section-active.svg);
         }
       }
     }

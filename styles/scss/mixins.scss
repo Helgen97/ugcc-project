@@ -51,6 +51,19 @@
   }
 }
 
+@mixin customButtonV2($width, $height, $bgUrl, $bgHoverUrl) {
+  width: $width;
+  height: $height;
+  background: $bgUrl;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+
+  &:hover {
+    background-image: $bgHoverUrl;
+  }
+}
+
 @mixin backgroundWithShadowAndRadius($bgColor, $shadow, $radius) {
   background-color: $bgColor;
   box-shadow: $shadow;

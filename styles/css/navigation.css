@@ -16,14 +16,14 @@
 .navigation .navigation_mobile .navigation_mobile_btn-container button {
   width: 25px;
   height: 26px;
-  background: url(../../imgs/icons.png) -563px 0;
+  background: url(../../imgs/icons/burger.svg);
   border: 0;
   border-radius: 0;
   cursor: pointer;
 }
 
 .navigation .navigation_mobile .navigation_mobile_btn-container button:hover {
-  background-position: -528px 0;
+  background-image: url(../../imgs/icons/burger-active.svg);
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu {
@@ -77,7 +77,7 @@
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu .navigation_mobile_menu_list .dropdown.show .dropdown_title::after {
-  content: url(../../imgs/icons/arrow-active.svg);
+  background-position: 0 0;
 }
 
 .navigation .navigation_mobile .navigation_mobile_menu .navigation_mobile_menu_list .dropdown.show .dropdown_inner-list {
@@ -98,15 +98,15 @@
 
 .navigation .navigation_search .navigation_search_btn-container button {
   width: 25px;
-  height: 26px;
-  background: url(../../imgs/icons.png) -313px 0;
+  height: 25px;
+  background: url(../../imgs/icons/search-btn.svg);
   border: 0;
   border-radius: 0;
   cursor: pointer;
 }
 
 .navigation .navigation_search .navigation_search_btn-container button:hover {
-  background-position: -216px 0;
+  background-image: url(../../imgs/icons/search-btn_active.svg);
 }
 
 .navigation .navigation_search .navigation_search_input-container input {
@@ -184,7 +184,7 @@
 }
 
 .navigation .navigation_menu .navigation_menu-list .dropdown:hover .dropdown_title::after {
-  content: url(../../imgs/icons/arrow-active.svg);
+  background-position: 0 0;
 }
 
 .navigation .navigation_menu .navigation_menu-list .dropdown:hover .dropdown_list {

@@ -131,14 +131,14 @@
 .right-block_search .right-block_search_input .right-block_search_input-button {
   width: 21px;
   height: 20px;
-  background: url(../../imgs/icons.png) -282px 0;
+  background: url(../../imgs/icons/search-btn_small.svg);
   border: 0;
   border-radius: 0;
   cursor: pointer;
 }
 
 .right-block_search .right-block_search_input .right-block_search_input-button:hover {
-  background-position: -251px 0;
+  background-image: url(../../imgs/icons/search-btn_small_active.svg);
 }
 
 .right-block_calendar {

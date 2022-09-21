@@ -32,7 +32,7 @@
   width: 40px;
   height: 40px;
   margin: 0 1em 0 auto;
-  background: url(../../imgs/icons.png) -478px 0;
+  background: url(../../imgs/icons/document.svg);
 }
 
 .doc .doc_text {
@@ -46,7 +46,7 @@
 }
 
 .doc:hover .doc_icon {
-  background-position: -428px 0;
+  background: url(../../imgs/icons/document-active.svg);
 }
 
 .doc:hover .doc_text-title {
