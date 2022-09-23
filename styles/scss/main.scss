@@ -75,6 +75,10 @@
     max-width: 48%;
     padding: 1em;
   }
+
+  .section {
+    margin-top: 1em;
+  }
 }
 
 @media screen and (min-width: $mobile) and (max-width: $tablet) {
@@ -109,7 +113,8 @@
     display: block;
     margin-top: 1em;
 
-    & > div {
+    & > .block {
+      width: 100%;
       margin-top: 1em;
       flex: none;
       max-width: 100%;
@@ -159,7 +164,7 @@
     display: block;
     margin-top: 1em;
 
-    & > div {
+    & > .block {
       margin-top: 1em;
       flex: none;
       max-width: 100%;
