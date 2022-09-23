@@ -46,14 +46,14 @@
 </head>
 
 <body>
-  <header class="header">
-    <div class="header_logo">
-      <div class="header_logo_container">
-        <img src="./imgs/logo.png" alt="Донецький екзархат УГКЦ" class="header_logo_container_image" />
+  <header>
+    <div class="logo-container">
+      <div>
+        <img src="./imgs/logo.png" alt="Донецький екзархат УГКЦ" class="logo-container__image" />
       </div>
-      <div class="header_logo_text">
-        <p class="header_logo_text_main">Донецький екзархат</p>
-        <p class="header_logo_text_second">
+      <div>
+        <p class="logo-container__title">Донецький екзархат</p>
+        <p class="logo-container__description">
           Українська Греко-Католицька Церква
         </p>
       </div>
@@ -61,143 +61,198 @@
   </header>
 
   <div class="navigation">
-    <div class="navigation_mobile">
-      <div class="navigation_mobile_btn-container">
-        <button id="mobile_menu"></button>
+    <div class="navigation__mobile">
+      <div>
+        <button id="mobile_menu" class="navigation__mobile__btn"></button>
       </div>
-      <div class="navigation_mobile_menu">
-        <ul class="navigation_mobile_menu_list">
-          <li class="navigation_mobile_menu_list-title">Навігація</li>
-          <li><a href="./index.html">Головна</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown_title">Новини</a>
-            <ul class="dropdown_inner-list">
-              <li><a href="./news_list.html">Новини екзархату</a></li>
-              <li><a href="./news_list.html">Новини церкви</a></li>
-              <li><a href="./news_list.html">Публікації</a></li>
+      <div class="navigation__mobile__menu">
+        <ul>
+          <li class="navigation__mobile__menu__item item--title">Навігація</li>
+          <li class="navigation__mobile__menu__item">
+            <a href="./index.html">Головна</a>
+          </li>
+          <li class="navigation__mobile__menu__item dropdown">
+            <a href="#" class="dropdown__title">Новини</a>
+            <ul class="dropdown__list">
+              <li class="dropdown__list__item">
+                <a href="./news_list.html">Новини екзархату</a>
+              </li>
+              <li class="dropdown__list__item">
+                <a href="./news_list.html">Новини церкви</a>
+              </li>
+              <li class="dropdown__list__item">
+                <a href="./news_list.html">Публікації</a>
+              </li>
             </ul>
           </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown_title">Екзархат</a>
-            <ul class="dropdown_inner-list">
-              <li><a href="./universal.html">Єпископи</a></li>
-              <li><a href="./universal.html">Курія</a></li>
-              <li><a href="./universal.html">Комісії</a></li>
-              <li><a href="./universal.html">Духовенство</a></li>
-              <li><a href="./universal.html">Пресслужба</a></li>
+          <li class="navigation__mobile__menu__item dropdown">
+            <a href="#" class="dropdown__title">Екзархат</a>
+            <ul class="dropdown__list">
+              <li class="dropdown__list__item">
+                <a href="./universal.html">Єпископи</a>
+              </li>
+              <li class="dropdown__list__item">
+                <a href="./universal.html">Курія</a>
+              </li>
+              <li class="dropdown__list__item">
+                <a href="./universal.html">Комісії</a>
+              </li>
+              <li class="dropdown__list__item">
+                <a href="./universal.html">Духовенство</a>
+              </li>
+              <li class="dropdown__list__item">
+                <a href="./universal.html">Пресслужба</a>
+              </li>
             </ul>
           </li>
-          <li><a href="./universal.html">Парафії та монастирі</a></li>
-          <li><a href="./documents.html">Документи</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown_title">Про нас</a>
-            <ul class="dropdown_inner-list">
-              <li><a href="./universal.html">Глава і Отець УГКЦ</a></li>
-              <li><a href="./universal.html">Структура Церкви</a></li>
-              <li><a href="./universal.html">Історія Донецького екзархату</a></li>
+          <li class="navigation__mobile__menu__item">
+            <a href="./universal.html">Парафії та монастирі</a>
+          </li>
+          <li class="navigation__mobile__menu__item">
+            <a href="./documents.html">Документи</a>
+          </li>
+          <li class="navigation__mobile__menu__item dropdown">
+            <a href="#" class="dropdown__title">Про нас</a>
+            <ul class="dropdown__list">
+              <li class="dropdown__list__item">
+                <a href="./universal.html">Глава і Отець УГКЦ</a>
+              </li>
+              <li class="dropdown__list__item">
+                <a href="./universal.html">Структура Церкви</a>
+              </li>
+              <li class="dropdown__list__item">
+                <a href="./universal.html">Історія Донецького екзархату</a>
+              </li>
             </ul>
           </li>
-          <li><a href="./contacts.html">Контакти</a></li>
+          <li class="navigation__mobile__menu__item">
+            <a href="./contacts.html">Контакти</a>
+          </li>
         </ul>
       </div>
     </div>
-    <div class="navigation_search">
-      <div class="navigation_search_btn-container">
-        <button id="search_button"></button>
+
+    <div class="navigation__search">
+      <div>
+        <button id="search_button" class="navigation__search_btn"></button>
       </div>
-      <div class="navigation_search_input-container">
-        <input id="mobile_search_input" type="text" placeholder="Пошук новин" />
+      <div>
+        <input id="mobile_search_input" class="navigation_search_input" type="text" placeholder="Пошук новин" />
       </div>
     </div>
-    <div class="navigation_menu">
-      <ul class="navigation_menu-list">
-        <li><a href="./index.html">Головна</a></li>
-        <li class="dropdown">
-          <a href="./news.html" class="dropdown_title">Новини</a>
-          <ul class="dropdown_list">
-            <li><a href="./news_list.html">Новини Екзархату</a></li>
-            <li><a href="./news_list.html">Новини Церкви</a></li>
-            <li><a href="./news_list.html">Публікації</a></li>
+    <div class="navigation__menu">
+      <ul class="navigation__menu__list">
+        <li class="navigation__menu__list__item">
+          <a href="./index.html">Головна</a>
+        </li>
+        <li class="navigation__menu__list__item dropdown">
+          <a href="./news.html" class="dropdown__title">Новини</a>
+          <ul class="dropdown__list">
+            <li class="dropdown__list__item">
+              <a href="./news_list.html">Новини Екзархату</a>
+            </li>
+            <li class="dropdown__list__item">
+              <a href="./news_list.html">Новини Церкви</a>
+            </li>
+            <li class="dropdown__list__item">
+              <a href="./news_list.html">Публікації</a>
+            </li>
           </ul>
         </li>
-        <li class="dropdown">
-          <a href="./universal.html" class="dropdown_title">Екзархат</a>
-          <ul class="dropdown_list">
-            <li><a href="./universal.html">Єпископи</a></li>
-            <li><a href="./universal.html">Курія</a></li>
-            <li><a href="./universal.html">Комісії</a></li>
-            <li><a href="./universal.html">Духовенство</a></li>
-            <li><a href="./universal.html">Пресслужба</a></li>
+        <li class="navigation__menu__list__item dropdown">
+          <a href="./universal.html" class="dropdown__title">Екзархат</a>
+          <ul class="dropdown__list">
+            <li class="dropdown__list__item">
+              <a href="./universal.html">Єпископи</a>
+            </li>
+            <li class="dropdown__list__item">
+              <a href="./universal.html">Курія</a>
+            </li>
+            <li class="dropdown__list__item">
+              <a href="./universal.html">Комісії</a>
+            </li>
+            <li class="dropdown__list__item">
+              <a href="./universal.html">Духовенство</a>
+            </li>
+            <li class="dropdown__list__item">
+              <a href="./universal.html">Пресслужба</a>
+            </li>
           </ul>
         </li>
-        <li><a href="./universal.html">Парафії та монастирі</a></li>
-        <li><a href="./documents.html">Документи</a></li>
-        <li class="dropdown">
-          <a href="./universal.html" class="dropdown_title">Про нас</a>
-          <ul class="dropdown_list">
-            <li><a href="./universal.html">Глава і Отець УГКЦ</a></li>
-            <li><a href="./universal.html">Структура Церкви</a></li>
-            <li><a href="./universal.html">Історія Донецького Екзархату</a></li>
+        <li class="navigation__menu__list__item">
+          <a href="./universal.html">Парафії та монастирі</a>
+        </li>
+        <li class="navigation__menu__list__item">
+          <a href="./documents.html">Документи</a>
+        </li>
+        <li class="navigation__menu__list__item dropdown">
+          <a href="./universal.html" class="dropdown__title">Про нас</a>
+          <ul class="dropdown__list">
+            <li class="dropdown__list__item"><a href="./universal.html">Глава і Отець УГКЦ</a></li>
+            <li class="dropdown__list__item"><a href="./universal.html">Структура Церкви</a></li>
+            <li class="dropdown__list__item"><a href="./universal.html">Історія Донецького Екзархату</a></li>
           </ul>
         </li>
-        <li><a href="./contacts.html">Контакти</a></li>
+        <li class="navigation__menu__list__item">
+          <a href="./contacts.html">Контакти</a>
+        </li>
       </ul>
     </div>
-    <div class="navigation_facebook">
+    <div class="navigation__facebook">
       <a href="#" class="navigation_facebook-link"></a>
     </div>
-    <div class="navigation_instagram">
+    <div class="navigation__instagram">
       <a href="#" class="navigation_instagram-link"></a>
     </div>
   </div>
 
   <div class="modal">
-    <div class="modal-dialog">
-      <div class="modal-dialog_title">
+    <div class="modal__dialog">
+      <div class="modal__dialog-title">
         <p>
           Список трансляцій
-          <button class="close-btn"></button>
+          <button class="js-close-btn"></button>
         </p>
       </div>
-      <div class="modal-dialog_content">
-        <div class="modal-dialog_content-block">
-          <p class="modal-dialog_content-block_title">Трансляція</p>
+      <div class="modal__dialog-content">
+        <div class="modal__dialog-content__block">
+          <p class="modal__dialog-content__block-title">Трансляція</p>
           <p>Божественної Літургії</p>
           <p>з храму</p>
           <p>Матері Божої Неустанної Помочі</p>
           <p>(Запоріжжя)</p>
           <img src="./imgs/youtube-live.jpeg" alt="Храм Матері Божої Неустанної Помочі"
-            class="modal-dialog_content-block_image">
+            class="modal__dialog-content__block-image">
           <a href="#" class="social-btn youtube">YouTube</a>
         </div>
-        <div class="modal-dialog_content-block">
-          <p class="modal-dialog_content-block_title">Трансляція</p>
+        <div class="modal__dialog-content__block">
+          <p class="modal__dialog-content__block-title">Трансляція</p>
           <p>Божественної Літургії</p>
           <p>з храму</p>
           <p>Матері Божої Неустанної Помочі</p>
           <p>(Запоріжжя)</p>
           <img src="./imgs/youtube-live.jpeg" alt="Храм Матері Божої Неустанної Помочі"
-            class="modal-dialog_content-block_image">
+            class="modal__dialog-content__block-image">
           <a href="#" class="social-btn youtube">YouTube</a>
         </div>
-        <div class="modal-dialog_content-block">
-          <p class="modal-dialog_content-block_title">Трансляція</p>
+        <div class="modal__dialog-content__block">
+          <p class="modal__dialog-content__block-title">Трансляція</p>
           <p>Божественної Літургії</p>
           <p>з храму</p>
           <p>Матері Божої Неустанної Помочі</p>
           <p>(Запоріжжя)</p>
           <img src="./imgs/youtube-live.jpeg" alt="Храм Матері Божої Неустанної Помочі"
-            class="modal-dialog_content-block_image">
+            class="modal__dialog-content__block-image">
           <a href="#" class="social-btn youtube">YouTube</a>
         </div>
-        <div class="modal-dialog_content-block">
-          <p class="modal-dialog_content-block_title">Трансляція</p>
+        <div class="modal__dialog-content__block">
+          <p class="modal__dialog-content__block-title">Трансляція</p>
           <p>Божественної Літургії</p>
           <p>з храму</p>
           <p>Матері Божої Неустанної Помочі</p>
           <p>(Запоріжжя)</p>
           <img src="./imgs/youtube-live.jpeg" alt="Храм Матері Божої Неустанної Помочі"
-            class="modal-dialog_content-block_image">
+            class="modal__dialog-content__block-image">
           <a href="#" class="social-btn youtube">YouTube</a>
         </div>
       </div>
@@ -205,24 +260,24 @@
   </div>
 
   <main>
-    <div class="left-block">
-      <div class="news block">
+    <div class="content">
+      <div class="block">
         <div class="block-title">
           <h1>Новини екзархату</h1>
         </div>
-        <div class="news-list">
-          <a href="./news_page.html" class="news-list__news">
-            <div class="news-list__news-img_container">
-              <img src="./imgs/news-3.jpg" alt="" class="news-list__news-img">
+        <div class="sections-list">
+          <a href="./news_page.html" class="section">
+            <div class="section__image-container">
+              <img src="./imgs/news-3.jpg" alt="" class="section__image">
             </div>
-            <div class="news-list__news-text">
-              <div class="news-list__news-text_date">
+            <div class="section__info">
+              <div class="section__info__date">
                 <p>2 вересня</p>
               </div>
-              <div class="news-list__news-text-title">
+              <div class="section__info__title">
                 <p>«Карітас Кам’янське»: допомога потребуючим як спосіб пережити лихо війни</p>
               </div>
-              <div class="news-list__news-text-description">
+              <div class="section__info__description">
                 <p>«Від початку військових дій до нас почало приходити дуже багато волонтерів, які казали: “Коли ми
                   тут зайняті допомогою іншим, то перестаємо думати про події війни”», – це свідчення директора
                   благодійного фонду «Карітас Кам’янське» отця Ігоря Пагулича. Разом зі своєю дружиною Марією він
@@ -230,18 +285,18 @@
               </div>
             </div>
           </a>
-          <a href="./news_page.html" class="news-list__news">
-            <div class="news-list__news-img_container">
-              <img src="./imgs/news-title.jpg" alt="" class="news-list__news-img">
+          <a href="./news_page.html" class="section">
+            <div class="section__image-container">
+              <img src="./imgs/news-3.jpg" alt="" class="section__image">
             </div>
-            <div class="news-list__news-text">
-              <div class="news-list__news-text_date">
+            <div class="section__info">
+              <div class="section__info__date">
                 <p>2 вересня</p>
               </div>
-              <div class="news-list__news-text-title">
+              <div class="section__info__title">
                 <p>«Карітас Кам’янське»: допомога потребуючим як спосіб пережити лихо війни</p>
               </div>
-              <div class="news-list__news-text-description">
+              <div class="section__info__description">
                 <p>«Від початку військових дій до нас почало приходити дуже багато волонтерів, які казали: “Коли ми
                   тут зайняті допомогою іншим, то перестаємо думати про події війни”», – це свідчення директора
                   благодійного фонду «Карітас Кам’янське» отця Ігоря Пагулича. Разом зі своєю дружиною Марією він
@@ -249,18 +304,18 @@
               </div>
             </div>
           </a>
-          <a href="./news_page.html" class="news-list__news">
-            <div class="news-list__news-img_container">
-              <img src="./imgs/news-3.jpg" alt="" class="news-list__news-img">
+          <a href="./news_page.html" class="section">
+            <div class="section__image-container">
+              <img src="./imgs/news-3.jpg" alt="" class="section__image">
             </div>
-            <div class="news-list__news-text">
-              <div class="news-list__news-text_date">
+            <div class="section__info">
+              <div class="section__info__date">
                 <p>2 вересня</p>
               </div>
-              <div class="news-list__news-text-title">
+              <div class="section__info__title">
                 <p>«Карітас Кам’янське»: допомога потребуючим як спосіб пережити лихо війни</p>
               </div>
-              <div class="news-list__news-text-description">
+              <div class="section__info__description">
                 <p>«Від початку військових дій до нас почало приходити дуже багато волонтерів, які казали: “Коли ми
                   тут зайняті допомогою іншим, то перестаємо думати про події війни”», – це свідчення директора
                   благодійного фонду «Карітас Кам’янське» отця Ігоря Пагулича. Разом зі своєю дружиною Марією він
@@ -268,18 +323,18 @@
               </div>
             </div>
           </a>
-          <a href="./news_page.html" class="news-list__news">
-            <div class="news-list__news-img_container">
-              <img src="./imgs/news-title.jpg" alt="" class="news-list__news-img">
+          <a href="./news_page.html" class="section">
+            <div class="section__image-container">
+              <img src="./imgs/news-3.jpg" alt="" class="section__image">
             </div>
-            <div class="news-list__news-text">
-              <div class="news-list__news-text_date">
+            <div class="section__info">
+              <div class="section__info__date">
                 <p>2 вересня</p>
               </div>
-              <div class="news-list__news-text-title">
+              <div class="section__info__title">
                 <p>«Карітас Кам’янське»: допомога потребуючим як спосіб пережити лихо війни</p>
               </div>
-              <div class="news-list__news-text-description">
+              <div class="section__info__description">
                 <p>«Від початку військових дій до нас почало приходити дуже багато волонтерів, які казали: “Коли ми
                   тут зайняті допомогою іншим, то перестаємо думати про події війни”», – це свідчення директора
                   благодійного фонду «Карітас Кам’янське» отця Ігоря Пагулича. Разом зі своєю дружиною Марією він
@@ -287,18 +342,18 @@
               </div>
             </div>
           </a>
-          <a href="./news_page.html" class="news-list__news">
-            <div class="news-list__news-img_container">
-              <img src="./imgs/news-3.jpg" alt="" class="news-list__news-img">
+          <a href="./news_page.html" class="section">
+            <div class="section__image-container">
+              <img src="./imgs/news-3.jpg" alt="" class="section__image">
             </div>
-            <div class="news-list__news-text">
-              <div class="news-list__news-text_date">
+            <div class="section__info">
+              <div class="section__info__date">
                 <p>2 вересня</p>
               </div>
-              <div class="news-list__news-text-title">
+              <div class="section__info__title">
                 <p>«Карітас Кам’янське»: допомога потребуючим як спосіб пережити лихо війни</p>
               </div>
-              <div class="news-list__news-text-description">
+              <div class="section__info__description">
                 <p>«Від початку військових дій до нас почало приходити дуже багато волонтерів, які казали: “Коли ми
                   тут зайняті допомогою іншим, то перестаємо думати про події війни”», – це свідчення директора
                   благодійного фонду «Карітас Кам’янське» отця Ігоря Пагулича. Разом зі своєю дружиною Марією він
@@ -306,18 +361,18 @@
               </div>
             </div>
           </a>
-          <a href="./news_page.html" class="news-list__news">
-            <div class="news-list__news-img_container">
-              <img src="./imgs/news-title.jpg" alt="" class="news-list__news-img">
+          <a href="./news_page.html" class="section">
+            <div class="section__image-container">
+              <img src="./imgs/news-3.jpg" alt="" class="section__image">
             </div>
-            <div class="news-list__news-text">
-              <div class="news-list__news-text_date">
+            <div class="section__info">
+              <div class="section__info__date">
                 <p>2 вересня</p>
               </div>
-              <div class="news-list__news-text-title">
+              <div class="section__info__title">
                 <p>«Карітас Кам’янське»: допомога потребуючим як спосіб пережити лихо війни</p>
               </div>
-              <div class="news-list__news-text-description">
+              <div class="section__info__description">
                 <p>«Від початку військових дій до нас почало приходити дуже багато волонтерів, які казали: “Коли ми
                   тут зайняті допомогою іншим, то перестаємо думати про події війни”», – це свідчення директора
                   благодійного фонду «Карітас Кам’янське» отця Ігоря Пагулича. Разом зі своєю дружиною Марією він
@@ -326,7 +381,7 @@
             </div>
           </a>
         </div>
-        <div class="news-pages">
+        <div class="pagination">
           <a href="#" class="page">1</a>
           <a href="#" class="page">2</a>
           <a href="#" class="page">3</a>
@@ -336,40 +391,40 @@
         </div>
       </div>
     </div>
-    <div class="right-block">
-      <div class="right-block_search">
-        <div class="right-block_search_title">
+    <div class="sidebar">
+      <div class="sidebar__search-block">
+        <div class="sidebar-block-title">
           <p>Пошук</p>
         </div>
-        <div class="right-block_search_input">
-          <input id="desktop_search_input" type="text" placeholder="Пошук новин">
-          <button id="desktop_search_button" class="right-block_search_input-button"></button>
+        <div class="sidebar__search-block__input-container">
+          <input id="desktop_search_input" class="sidebar__search-block__input-container__input" type="text" placeholder="Пошук новин">
+          <button id="desktop_search_button" class="sidebar__search-block__input-container__button"></button>
         </div>
       </div>
-      <div class="right-block_calendar">
+      <div class="sidebar__calendar-block">
         <iframe width='260' height='260' frameborder='no' scrolling='no'
           src='https://prayer-service.online/u-widget.html'></iframe>
       </div>
-      <div class="right-block_live">
-        <div class="right-block_live-title">
+      <div class="sidebar__live-block">
+        <div class="sidebar-block-title">
           <p>Трансляції</p>
         </div>
-        <div class="right-block_live-content">
+        <div class="sidebar__live-block__content">
           <p>Розклад трансляцій</p>
           <p>богослужінь та літургій</p>
-          <div class="right-block_live-content-img">
-            <img src="./imgs/icons/youtube-big.svg" alt="youtube logo">
+          <div class="sidebar__live-block__content__image-container">
+            <div class="sidebar__live-block__content__image"></div>
           </div>
           <div class="main-btn">
             <a href="#" id="modal">До списку трансляцій</a>
           </div>
         </div>
       </div>
-      <div class="right-block_socials">
-        <div class="right-block_socials-title">
+      <div class="sidebar__socials-block">
+        <div class="sidebar-block-title">
           <p>Ми у соц. мережах</p>
         </div>
-        <div class="right-block_socials-buttons">
+        <div class="sidebar__socials-block__buttons">
           <a href="#" class="social-btn facebook">Facebook</a>
           <a href="#" class="social-btn instagram">Instagram</a>
         </div>
@@ -383,49 +438,39 @@
       <div class="slider__wrapper">
         <div class="slider__items">
           <div class="slider__item">
-            <div class="friends_block">
-              <a href="#">
-                <img src="./imgs/logos/ugcc.png" alt="Герб УГКЦ" class="friends_block_logo">
-                <p class="friends_block_description">Офіційний сайт УГКЦ</p>
-              </a>
-            </div>
+            <a href="#" class="friends__block">
+              <img src="./imgs/logos/ugcc.png" alt="Герб УГКЦ" class="friends__block__logo">
+              <p class="friends__block__description">Офіційний сайт УГКЦ</p>
+            </a>
           </div>
           <div class="slider__item">
-            <div class="friends_block">
-              <a href="#">
-                <img src="./imgs/logos/synod.png" alt="Герб Синоду Єпископів УГКЦ" class="friends_block_logo">
-                <p class="friends_block_description">Синод Єпископів УГКЦ</p>
-              </a>
-            </div>
+            <a href="#" class="friends__block">
+              <img src="./imgs/logos/synod.png" alt="Герб Синоду Єпископів УГКЦ" class="friends__block__logo">
+              <p class="friends__block__description">Синод Єпископів УГКЦ</p>
+            </a>
           </div>
           <div class="slider__item">
-            <div class="friends_block">
-              <a href="">
-                <img src="./imgs/logos/map_ugcc.png" alt="Лого мапи УГКЦ" class="friends_block_logo">
-                <p class="friends_block_description">Інтерактивна мапа УГКЦ</p>
-              </a>
-            </div>
+            <a href="#" class="friends__block">
+              <img src="./imgs/logos/map_ugcc.png" alt="Лого мапи УГКЦ" class="friends__block__logo">
+              <p class="friends__block__description">Інтерактивна мапа УГКЦ</p>
+            </a>
           </div>
           <div class="slider__item">
-            <div class="friends_block">
-              <a href="#">
-                <img src="./imgs/logos/karitas.png" alt="Герб Карітасу" class="friends_block_logo">
-                <p class="friends_block_description">Карітас України</p>
-              </a>
-            </div>
+            <a href="#" class="friends__block">
+              <img src="./imgs/logos/karitas.png" alt="Герб Карітасу" class="friends__block__logo">
+              <p class="friends__block__description">Карітас України</p>
+            </a>
           </div>
           <div class="slider__item">
-            <div class="friends_block">
-              <a href="#"><img src="./imgs/logos/zhyveTB.png" alt="Живе Телебачення" class="friends_block_logo"></a>
-            </div>
+            <a href="#" class="friends__block">
+              <img src="./imgs/logos/zhyveTB.png" alt="Живе Телебачення" class="friends__block__logo">
+            </a>
           </div>
           <div class="slider__item">
-            <div class="friends_block">
-              <a href="#">
-                <img src="./imgs/logos/molitvaChurch.png" alt="Молитва Церкви" class="friends_block_logo">
-                <p class="friends_block_description">Молитва Церкви</p>
-              </a>
-            </div>
+            <a href="#" class="friends__block">
+              <img src="./imgs/logos/molitvaChurch.png" alt="Молитва Церкви" class="friends__block__logo">
+              <p class="friends__block__description">Молитва Церкви</p>
+            </a>
           </div>
         </div>
       </div>
@@ -433,25 +478,37 @@
   </div>
 
   <footer class="footer">
-    <div class="footer_logo">
-      <img src="./imgs/logo.png" alt="Донецький екзархат УГКЦ" class="footer_logo_image" />
+    <div class="footer__logo">
+      <img src="./imgs/logo.png" alt="Донецький екзархат УГКЦ" class="footer__logo__image" />
     </div>
-    <div class="footer_nav">
-      <ul class="footer_nav_list">
-        <li><a href="./news.html">Новини</a></li>
-        <li><a href="./universal.html">Екзархат</a></li>
-        <li><a href="./universal.html">Парафії та монастирі</a></li>
-        <li><a href="./documents.html">Документи</a></li>
-        <li><a href="./about.html">Про нас</a></li>
-        <li><a href="./contacts.html">Контакти</a></li>
+    <div class="footer__nav">
+      <ul>
+        <li class="footer__nav__list__item">
+          <a href="./news.html">Новини</a>
+        </li>
+        <li class="footer__nav__list__item">
+          <a href="./universal.html">Екзархат</a>
+        </li>
+        <li class="footer__nav__list__item">
+          <a href="./universal.html">Парафії та монастирі</a>
+        </li>
+        <li class="footer__nav__list__item">
+          <a href="./documents.html">Документи</a>
+        </li>
+        <li class="footer__nav__list__item">
+          <a href="./about.html">Про нас</a>
+        </li>
+        <li class="footer__nav__list__item">
+          <a href="./contacts.html">Контакти</a>
+        </li>
       </ul>
     </div>
-    <div class="footer_contacts">
-      <a href="http://maps.google.com/?q=м. Запоріжжя, вул. Вербова,11, 69095">м. Запоріжжя, вул. Вербова,11,
+    <div class="footer__contacts">
+      <a href="http://maps.google.com/?q=м. Запоріжжя, вул. Вербова,11, 69095" class="footer__contacts__link">м. Запоріжжя, вул. Вербова,11,
         69095</a>
-      <a href="mailto:press.don.ugcc@gmail.com">press.don.ugcc@gmail.com</a>
+      <a href="mailto:press.don.ugcc@gmail.com" class="footer__contacts__link">press.don.ugcc@gmail.com</a>
     </div>
-    <div class="footer_copyright">
+    <div class="footer__copyright">
       <p>© 2016 Донецький екзархат УГКЦ. Всі права застережено.</p>
       <p>Developed by <a href="#">Helgen</a>. September, 2022.</p>
     </div>

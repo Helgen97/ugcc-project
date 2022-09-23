@@ -1,9 +1,9 @@
-.header {
+header {
   background: url(../../imgs/bg.png) no-repeat no-repeat;
   background-size: cover;
 }
 
-.header .header_logo {
+.logo-container {
   display: flex;
   width: 40%;
   margin: 0 auto;
@@ -12,51 +12,49 @@
   justify-content: center;
 }
 
-.header .header_logo .header_logo_container .header_logo_container_image {
+.logo-container__image {
   max-width: 130px;
 }
 
-.header .header_logo .header_logo_text {
+.logo-container__title {
+  font-size: 2em;
+  font-weight: 700;
   color: white;
 }
 
-.header .header_logo .header_logo_text .header_logo_text_main {
-  font-size: 2em;
-  font-weight: 700;
-}
-
-.header .header_logo .header_logo_text .header_logo_text_second {
+.logo-container__description {
   font-size: 1em;
   font-weight: 600;
+  color: white;
   text-align: center;
 }
 
 @media screen and (max-width: 768px) {
-  .header .header_logo {
+  .logo-container {
     width: 80%;
   }
-  .header .header_logo .header_logo_container .header_logo_container_image {
+  .logo-container__image {
     max-width: 80px;
   }
-  .header .header_logo .header_logo_text .header_logo_text_main {
+  .logo-container__title {
     font-size: 1.5em;
   }
-  .header .header_logo .header_logo_text .header_logo_text_second {
+  .logo-container__description {
     font-size: 0.8em;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1240px) {
-  .header .header_logo {
+  .logo-container {
     width: 60%;
   }
-  .header .header_logo .header_logo_container .header_logo_container_image {
+  .logo-container__image {
     max-width: 100px;
   }
-  .header .header_logo .header_logo_text .header_logo_text_main {
+  .logo-container__title {
     font-size: 2em;
   }
-  .header .header_logo .header_logo_text .header_logo_text_second {
+  .logo-container__description {
     font-size: 1em;
   }
 }

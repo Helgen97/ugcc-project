@@ -1,7 +1,7 @@
 @import "vars.scss";
 @import "mixins.scss";
 
-.article {
+.news {
   margin-bottom: 2em;
   padding: 1em;
 
@@ -10,74 +10,28 @@
     font-size: 1.5em;
     border-bottom: none;
   }
-
-  .article_date {
-    margin: 1em 0;
-  }
-
-  .article_main-image {
-    @include centerBlock(80%);
-    text-align: center;
-
-    img {
-      max-width: 100%;
-    }
-  }
 }
 
-.other-articles {
-  .small-articles {
-    @include flexWithWrapAndJustifyingContent;
-    margin-top: 1em;
+.news__date {
+  margin: 1em 0;
+}
 
-    .small-article {
-      display: block;
-      width: min-content;
+.news__main-image-container {
+  @include centerBlock(80%);
+  margin: 2em auto;
+  text-align: center;
+}
 
-      .small-article_image {
-        img {
-          max-width: 190px;
-        }
-      }
-
-      .small-article_date {
-        margin: 0.5em 0;
-      }
-
-      .small-article_title {
-        font-weight: 600;
-        margin-bottom: 0.5em;
-      }
-
-      &:hover {
-        .small-article_title {
-          text-decoration: underline;
-        }
-      }
-    }
-  }
+.news__main-image {
+  max-width: 100%;
 }
 
 @media screen and (max-width: $tablet) {
-  .second_image {
-    img {
-      width: 90%;
-    }
-  }
-  .other-articles {
-    .small-articles {
-      flex-direction: column;
+  .other-news {
+    @include centerBlock(70%);
 
-      .small-article {
-        width: 100%;
-        margin-bottom: 1em;
-
-        .small-article_image {
-          img {
-            max-width: 100%;
-          }
-        }
-      }
+    .section {
+      margin: 1em 0 2em;
     }
   }
 }

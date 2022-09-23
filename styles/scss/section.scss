@@ -1,0 +1,33 @@
+@import "vars.scss";
+@import "mixins.scss";
+
+.section {
+    display: block;
+    padding: 1em;
+  
+    &:hover {
+      .section__info__title {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .section__image-container {
+    @include centerBlock(90%);
+  }
+  
+  .section__image {
+    max-width: 100%;
+  }
+  
+  .section__info {
+    padding: 0 1em;
+  }
+  
+  .section__info__date {
+    margin: 0.5em 0;
+  }
+  
+  .section__info__title {
+    font-weight: 600;
+  }

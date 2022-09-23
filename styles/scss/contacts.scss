@@ -1,31 +1,31 @@
 @import "vars.scss";
 @import "mixins.scss";
 
-.contacts_paragraph {
+.contacts_info {
   @include centerBlock(70%);
   @include flexWithWrapAndJustifyingContent;
   margin: 1em auto 2em;
   align-content: center;
+}
 
-  .contacts_paragraph__title {
-    width: 100%;
-    text-align: center;
-  }
+.contacts__info__title {
+  width: 100%;
+  text-align: center;
+}
 
-  .contacts_paragraph__right-info {
-    align-self: center;
-  }
+.contacts__info__col:last-child {
+  align-self: center;
+}
 
-  p {
-    @include fontStyling(1.2em, 600);
+.contacts__info__col__text {
+  @include fontStyling(1.2em, 600);
 
-    a:hover {
-      text-decoration: underline;
-    }
+  a:hover {
+    text-decoration: underline;
   }
 }
 
-.contacts_map {
+.contacts__map {
   @include centerBlock(80%);
   position: relative;
   overflow: hidden;
@@ -43,18 +43,18 @@
 }
 
 @media screen and (max-width: $tablet) {
-  .contacts_paragraph {
+  .contacts_info {
     width: 100%;
     flex-direction: column;
     text-align: center;
-
-    .contacts_paragraph__right-info {
-      margin-top: 1em;
-      align-self: auto;
-    }
   }
 
-  .contacts_map {
+  .contacts__info__col:last-child {
+    margin-top: 1em;
+    align-self: auto;
+  }
+
+  .contacts__map {
     width: 100%;
   }
 }

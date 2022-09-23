@@ -8,59 +8,59 @@
   color: white;
 }
 
-.footer .footer_logo .footer_logo_image {
+.footer__logo__image {
   max-width: 120px;
 }
 
-.footer .footer_nav {
+.footer__nav {
   margin-left: 1em;
   font-weight: 500;
   text-decoration: underline;
 }
 
-.footer .footer_nav .footer_nav_list li {
+.footer__nav__list__item {
   padding: 0.2em;
 }
 
-.footer .footer_nav .footer_nav_list li a {
+.footer__nav__list__item a {
   padding: 0.2em;
 }
 
-.footer .footer_nav .footer_nav_list li a:hover {
+.footer__nav__list__item a:hover {
   font-weight: 600;
 }
 
-.footer .footer_contacts {
+.footer__contacts {
   margin-left: auto;
   font-weight: 500;
 }
 
-.footer .footer_contacts a {
+.footer__contacts__link {
   display: block;
 }
 
-.footer .footer_contacts a:last-child {
+.footer__contacts__link:last-child {
   text-align: center;
   padding-top: 0.2em;
 }
 
-.footer .footer_contacts a:hover {
+.footer__contacts__link:hover {
   font-weight: 600;
 }
 
-.footer .footer_copyright {
+.footer__copyright {
   margin-left: auto;
 }
 
-.footer .footer_copyright p:last-child {
+.footer__copyright p:last-child {
   padding-top: 0.2em;
 }
 
-.footer .footer_copyright a {
+.footer__copyright a {
   text-decoration: underline;
 }
 
-.footer .footer_copyright a:hover {
+.footer__copyright a:hover {
   font-weight: 600;
 }
 
@@ -69,22 +69,22 @@
     flex-direction: column;
     padding: 1em 3em;
   }
-  .footer .footer_logo {
+  .footer__logo {
     margin-bottom: 1em;
   }
-  .footer .footer_logo .footer_logo_image {
+  .footer__logo__image {
     max-width: 80px;
   }
-  .footer .footer_nav {
+  .footer__nav {
     display: none;
   }
-  .footer .footer_contacts {
+  .footer__contacts {
     margin: 0 0 1em;
   }
-  .footer .footer_copyright {
+  .footer__copyright {
     margin-left: 0;
   }
-  .footer .footer_copyright p {
+  .footer__copyright p {
     font-size: 0.7em;
     text-align: center;
   }
@@ -95,16 +95,16 @@
     padding: 1em;
     justify-content: space-between;
   }
-  .footer .footer_logo .footer_logo_image {
+  .footer__logo__image {
     max-width: 100px;
   }
-  .footer .footer_nav {
+  .footer__nav {
     display: none;
   }
-  .footer .footer_contacts {
+  .footer__contacts {
     margin-left: 0;
   }
-  .footer .footer_copyright {
+  .footer__copyright {
     margin-left: 0;
     font-size: 0.8em;
     text-align: center;

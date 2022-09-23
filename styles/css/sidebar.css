@@ -1,0 +1,147 @@
+.sidebar-block-title {
+  font-size: 1.1em;
+  text-align: center;
+  font-weight: 700;
+}
+
+.sidebar__search-block {
+  margin-bottom: 2em;
+  padding: 1em;
+  background-color: #f9f9f9;
+  box-shadow: 0px 5px 4px #f3f3f3;
+  border-radius: 30px;
+}
+
+.sidebar__search-block .sidebar__search-block__input-container {
+  margin-top: 0.5em;
+  align-items: center;
+}
+
+.sidebar__search-block .sidebar__search-block__input-container__input {
+  width: 90%;
+  height: 26px;
+  transition: max-width 0.5s linear, visibility 0.5s linear;
+}
+
+.sidebar__search-block .sidebar__search-block__input-container__button {
+  width: 21px;
+  height: 20px;
+  background: url(../../imgs/svg-sprite.svg) -336px 0;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.sidebar__search-block .sidebar__search-block__input-container__button:hover {
+  background-position: -367px 0;
+}
+
+.sidebar__calendar-block {
+  margin-bottom: 2em;
+  padding: 1em;
+  background-color: #f9f9f9;
+  box-shadow: 0px 5px 4px #f3f3f3;
+  border-radius: 30px;
+  text-align: center;
+}
+
+.sidebar__calendar-block iframe {
+  border-radius: 16px 16px 6px 6px;
+}
+
+.sidebar__live-block {
+  margin-bottom: 2em;
+  padding: 1em;
+  background-color: #f9f9f9;
+  box-shadow: 0px 5px 4px #f3f3f3;
+  border-radius: 30px;
+}
+
+.sidebar__live-block .sidebar__live-block__content {
+  text-align: center;
+}
+
+.sidebar__live-block .sidebar__live-block__content p {
+  margin: 0.2em 0;
+  font-weight: 500;
+}
+
+.sidebar__live-block .sidebar__live-block__content .sidebar__live-block__content__image-container {
+  margin: 0.5em 0;
+}
+
+.sidebar__live-block .sidebar__live-block__content .sidebar__live-block__content__image-container .sidebar__live-block__content__image {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  background: url(../../imgs/svg-sprite.svg) -598px 0;
+}
+
+.sidebar__socials-block {
+  margin-bottom: 2em;
+  padding: 1em;
+  background-color: #f9f9f9;
+  box-shadow: 0px 5px 4px #f3f3f3;
+  border-radius: 30px;
+}
+
+.sidebar__socials-block .sidebar__socials-block__buttons {
+  margin-top: 0.5em;
+}
+
+.sidebar__socials-block .sidebar__socials-block__buttons a {
+  margin-bottom: 0.5em;
+}
+
+.sidebar__socials-block .sidebar__socials-block__buttons .facebook {
+  background-color: #475993;
+}
+
+.sidebar__socials-block .sidebar__socials-block__buttons .facebook:hover {
+  box-shadow: 0px 1px 3px #455791;
+}
+
+.sidebar__socials-block .sidebar__socials-block__buttons .facebook::before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  width: 21px;
+  height: 21px;
+  right: 5px;
+  top: 5px;
+  background: url(../../imgs/svg-sprite.svg) 21px 0;
+}
+
+.sidebar__socials-block .sidebar__socials-block__buttons .instagram {
+  background-color: #1d3366;
+}
+
+.sidebar__socials-block .sidebar__socials-block__buttons .instagram:hover {
+  box-shadow: 0px 1px 3px #1d3366;
+}
+
+.sidebar__socials-block .sidebar__socials-block__buttons .instagram::before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  width: 21px;
+  height: 21px;
+  right: 5px;
+  top: 5px;
+  background: url(../../imgs/svg-sprite.svg) 87px 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1240px) {
+  .sidebar__search-block {
+    align-items: center;
+  }
+  .sidebar__search-block .sidebar__search-block__input-container__input {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar__search-block {
+    display: none;
+  }
+}

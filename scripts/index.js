@@ -1,25 +1,27 @@
 let modalOpenButton = $("#modal");
 let modalWindowContainer = $(".modal");
+
 let mobileMenuOpenButton = $("#mobile_menu");
-let mobileMenuContainer = $(".navigation_mobile");
+let mobileMenuContainer = $(".navigation__mobile");
+
 let mobileSearchOpenButton = $("#search_button");
-let mobileSearchContainer = $(".navigation_search");
-let mobileSearchInputContainer = $(".navigation_search_input-container");
+let mobileSearchContainer = $(".navigation__search");
 let mobileSearchInput = $("#mobile_search_input");
+
 let desktopSearchInput = $("#desktop_search_input");
 let desktopSearchButton = $("#desktop_search_button");
 
 modalOpenButton.on("click", (event) => {
     event.preventDefault();
-    modalWindowContainer.addClass("show");
+    modalWindowContainer.addClass("isActive");
 });
 
 mobileMenuOpenButton.on("click", () => {
-    mobileMenuOpenButton.parent().parent().addClass("show");
+    mobileMenuContainer.addClass("isActive");
 });
 
 mobileSearchOpenButton.on("click", () => {
-    mobileSearchInputContainer.toggleClass("show");
+    mobileSearchContainer.toggleClass("isActive");
 });
 
 mobileSearchInput.on("keyup", (event) => {
@@ -44,20 +46,20 @@ $(document).on('mouseup', (event) => {
 
     if (
         modalWindowContainer.has(currentTarget).length === 0 ||
-        currentTarget.hasClass("close-btn")
+        currentTarget.hasClass("js-close-btn")
     ) {
-        modalWindowContainer.removeClass("show");
+        modalWindowContainer.removeClass("isActive");
     }
 
     if (mobileMenuContainer.has(currentTarget).length === 0) {
-        mobileMenuContainer.removeClass("show");
+        mobileMenuContainer.removeClass("isActive");
     }
 
-    if (currentTarget.hasClass("dropdown_title")) {
-        currentTarget.parent().toggleClass("show");
+    if (currentTarget.hasClass("dropdown__title")) {
+        currentTarget.parent().toggleClass("isActive");
     }
 
     if (mobileSearchContainer.has(currentTarget).length === 0) {
-        mobileSearchInputContainer.removeClass("show");
+        mobileSearchContainer.removeClass("isActive");
     }
 });

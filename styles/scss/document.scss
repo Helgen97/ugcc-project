@@ -1,6 +1,6 @@
 @import "vars.scss";
 
-.main-doc {
+.main-document {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -9,61 +9,62 @@
     width: 100%;
     margin-bottom: 1em;
   }
+}
 
-  .main-doc__image {
-    width: 45%;
+.main-document__image-container {
+  width: 45%;
+}
 
-    img {
-      max-width: 100%;
-    }
-  }
+.main-document__image {
+  max-width: 100%;
+}
 
-  .main-doc__description-block {
-    width: 45%;
-    padding: 1em;
+.main-document__info {
+  width: 45%;
+  padding: 1em;
+}
 
-    .main-doc__description-block__date {
-      text-align: end;
-    }
+.main-document__info__date {
+  text-align: end;
+}
 
-    .main-doc__description-block__desctription {
-      margin: 1em 0;
-      font-weight: 500;
-    }
+.main-document__info__description {
+  margin: 1em 0;
+  font-weight: 500;
+}
 
-    .main-doc__description-block__btn {
-      display: flex;
-      @include centerBlock(100%);
-      justify-content: center;
-      align-items: center;
-      @include fontStyling(1.3em, 600);
+.main-document__info__download-btn {
+  display: flex;
+  @include centerBlock(100%);
+  justify-content: center;
+  align-items: center;
+  @include fontStyling(1.3em, 600);
 
-      .btn-icon {
-        width: 40px;
-        height: 40px;
-        margin-right: 0.5em;
-        background: url(../../imgs/icons/download.svg);
-      }
+  &:hover {
+    color: $hoverColor;
 
-      &:hover {
-        color: $hoverColor;
-        .btn-icon {
-          background-image: url(../../imgs/icons/download-active.svg);
-        }
-      }
+    .download-btn__icon {
+      background-position: -548px 0;
     }
   }
 }
 
-.other-docs {
+.download-btn__icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 0.5em;
+  background: url(../../imgs/svg-sprite.svg) -498px 0;
+}
+
+.other-documents {
   margin-top: 2em;
 }
 
-.doc-container {
+.other-documents__container {
   @include flexWithWrapAndJustifyingContent;
   padding: 1em;
 
-  .doc {
+  .document {
     justify-self: center;
   }
 }

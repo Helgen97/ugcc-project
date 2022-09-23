@@ -1,30 +1,30 @@
-.section .section-text {
+.article {
   padding: 2em 1em;
 }
 
-.section .section-text .section-text__main-img {
+.article .article__image-container {
   width: 40%;
   margin: 0 0 0.5em 0.5em;
   float: right;
   text-align: center;
 }
 
-.section .section-text .section-text__main-img img {
+.article .article__image {
   max-width: 100%;
 }
 
-.section .section-text .section-text__main-img p {
+.article .article__image-description {
   margin: 0.5em 0;
   font-weight: 600;
 }
 
-.other-sections {
+.other-articles {
   width: 70%;
   margin: 0 auto;
   margin-top: 2em;
 }
 
-.other-sections .other-sections__container {
+.other-articles__container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -32,40 +32,37 @@
   padding: 0 1em;
 }
 
-.other-sections .other-sections__container .other-section {
+.other-article {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.other-sections .other-sections__container .other-section .other-section__icon {
+.other-article:hover {
+  color: #0072b6;
+}
+
+.other-article:hover .other-article__icon {
+  background-position: -296px 0;
+}
+
+.other-article__icon {
   width: 30px;
   height: 30px;
   margin-right: 0.5em;
-  background: url(../../imgs/icons/section.svg);
+  background: url(../../imgs/svg-sprite.svg) -256px 0;
 }
 
-.other-sections .other-sections__container .other-section .other-section__title {
+.other-article__title {
   font-size: 1.2em;
   font-weight: 500;
 }
 
-.other-sections .other-sections__container .other-section:hover {
-  color: #0072b6;
-}
-
-.other-sections .other-sections__container .other-section:hover .other-section__icon {
-  background-image: url(../../imgs/icons/section-active.svg);
-}
-
 @media screen and (max-width: 1240px) {
-  .section {
-    padding: 2em 0.5em;
-  }
-  .section .section-text .section-text__main-img {
+  .article__image-container {
     width: 65%;
   }
-  .other-sections {
+  .other-articles {
     width: 90%;
   }
 }

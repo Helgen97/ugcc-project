@@ -1,81 +1,78 @@
 @import "vars.scss";
 @import "mixins.scss";
 
-.documents-container {
+.documents {
   @include flexWithWrapAndJustifyingContent;
 
   .block-title {
     width: 100%;
   }
-
-  .documents-container__block {
-    width: 45%;
-    margin: 1em;
-    padding: 1em;
-
-    .documents-container__block-title {
-      margin-bottom: 1em;
-      text-align: center;
-      border-bottom: 1px $borderColor solid;
-    }
-  }
 }
 
-.doc {
+.documents__col {
+  width: 45%;
+  margin: 1em;
+  padding: 1em;
+}
+
+.documents__col__title {
+  margin-bottom: 1em;
+  text-align: center;
+  border-bottom: 1px $borderColor solid;
+}
+
+.document {
   display: flex;
   width: fit-content;
   margin-bottom: 1em;
   justify-content: center;
 
-  .doc_icon {
-    display: block;
-    width: 40px;
-    height: 40px;
-    margin: 0 1em 0 auto;
-    background: url(../../imgs/icons/document.svg);
-  }
-
-  .doc_text {
-    width: 80%;
-
-    .doc_text-title {
-      margin-bottom: 0.5em;
-      font-weight: 600;
-      transition: text-decoration 0.3s linear;
-    }
-  }
-
   &:hover {
-    .doc_icon {
-      background: url(../../imgs/icons/document-active.svg);
+    .document__icon {
+      background-position: -448px 0;
     }
 
-    .doc_text-title {
+    .document__info__title {
       text-decoration: underline;
     }
   }
 }
 
+.document__icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 0 1em 0 auto;
+  background: url(../../imgs/svg-sprite.svg) -398px 0;
+}
+
+.document__info {
+  width: 80%;
+}
+
+.document__info__title {
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  transition: text-decoration 0.3s linear;
+}
+
 @media screen and (max-width: $tablet) {
-  .documents-container {
+  .documents {
     display: block;
     flex-wrap: nowrap;
+  }
 
-    .documents-container__block {
-      width: 100%;
-      margin: 1em 0;
-      padding: 0;
+  .documents__col {
+    width: 100%;
+    margin: 1em 0;
+    padding: 0;
 
-      &:last-child {
-        margin-top: 3em;
-      }
+    &:last-child {
+      margin-top: 3em;
     }
   }
 
-  .doc {
+  .document {
     margin: 1em auto;
-    .doc_text {
-      width: 80%;
-    }
   }
 }

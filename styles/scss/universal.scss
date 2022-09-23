@@ -1,75 +1,68 @@
 @import "vars.scss";
 @import "mixins.scss";
 
-.section {
-  .section-text {
-    padding: 2em 1em;
+.article {
+  padding: 2em 1em;
 
-    .section-text__main-img {
-      width: 40%;
-      margin: 0 0 0.5em 0.5em;
-      float: right;
-      text-align: center;
+  .article__image-container {
+    width: 40%;
+    margin: 0 0 0.5em 0.5em;
+    float: right;
+    text-align: center;
+  }
 
-      img {
-        max-width: 100%;
-      }
+  .article__image {
+    max-width: 100%;
+  }
 
-      p {
-        margin: 0.5em 0;
-        font-weight: 600;
-      }
+  .article__image-description {
+    margin: 0.5em 0;
+    font-weight: 600;
+  }
+}
+
+.other-articles {
+  @include centerBlock(70%);
+  margin-top: 2em;
+}
+
+.other-articles__container {
+  @include flexWithWrapAndJustifyingContent;
+  margin-top: 1em;
+  padding: 0 1em;
+}
+
+.other-article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    color: $hoverColor;
+
+    .other-article__icon {
+      background-position: -296px 0;
     }
   }
 }
 
-.other-sections {
-  @include centerBlock(70%);
-  margin-top: 2em;
+.other-article__icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5em;
+  background: url(../../imgs/svg-sprite.svg) -256px 0;
+}
 
-  .other-sections__container {
-    @include flexWithWrapAndJustifyingContent;
-    margin-top: 1em;
-    padding: 0 1em;
-
-    .other-section {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      .other-section__icon {
-        width: 30px;
-        height: 30px;
-        margin-right: 0.5em;
-        background: url(../../imgs/icons/section.svg);
-      }
-
-      .other-section__title {
-        @include fontStyling(1.2em, 500);
-      }
-
-      &:hover {
-        color: $hoverColor;
-
-        .other-section__icon {
-          background-image: url(../../imgs/icons/section-active.svg);
-        }
-      }
-    }
-  }
+.other-article__title {
+  @include fontStyling(1.2em, 500);
 }
 
 @media screen and (max-width: $tablet) {
-  .section {
-    padding: 2em 0.5em;
-    .section-text {
-      .section-text__main-img {
-        width: 65%;
-      }
-    }
+  .article__image-container {
+    width: 65%;
   }
 
-  .other-sections {
+  .other-articles {
     width: 90%;
   }
 }

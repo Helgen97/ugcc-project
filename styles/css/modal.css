@@ -10,7 +10,7 @@
   pointer-events: none;
 }
 
-.modal-dialog {
+.modal__dialog {
   position: relative;
   width: 800px;
   top: 5%;
@@ -23,23 +23,23 @@
   z-index: 5;
 }
 
-.modal.show {
+.modal.isActive {
   pointer-events: auto;
   opacity: 1;
   overflow-y: auto;
 }
 
-.modal-dialog_title {
+.modal__dialog-title {
   position: relative;
   text-align: center;
   font-size: 1.1em;
   font-weight: 700;
 }
 
-.modal-dialog_title .close-btn {
+.modal__dialog-title .js-close-btn {
   width: 24px;
   height: 24px;
-  background: url(../../imgs/icons/close-btn.svg);
+  background: url(../../imgs/svg-sprite.svg) -120px 0;
   border: 0;
   border-radius: 0;
   cursor: pointer;
@@ -48,18 +48,18 @@
   right: 5px;
 }
 
-.modal-dialog_title .close-btn:hover {
-  background-image: url(../../imgs/icons/close-btn_active.svg);
+.modal__dialog-title .js-close-btn:hover {
+  background-position: -154px 0;
 }
 
-.modal-dialog_content {
+.modal__dialog-content {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 1em;
 }
 
-.modal-dialog_content .modal-dialog_content-block {
+.modal__dialog-content__block {
   max-width: fit-content;
   margin-bottom: 1em;
   padding: 1em;
@@ -70,49 +70,51 @@
   border-radius: 30px;
 }
 
-.modal-dialog_content .modal-dialog_content-block .modal-dialog_content-block_title {
+.modal__dialog-content__block-title {
   font-size: 1em;
   font-weight: 700;
 }
 
-.modal-dialog_content .modal-dialog_content-block .modal-dialog_content-block_image {
+.modal__dialog-content__block-image {
   max-width: 130px;
   margin: 0.5em 0;
   border-radius: 30px;
 }
 
-.modal-dialog_content .modal-dialog_content-block .youtube {
+.youtube {
   width: 80%;
   margin: 0 auto;
   background-color: #cd201f;
 }
 
-.modal-dialog_content .modal-dialog_content-block .youtube:hover {
+.youtube:hover {
   box-shadow: 0px 1px 3px #cb1e1d;
 }
 
-.modal-dialog_content .modal-dialog_content-block .youtube::before {
-  content: url(../../imgs/icons/youtube-small.svg);
+.youtube::before {
+  content: "";
+  display: inline-block;
   position: relative;
   width: 21px;
   height: 21px;
   right: 5px;
   top: 5px;
+  background: url(../../imgs/svg-sprite.svg) -794px 0;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1240px) {
-  .modal-dialog {
+  .modal__dialog {
     width: 550px;
     margin-left: -275px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .modal-dialog {
+  .modal__dialog {
     width: 300px;
     margin-left: -160px;
   }
-  .modal-dialog .modal-dialog_content {
+  .modal__dialog .modal__dialog-content {
     justify-content: center;
   }
 }

@@ -13,7 +13,7 @@
   pointer-events: none;
 }
 
-.modal-dialog {
+.modal__dialog {
   position: relative;
   width: 800px;
   top: 5%;
@@ -28,75 +28,75 @@
   z-index: 5;
 }
 
-.modal.show {
+.modal.isActive {
   pointer-events: auto;
   opacity: 1;
   overflow-y: auto;
 }
 
-.modal-dialog_title {
+.modal__dialog-title {
   position: relative;
   text-align: center;
   @include fontStyling(1.1em, 700);
 
-  .close-btn {
-    @include customButtonV2(24px, 24px, url(../../imgs/icons/close-btn.svg), url(../../imgs/icons/close-btn_active.svg));
+  .js-close-btn {
+    @include customButton(24px, 24px, -120px 0, -154px 0);
     position: absolute;
     top: -3px;
     right: 5px;
   }
 }
 
-.modal-dialog_content {
+.modal__dialog-content {
   @include flexWithWrapAndJustifyingContent;
   padding: 1em;
+}
 
-  .modal-dialog_content-block {
-    max-width: fit-content;
-    margin-bottom: 1em;
-    padding: 1em;
-    text-align: center;
-    font-size: 0.9em;
-    @include backgroundWithShadowAndRadius(
-      $backgroundBlockColor,
-      0px 5px 4px $blockShadowColor,
-      30px
-    );
+.modal__dialog-content__block {
+  max-width: fit-content;
+  margin-bottom: 1em;
+  padding: 1em;
+  text-align: center;
+  font-size: 0.9em;
+  @include backgroundWithShadowAndRadius(
+    $backgroundBlockColor,
+    0px 5px 4px $blockShadowColor,
+    30px
+  );
+}
 
-    .modal-dialog_content-block_title {
-      @include fontStyling(1em, 700);
-    }
+.modal__dialog-content__block-title {
+  @include fontStyling(1em, 700);
+}
 
-    .modal-dialog_content-block_image {
-      max-width: 130px;
-      margin: 0.5em 0;
-      border-radius: 30px;
-    }
+.modal__dialog-content__block-image {
+  max-width: 130px;
+  margin: 0.5em 0;
+  border-radius: 30px;
+}
 
-    .youtube {
-      @include centerBlock(80%);
-      @include socialButtonStyle(
-        $youTubeButtonBackgroundColor,
-        $youTubeButtonShadowColor,
-        url(../../imgs/icons/youtube-small.svg)
-      );
-    }
-  }
+.youtube {
+  @include centerBlock(80%);
+  @include socialButtonStyle(
+    $youTubeButtonBackgroundColor,
+    $youTubeButtonShadowColor,
+    url(../../imgs/svg-sprite.svg) -794px 0
+  );
 }
 
 @media screen and (min-width: $mobile) and (max-width: $tablet) {
-  .modal-dialog {
+  .modal__dialog {
     width: 550px;
     margin-left: -275px;
   }
 }
 
 @media screen and (max-width: $mobile) {
-  .modal-dialog {
+  .modal__dialog {
     width: 300px;
     margin-left: -160px;
 
-    .modal-dialog_content {
+    .modal__dialog-content {
       justify-content: center;
     }
   }

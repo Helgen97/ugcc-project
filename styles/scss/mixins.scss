@@ -28,6 +28,12 @@
   font-weight: $fontWeight;
 }
 
+@mixin fontStylingWithTextColor($fontSize, $fontWeight, $textColor) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $textColor;
+}
+
 @mixin centerBlock($width) {
   width: $width;
   margin: 0 auto;
@@ -41,26 +47,13 @@
 @mixin customButton($width, $height, $bgPosition, $bgHoverPosition) {
   width: $width;
   height: $height;
-  background: url(../../imgs/icons.png) $bgPosition;
+  background: url(../../imgs/svg-sprite.svg) $bgPosition;
   border: 0;
   border-radius: 0;
   cursor: pointer;
 
   &:hover {
     background-position: $bgHoverPosition;
-  }
-}
-
-@mixin customButtonV2($width, $height, $bgUrl, $bgHoverUrl) {
-  width: $width;
-  height: $height;
-  background: $bgUrl;
-  border: 0;
-  border-radius: 0;
-  cursor: pointer;
-
-  &:hover {
-    background-image: $bgHoverUrl;
   }
 }
 
@@ -78,12 +71,14 @@
   }
 
   &::before {
-    content: $socialIconUrl;
+    content: "";
+    display: inline-block;
     position: relative;
     width: 21px;
     height: 21px;
     right: 5px;
     top: 5px;
+    background: $socialIconUrl;
   }
 }
 

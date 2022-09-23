@@ -3,6 +3,8 @@
 @import "header.scss";
 @import "navigation.scss";
 @import "modal.scss";
+@import "sidebar.scss";
+@import "section.scss";
 @import "main.scss";
 @import "news-list.scss";
 @import "news-page.scss";
@@ -29,20 +31,6 @@ body {
 
   @media screen and (min-width: 1600px) {
     font-size: 25px;
-  }
-
-  &:after {
-    display: block;
-    overflow: hidden;
-    width: 0;
-    height: 0;
-    content: url(../../imgs/icons/arrow-active.svg),
-      url(../../imgs/icons/burger-active.svg),
-      url(../../imgs/icons/search-btn_small_active.svg),
-      url(../../imgs/icons/close-btn_active.svg),
-      url(../../imgs/icons/document-active.svg),
-      url(../../imgs/icons/download-active.svg),
-      url(../../imgs/icons/section-active.svg);
   }
 }
 
@@ -92,20 +80,20 @@ main {
   margin: 2em;
   justify-content: space-between;
 
-  .left-block {
+  .content {
     width: 73%;
   }
 
-  .right-block {
+  .sidebar {
     width: 25%;
   }
 
   @media screen and (min-width: $mobile) and (max-width: $tablet) {
-    .left-block {
+    .content {
       width: 55%;
     }
 
-    .right-block {
+    .sidebar {
       margin: 0 auto;
       width: 40%;
     }
@@ -114,11 +102,11 @@ main {
   @media screen and (max-width: $mobile) {
     flex-direction: column;
 
-    .left-block {
+    .content{
       width: 100%;
     }
 
-    .right-block {
+    .sidebar {
       margin: 0 auto;
       margin-top: 2em;
       width: 80%;
@@ -159,7 +147,7 @@ main {
 .social-btn {
   display: block;
   position: relative;
-  padding: 0.3em 0 0.7em;
+  padding: 0.1em 0 0.6em;
   text-align: center;
   font-weight: 700;
   border-radius: 20px;
