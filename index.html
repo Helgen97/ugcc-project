@@ -461,13 +461,30 @@
           <p>Пошук</p>
         </div>
         <div class="sidebar__search-block__input-container">
-          <input id="desktop_search_input" class="sidebar__search-block__input-container__input" type="text" placeholder="Пошук новин">
+          <input id="desktop_search_input" class="sidebar__search-block__input-container__input" type="text"
+            placeholder="Пошук новин">
           <button id="desktop_search_button" class="sidebar__search-block__input-container__button"></button>
         </div>
       </div>
-      <div class="sidebar__calendar-block">
-        <iframe width='260' height='260' frameborder='no' scrolling='no' sandbox="allow-scripts"
-          src='https://prayer-service.online/u-widget.html'></iframe>
+      <div class="sidebar__calendar-block" style="width:100%;">
+        <div id='widget'>
+          <div id='ctitlew'>
+            <img id='logow' src='https://prayer-service.online/img/ic_action_dscal.png'>
+            <a id='titlew' href='https://prayer-service.online' target='_blank'>Календар УГКЦ <small>(юліянський)</small></a>
+          </div>	
+          <div id='left'>
+            <div id='lday'></div>
+            <div id='lolddate'></div>
+            <div id='ldate' class='ldate'></div>
+            <div id='lmonth' class='lmonth'></div>
+            <div id='lyear' class='lyear'></div>
+            <div id='licopist' class='licow'></div>
+          </div>
+          <div id='right'>
+            <div id='today' class='today'></div>
+          </div>
+          <div class='calendar__footer'><a id='titlew' href='https://prayer-service.online' target='_blank'>prayer-service.online</a></div>
+        </div>
       </div>
       <div class="sidebar__live-block">
         <div class="sidebar-block-title">
@@ -568,7 +585,8 @@
       </ul>
     </div>
     <div class="footer__contacts">
-      <a href="http://maps.google.com/?q=м. Запоріжжя, вул. Вербова,11, 69095" class="footer__contacts__link">м. Запоріжжя, вул. Вербова,11,
+      <a href="http://maps.google.com/?q=м. Запоріжжя, вул. Вербова,11, 69095" class="footer__contacts__link">м.
+        Запоріжжя, вул. Вербова,11,
         69095</a>
       <a href="mailto:press.don.ugcc@gmail.com" class="footer__contacts__link">press.don.ugcc@gmail.com</a>
     </div>
