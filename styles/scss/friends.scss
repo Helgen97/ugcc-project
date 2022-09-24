@@ -35,7 +35,7 @@
 }
 
 .slider__item {
-  flex: 0 0 20%;
+  flex: 1 0 20%;
   max-width: 20%;
   align-self: baseline;
   justify-self: center;
@@ -43,7 +43,7 @@
 
 @media screen and (min-width: $mobile) and (max-width: $tablet) {
   .friends {
-    width: 75%;
+    width: 77%;
   }
 
   .slider__wrapper {
@@ -51,18 +51,18 @@
   }
 
   .slider__item {
-    flex: 0 0 33.3333333333%;
+    flex: 1 0 33.3333333333%;
     max-width: 33.3333333333%;
   }
 }
 
 @media screen and (max-width: $mobile) {
   .friends {
-    width: 80%;
+    width: 92%;
   }
 
   .slider__item {
-    flex: 0 0 50%;
+    flex: 1 0 50%;
     max-width: 50%;
   }
 }

@@ -89,15 +89,20 @@
     width: 550px;
     margin-left: -275px;
   }
+
+  .modal__dialog-content {
+    justify-content: center;
+  }
+  
 }
 
 @media screen and (max-width: $mobile) {
   .modal__dialog {
     width: 300px;
     margin-left: -160px;
+  }
 
-    .modal__dialog-content {
-      justify-content: center;
-    }
+  .modal__dialog-content {
+    justify-content: center;
   }
 }

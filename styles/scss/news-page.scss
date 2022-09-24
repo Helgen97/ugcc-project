@@ -28,7 +28,7 @@
 
 @media screen and (max-width: $tablet) {
   .other-news {
-    @include centerBlock(70%);
+    @include centerBlock(90%);
 
     .section {
       margin: 1em 0 2em;

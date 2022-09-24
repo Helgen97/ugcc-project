@@ -3,22 +3,22 @@
 
 .article {
   padding: 2em 1em;
+}
 
-  .article__image-container {
-    width: 40%;
-    margin: 0 0 0.5em 0.5em;
-    float: right;
-    text-align: center;
-  }
+.article__image-container {
+  width: 40%;
+  margin: 0 0 0.5em 0.5em;
+  float: right;
+  text-align: center;
+}
 
-  .article__image {
-    max-width: 100%;
-  }
+.article__image {
+  max-width: 100%;
+}
 
-  .article__image-description {
-    margin: 0.5em 0;
-    font-weight: 600;
-  }
+.article__image-description {
+  margin: 0.5em 0;
+  font-weight: 600;
 }
 
 .other-articles {
@@ -59,7 +59,9 @@
 
 @media screen and (max-width: $tablet) {
   .article__image-container {
-    width: 65%;
+    width: 100%;
+    margin-bottom: 1em;
+    float: none;
   }
 
   .other-articles {
