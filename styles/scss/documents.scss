@@ -23,9 +23,8 @@
 
 .document {
   display: flex;
-  width: fit-content;
   margin-bottom: 1em;
-  justify-content: center;
+  flex: 1 0 50%;
 
   &:hover {
     .document__icon {
@@ -57,6 +56,11 @@
 }
 
 @media screen and (max-width: $tablet) {
+
+  .main-document__image-container {
+    text-align: center;
+  }
+  
   .documents {
     display: block;
     flex-wrap: nowrap;
@@ -74,5 +78,7 @@
 
   .document {
     margin: 1em auto;
+    flex: 1 0 100%
   }
+
 }

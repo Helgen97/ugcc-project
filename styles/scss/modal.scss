@@ -15,11 +15,11 @@
 
 .modal__dialog {
   position: relative;
-  width: 800px;
+  width: 55em;
   top: 5%;
   padding: 1em;
   left: 50%;
-  margin-left: -400px;
+  margin-left: -27.5em;
   @include backgroundWithShadowAndRadius(
     $backgroundColorMain,
     0px 5px 4px $blockShadowColor,
@@ -86,20 +86,20 @@
 
 @media screen and (min-width: $mobile) and (max-width: $tablet) {
   .modal__dialog {
-    width: 550px;
-    margin-left: -275px;
+    width: 40em;
+    margin-left: -20em;
   }
 
   .modal__dialog-content {
-    justify-content: center;
+    justify-content: space-between;
   }
   
 }
 
 @media screen and (max-width: $mobile) {
   .modal__dialog {
-    width: 300px;
-    margin-left: -160px;
+    width: 20em;
+    margin-left: -10em;
   }
 
   .modal__dialog-content {

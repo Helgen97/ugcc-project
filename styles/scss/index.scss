@@ -25,13 +25,14 @@ body {
   font-size: $fontSize;
   font-family: $fontFamily;
 
-  @media screen and (min-width: 1440px) {
-    font-size: 20px;
-  }
-
   @media screen and (min-width: 1600px) {
-    font-size: 24px;
-  }
+    font-size: 22px;
+
+    .dropdown__title::after {
+      top: 0;
+    }
+  } 
+
 }
 
 h1,
@@ -77,7 +78,7 @@ input[type="text"] {
 
 main {
   display: flex;
-  margin: 2em 4em;
+  margin: 2em 3em;
   justify-content: space-between;
 
   .content {
@@ -89,6 +90,8 @@ main {
   }
 
   @media screen and (min-width: $mobile) and (max-width: $tablet) {
+    margin: 2em;
+
     .content {
       width: 55%;
     }
@@ -100,6 +103,7 @@ main {
   }
 
   @media screen and (max-width: $mobile) {
+    margin: 2em 0.5em;
     flex-direction: column;
 
     .content{
@@ -109,7 +113,7 @@ main {
     .sidebar {
       margin: 0 auto;
       margin-top: 2em;
-      width: 80%;
+      width: 90%;
     }
   }
 }
@@ -121,7 +125,7 @@ main {
   font-weight: 700;
 
   a {
-    padding: 0.75em 2em;
+    padding: 0.75em 1.5em;
     background-color: $hoverColor;
     border-radius: 20px;
     transition: box-shadow 0.2s linear;
@@ -133,7 +137,7 @@ main {
 }
 
 .block {
-  padding: 1.5em;
+  padding: 1em;
   @include blockBackground;
 }
 
@@ -147,7 +151,7 @@ main {
 .social-btn {
   display: block;
   position: relative;
-  padding: 0.1em 0 0.6em;
+  padding: 0.5em 0;
   text-align: center;
   font-weight: 700;
   border-radius: 20px;

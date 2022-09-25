@@ -9,19 +9,23 @@
 
 .main-section__content {
   @include flexWithWrapAndJustifyingContent;
-  padding: 0.5em;
+  align-items: baseline;
 
   .section:first-child {
     display: flex;
     flex: 0 0 100%;
 
     .section__image {
-      max-width: 450px;
+      max-width: 100%;
       height: auto;
     }
 
+    .section__image-container {
+      flex: 1 0 45%
+    }
+
     .section__info {
-      padding: 1em;
+      padding-left: 1em;
     }
 
     .section__info__date {
@@ -38,8 +42,8 @@
   }
 
   .section {
-    width: min-content;
-    margin-top: 1em;
+    flex: 1 0 25%;
+    padding: 0 1em;
   }
 
   .section__image-container {
@@ -47,8 +51,8 @@
   }
 
   .section__image {
-    max-width: 200px;
-    height: 120px;
+    max-width: 100%;
+    height: auto;
   }
 
   .section__info {
@@ -77,7 +81,8 @@
   }
 
   .section {
-    margin-top: 1em;
+    @include centerBlock(85%);
+    margin-top: 1.5em;
   }
 }
 
@@ -135,6 +140,7 @@
     .section:first-child {
       display: block;
       @include centerBlock(90%);
+      margin: 1.5em auto;
 
       .section__image {
         max-width: 100%;
@@ -146,7 +152,7 @@
       }
 
       .section__info__date {
-        margin-top: 0.5em;
+        margin-bottom: .5em;
       }
 
       .section__info__description {
@@ -165,9 +171,11 @@
     margin-top: 1em;
 
     & > .block {
-      margin-top: 1em;
+      margin: 1em 0;
       flex: none;
       max-width: 100%;
     }
+
+    
   }
 }

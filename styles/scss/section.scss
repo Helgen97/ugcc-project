@@ -3,16 +3,14 @@
 
 .section {
     display: block;
+    margin-top: 1.5em;
+    padding: 0 1em;
   
     &:hover {
       .section__info__title {
         text-decoration: underline;
       }
     }
-  }
-  
-  .section__image-container {
-    @include centerBlock(90%);
   }
   
   .section__image {
@@ -29,4 +27,8 @@
   
   .section__info__title {
     font-weight: 600;
+  }
+  
+  .section__info__description {
+    max-height: 180px;
   }

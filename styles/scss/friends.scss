@@ -58,7 +58,8 @@
 
 @media screen and (max-width: $mobile) {
   .friends {
-    width: 92%;
+    @include centerBlock(90%);
+    margin-top: 1em;
   }
 
   .slider__item {
