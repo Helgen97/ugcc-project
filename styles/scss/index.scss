@@ -31,6 +31,10 @@ body {
     .dropdown__title::after {
       top: 0;
     }
+
+    .sidebar__search-block__input-container__button {
+      vertical-align: baseline !important;
+    }
   } 
 
 }
@@ -93,12 +97,12 @@ main {
     margin: 2em;
 
     .content {
-      width: 55%;
+      width: 60%;
     }
 
     .sidebar {
       margin: 0 auto;
-      width: 40%;
+      width: 35%;
     }
   }
 

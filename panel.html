@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель керування сайтом</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./imgs/favicons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./imgs/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./imgs/favicons/favicon-16x16.png" />
+    <link rel="manifest" href="./imgs/favicons/site.webmanifest" />
+    <link rel="mask-icon" href="./imgs/favicons/safari-pinned-tab.svg" color="#00b9ee" />
+    <link rel="shortcut icon" href="./imgs/favicons/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#2d89ef" />
+    <meta name="msapplication-config" content="./imgs/favicons/browserconfig.xml" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="stylesheet" href="./styles/bootstrap/bootstrap.min.css">
+    <link href="./styles/summernote/summernote-bs4.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="w-50 my-2 mx-auto p-1 text-center border border-light shadow rounded">
+        <h3>Панель керування</h1>
+    </div>
+    <div class="d-flex m-5">
+        <div class="w-25 mr-3 p-3 border border-light shadow rounded">
+            <div class="dropdown mb-3 text-center">
+                <button class="btn btn-primary dropdown-toggle w-100" type="button" data-toggle="dropdown"
+                    aria-expanded="false">
+                    Новини
+                </button>
+                <div class="dropdown-menu w-100">
+                    <a class="dropdown-item" href="#" id="create_news">Створити новину</a>
+                    <a class="dropdown-item" href="#" id="news_list">Список новин</a>
+                </div>
+            </div>
+            <div class="dropdown mb-3 text-center">
+                <button class="btn btn-primary dropdown-toggle w-100" type="button" data-toggle="dropdown"
+                    aria-expanded="false">
+                    Документи
+                </button>
+                <div class="dropdown-menu w-100 text-left">
+                    <a class="dropdown-item" href="#">Додати документ</a>
+                    <a class="dropdown-item" href="#">Cписок документів</a>
+                </div>
+            </div>
+            <div class="dropdown mb-3 text-center">
+                <button class="btn btn-primary dropdown-toggle w-100" type="button" data-toggle="dropdown"
+                    aria-expanded="false">
+                    Сторінки
+                </button>
+                <div class="dropdown-menu w-100">
+                    <a class="dropdown-item" href="#">Єпископи</a>
+                    <a class="dropdown-item" href="#">Редагувати документ</a>
+                    <a class="dropdown-item" href="#">Видалити документ</a>
+                </div>
+            </div>
+            <div class="mb-3 text-center">
+                <button type="button" class="w-100 btn btn-primary">Контакти</button>
+            </div>
+            <div class="mb-3 text-center">
+                <button type="button" class="w-100 btn btn-primary" id="change-credentials-btn">Змінити логін та пароль</button>
+            </div>
+        </div>
+        <div id="blocks" class="w-75 p-3 border border-light shadow rounded">
+            <div id="create-news" class="p-2" style="display: none;">
+                <div class="w-50 mb-2 mx-auto text-center border-bottom border-dark">
+                    <h4>Нова новина</h4>
+                </div>
+                <div>
+                    <div class="input-group w-75 mx-auto mb-3">
+                        <div class="w-100 p-1 text-center">
+                            <h5>Розділ:</h5>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                          <option selected>Розділ...</option>
+                          <option value="1">Новини церкви</option>
+                          <option value="2">Новини Екзархату</option>
+                          <option value="3">Публікації</option>
+                        </select>
+                      </div>
+                    <div class="input-group w-75 mx-auto mb-3">
+                        <div class="w-100 p-1 text-center">
+                            <h5>Зображення новини:</h5>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="main_image"
+                                aria-describedby="inputGroupFileAddon04">
+                            <label class="custom-file-label" for="main_image">Виберіть файл</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" id="main_image_upload">Завантажити</button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="w-100 p-1 text-center">
+                            <h5>Назва новини</h5>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Назва новини">
+                    </div>
+                    <div class="mb-3">
+                        <div class="w-100 p-1 text-center">
+                            <h5>Короткий опис новини</h5>
+                        </div>
+                        <textarea class="form-control" rows="4" placeholder="Короткий опис"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <div class="w-100 p-1 text-center">
+                            <h5>Текст новини</h5>
+                        </div>
+                        <textarea id="create-news-area" name="editordata"></textarea>
+                    </div>
+                    <div class="mb-3 text-center">
+                        <button type="button" class="w-50 btn btn-primary">Створити</button>
+                    </div>
+                </div>
+            </div>
+            <div id="edit-delete-news" class="p-2" style="display: none;">
+                <div class="w-50 mb-2 mx-auto text-center border-bottom border-dark">
+                    <h4>Список новини</h4>
+                </div>
+                <div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">«Карітас Кам’янське»: допомога потребуючим як спосіб пережити лихо війни</h5>
+                            <div class="d-flex justify-content-between text-center">
+                                <button href="#" class="w-75 mr-2 btn btn-primary">Редагувати</button>
+                                <button href="#" class="w-25 ml-2 btn btn-danger">Видалити</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">«Карітас Кам’янське»: допомога потребуючим як спосіб пережити лихо війни</h5>
+                            <div class="d-flex justify-content-between text-center">
+                                <button href="#" class="w-75 mr-2 btn btn-primary">Редагувати</button>
+                                <button href="#" class="w-25 ml-2 btn btn-danger">Видалити</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">«Карітас Кам’янське»: допомога потребуючим як спосіб пережити лихо війни</h5>
+                            <div class="d-flex justify-content-between text-center">
+                                <button href="#" class="w-75 mr-2 btn btn-primary">Редагувати</button>
+                                <button href="#" class="w-25 ml-2 btn btn-danger">Видалити</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">«Карітас Кам’янське»: допомога потребуючим як спосіб пережити лихо війни</h5>
+                            <div class="d-flex justify-content-between text-center">
+                                <button href="#" class="w-75 mr-2 btn btn-primary">Редагувати</button>
+                                <button href="#" class="w-25 ml-2 btn btn-danger">Видалити</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="edit-news-menu" class="p-2">
+                <div class="w-50 mb-2 mx-auto text-center border-bottom border-dark">
+                    <h4>Редагування новини</h4>
+                </div>
+                <div>
+                    <div class="input-group w-75 mx-auto mb-3">
+                        <div class="w-100 p-1 text-center">
+                            <h5>Розділ:</h5>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                          <option selected>Розділ...</option>
+                          <option value="1">Новини церкви</option>
+                          <option value="2">Новини Екзархату</option>
+                          <option value="3">Публікації</option>
+                        </select>
+                      </div>
+                    <div class="input-group w-75 mx-auto mb-3">
+                        <div class="w-100 p-1 text-center">
+                            <h5>Нове зображення новини:</h5>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="main_image"
+                                aria-describedby="inputGroupFileAddon04">
+                            <label class="custom-file-label" for="main_image">Виберіть файл</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" id="main_image_upload">Завантажити</button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="w-100 p-1 text-center">
+                            <h5>Назва новини</h5>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Назва новини">
+                    </div>
+                    <div class="mb-3">
+                        <div class="w-100 p-1 text-center">
+                            <h5>Короткий опис новини</h5>
+                        </div>
+                        <textarea class="form-control" rows="4" placeholder="Короткий опис"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <div class="w-100 p-1 text-center">
+                            <h5>Текст новини</h5>
+                        </div>
+                        <textarea id="edit-news-area" name="editordata"></textarea>
+                    </div>
+                    <div class="mb-3 text-center">
+                        <button type="button" class="w-50 btn btn-primary">Змінити</button>
+                    </div>
+                </div>
+            </div>
+            <div id="change-credentials" class="p-2" style="display: none;">
+                <div class="w-50 mb-2 mx-auto text-center border-bottom border-dark">
+                    <h4>Зміна данних для входу</h4>
+                </div>
+                <div class="w-50 mx-auto">
+                    <div class="mb-3">
+                        <label for="login" class="form-label">Логін:</label>
+                        <input type="text" class="form-control" id="login" placeholder="Введіть новий логін">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Пароль:</label>
+                        <input type="password" class="form-control" id="password" placeholder="Введіть новий пароль">
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary w-25 mx-auto">Змінити</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./scripts/jquery-3.6.1.min.js"></script>
+    <script src="./scripts/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="./scripts/summernote/summernote-bs4.min.js"></script>
+    <script src="./scripts/summernote/summernote-uk-UA.min.js"></script>
+    <script src="./scripts/panel.js"></script>
+</body>
+
+</html>

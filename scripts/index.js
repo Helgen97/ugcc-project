@@ -65,4 +65,8 @@ $(document).on("mouseup", (event) => {
 
 $(document).ready(() => {
   $("#calendar")[0].src = "https://prayer-service.online/u-widget.html";
+
+  setInterval(() => {
+    $("#calendar")[0].src = "https://prayer-service.online/u-widget.html";
+  }, 120000)
 })

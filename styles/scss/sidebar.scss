@@ -15,12 +15,13 @@
 
   .sidebar__search-block__input-container__input {
     width: 90%;
-    height: 26px;
+    height: 1.5em;
     transition: max-width 0.5s linear, visibility 0.5s linear;
   }
 
   .sidebar__search-block__input-container__button {
     @include customButton(21px, 20px, -336px 0, -367px 0);
+    vertical-align: top
   }
 }
 
