@@ -112,6 +112,17 @@
             <a href="./documents.html">Документи</a>
           </li>
           <li class="navigation__mobile__menu__item dropdown">
+            <a href="#" class="dropdown__title">Медіа</a>
+            <ul class="dropdown__list">
+              <li class="dropdown__list__item">
+                <a href="./media.html">Фотогалерея</a>
+              </li>
+              <li class="dropdown__list__item">
+                <a href="./media.html">Відеогалерея</a>
+              </li>
+            </ul>
+          </li>
+          <li class="navigation__mobile__menu__item dropdown">
             <a href="#" class="dropdown__title">Про нас</a>
             <ul class="dropdown__list">
               <li class="dropdown__list__item">
@@ -122,6 +133,12 @@
               </li>
               <li class="dropdown__list__item">
                 <a href="./universal.html">Історія Донецького екзархату</a>
+              </li>
+              <li class="dropdown__list__item">
+                <a href="./kahetyzm.html">Катехизм УГКЦ “Христос – наша Пасха”</a>
+              </li>
+              <li class="dropdown__list__item">
+                <a href="./kahetyzm-ugcc.html">Катехизм Католицької Церкви</a>
               </li>
             </ul>
           </li>
@@ -186,11 +203,20 @@
           <a href="./documents.html">Документи</a>
         </li>
         <li class="navigation__menu__list__item dropdown">
+          <a href="./allmedia.html" class="dropdown__title">Медіа</a>
+          <ul class="dropdown__list">
+            <li class="dropdown__list__item"><a href="./universal.html">Фотогалерея</a></li>
+            <li class="dropdown__list__item"><a href="./universal.html">Відеогалерея</a></li>
+          </ul>
+        </li>
+        <li class="navigation__menu__list__item dropdown">
           <a href="./universal.html" class="dropdown__title">Про нас</a>
           <ul class="dropdown__list">
             <li class="dropdown__list__item"><a href="./universal.html">Глава і Отець УГКЦ</a></li>
             <li class="dropdown__list__item"><a href="./universal.html">Структура Церкви</a></li>
             <li class="dropdown__list__item"><a href="./universal.html">Історія Донецького Екзархату</a></li>
+            <li class="dropdown__list__item"><a href="./kahetyzm.html">Катехизм УГКЦ “Христос – наша Пасха”</a></li>
+            <li class="dropdown__list__item"><a href="./kahetyzm-ugcc.html">Катехизм Католицької Церкви</a></li>
           </ul>
         </li>
         <li class="navigation__menu__list__item">
@@ -397,12 +423,13 @@
           <p>Пошук</p>
         </div>
         <div class="sidebar__search-block__input-container">
-          <input id="desktop_search_input" class="sidebar__search-block__input-container__input" type="text" placeholder="Пошук новин">
+          <input id="desktop_search_input" class="sidebar__search-block__input-container__input" type="text"
+            placeholder="Пошук новин">
           <button id="desktop_search_button" class="sidebar__search-block__input-container__button"></button>
         </div>
       </div>
       <div class="sidebar__calendar-block">
-        <iframe id="calendar" width='260' height='260' frameborder='no' scrolling='no'
+        <iframe id="calendar" width='260' height='240' frameborder='no' scrolling='no'
           src='https://prayer-service.online/u-widget.html'></iframe>
       </div>
       <div class="sidebar__live-block">
@@ -413,11 +440,31 @@
           <p>Розклад трансляцій</p>
           <p>богослужінь та літургій</p>
           <div class="sidebar__live-block__content__image-container">
-            <div class="sidebar__live-block__content__image"></div>
+            <img src="./imgs/live.jpeg" class="sidebar__live-block__content__image" alt="">
           </div>
           <div class="main-btn">
             <a href="#" id="modal">До списку трансляцій</a>
           </div>
+        </div>
+      </div>
+      <div class="sidebar__church-block">
+        <div class="sidebar-block-title">
+          <p>Вчення церкви</p>
+        </div>
+        <div class="sidebar__church-block__image-container">
+          <img class="sidebar__church-block__image" src="./imgs/church-learn.png" alt="">
+        </div>
+        <div class="main-btn">
+          <a href="#">Переглянути</a>
+        </div>
+      </div>
+      <div class="sidebar__media-block">
+        <div class="sidebar-block-title">
+          <p>Медіа зона</p>
+        </div>
+        <div class="sidebar__media-block__buttons">
+          <a href="#" class="social-btn photo">Фотогалерея</a>
+          <a href="#" class="social-btn video">Відеогалерея</a>
         </div>
       </div>
       <div class="sidebar__socials-block">
@@ -504,7 +551,8 @@
       </ul>
     </div>
     <div class="footer__contacts">
-      <a href="http://maps.google.com/?q=м. Запоріжжя, вул. Вербова,11, 69095" class="footer__contacts__link">м. Запоріжжя, вул. Вербова,11,
+      <a href="http://maps.google.com/?q=м. Запоріжжя, вул. Вербова,11, 69095" class="footer__contacts__link">м.
+        Запоріжжя, вул. Вербова,11,
         69095</a>
       <a href="mailto:press.don.ugcc@gmail.com" class="footer__contacts__link">press.don.ugcc@gmail.com</a>
     </div>
