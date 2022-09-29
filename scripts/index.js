@@ -68,5 +68,7 @@ $(document).ready(() => {
 
   setInterval(() => {
     $("#calendar")[0].src = "https://prayer-service.online/u-widget.html";
-  }, 60000)
+  }, 45000)
 })
+
+$(".media__carousel").slick();

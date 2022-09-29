@@ -1,0 +1,45 @@
+@import "vars.scss";
+@import "mixins.scss";
+
+.media-container {
+    margin-bottom: 2em;
+}
+
+.media__list {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+
+    .section {
+        flex: 1 0 33.3333333%
+    }
+}
+
+.media-container {
+    .pagination {
+        margin-top: 2em;
+    }
+}
+
+.main-media {
+    margin-bottom: 2em;
+}
+
+.media__date {
+    width: 100%;
+    margin: 1em 0;
+}
+
+@media screen and (max-width: $tablet) {
+    .media__list {
+        flex-direction: column;
+
+        .section {
+            flex: 1 0 100%;
+        }
+    }
+}
+
+
+
+// Bootstrap 4.6 Carousel
