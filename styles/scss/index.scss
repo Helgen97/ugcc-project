@@ -12,6 +12,7 @@
 @import "documents.scss";
 @import "document.scss";
 @import "universal.scss";
+@import "e-books.scss";
 @import "friends.scss";
 @import "footer.scss";
 
@@ -153,8 +154,8 @@ main {
 }
 
 .social-btn {
-  display: block;
-  position: relative;
+  display: flex;
+  @include alignAndJustifyToCenter;
   padding: 0.5em 0;
   text-align: center;
   font-weight: 700;

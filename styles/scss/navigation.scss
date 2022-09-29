@@ -128,6 +128,10 @@
       border-right: 1px $backgroundColorMain solid;
       transition: border 0.3s linear;
 
+      &.dropdown__title {
+        padding-right: 1px;
+      }
+
       &:hover {
         color: $hoverColor;
         border-left-color: $hoverColor;
@@ -190,7 +194,7 @@
     display: block;
     width: 25px;
     height: 26px;
-    background: url(../../imgs/svg-sprite.svg) 56px 0;
+    background: url(../../imgs/svg-sprite.svg) 118px 0;
   }
 }
 
@@ -202,7 +206,7 @@
     display: block;
     width: 25px;
     height: 26px;
-    background: url(../../imgs/svg-sprite.svg) 122px 0;
+    background: url(../../imgs/svg-sprite.svg) 184px 0;
   }
 }
 
@@ -214,7 +218,6 @@
     width: 14px;
     height: 14px;
     background: url(../../imgs/svg-sprite.svg) -70px 0;
-    left: 5px;
     top: 2px;
   }
 

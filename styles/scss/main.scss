@@ -21,7 +21,7 @@
     }
 
     .section__image-container {
-      flex: 1 0 45%
+      flex: 1 0 45%;
     }
 
     .section__info {
@@ -70,27 +70,24 @@
 }
 
 .sections {
-  display: flex;
   margin-top: 2em;
-  justify-content: space-between;
+}
 
-  & > .block {
-    flex: 0 0 48%;
-    max-width: 48%;
-    padding: 1em;
-  }
+.sections__list {
+  display: flex;
+  margin-bottom: 2em;
+}
 
-  .section {
-    @include centerBlock(85%);
-    margin-top: 1.5em;
-  }
+.section {
+  @include centerBlock(85%);
+  margin-top: 1.5em;
 }
 
 @media screen and (min-width: $mobile) and (max-width: $tablet) {
   .main-section__content {
     display: block;
     @include centerBlock(90%);
-      margin: 1.5em auto;
+    margin: 1.5em auto;
 
     .section,
     .section:first-child {
@@ -116,21 +113,13 @@
     }
   }
 
-  .sections {
-    display: block;
-    margin-top: 1em;
-
-    & > .block {
-      width: 100%;
-      margin-top: 1em;
-      flex: none;
-      max-width: 100%;
-    }
-  }
-
   .section {
     display: block;
     padding: 0;
+  }
+
+  .sections__list {
+    display: block;
   }
 }
 
@@ -154,7 +143,7 @@
       }
 
       .section__info__date {
-        margin-bottom: .5em;
+        margin-bottom: 0.5em;
       }
 
       .section__info__description {
@@ -168,16 +157,7 @@
     }
   }
 
-  .sections {
+  .sections__list {
     display: block;
-    margin-top: 1em;
-
-    & > .block {
-      margin: 1em 0;
-      flex: none;
-      max-width: 100%;
-    }
-
-    
   }
 }
