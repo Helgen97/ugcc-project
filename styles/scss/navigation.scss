@@ -24,14 +24,14 @@
   .navigation__mobile__menu {
     display: block;
     width: 80%;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: -100%;
     background: $backgroundColorMain;
     box-shadow: 2px 2px 5px $blockShadowColor;
     @include fontStyling(1.2em, 600);
     transition: left 0.5s linear;
-    z-index: 2;
+    z-index: 16;
 
     .item--title {
       margin-top: 10px;
@@ -226,7 +226,7 @@
   }
 }
 
-@media screen and (max-width: $mobile) {
+@media screen and (max-width: $tablet) {
   .navigation__mobile {
     display: block;
   }
@@ -245,11 +245,5 @@
 
   .navigation__instagram {
     display: block;
-  }
-}
-
-@media screen and (min-width: $mobile) and (max-width: $tablet) {
-  .dropdown_list {
-    width: fit-content;
   }
 }

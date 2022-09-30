@@ -55,6 +55,7 @@ $(document).on("mouseup", (event) => {
   }
 
   if (currentTarget.hasClass("dropdown__title")) {
+    event.preventDefault();
     currentTarget.parent().toggleClass("isActive");
   }
 
@@ -70,5 +71,3 @@ $(document).ready(() => {
     $("#calendar")[0].src = "https://prayer-service.online/u-widget.html";
   }, 45000)
 })
-
-$(".media__carousel").slick();

@@ -96,15 +96,15 @@ main {
   }
 
   @media screen and (min-width: $mobile) and (max-width: $tablet) {
-    margin: 2em;
+    margin: 2em .5em;
 
     .content {
-      width: 60%;
+      width: 55%;
     }
 
     .sidebar {
       margin: 0 auto;
-      width: 35%;
+      width: 40%;
     }
   }
 

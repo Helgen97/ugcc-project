@@ -6,8 +6,12 @@
     display: flex;
   }
 
+  .section__info {
+    padding-left: 1em;
+  }
+
   .section__image-container {
-    width: 225%;
+    flex: 1 0 35%;
   }
 
   .section__info__description {
@@ -38,11 +42,11 @@
 @media screen and(max-width: $tablet) {
   .sections-list {
     .section {
-      display: block;
+      flex-direction: column;
       margin: 2em 0;
 
-      .section__image-container {
-        width: 90%;
+      .section__info {
+        padding: 0;
       }
     }
   }
