@@ -19,7 +19,7 @@ public abstract class Type {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
-    @Column(length = 500)
+    @Column(length = 200)
     private String title;
 
     @ManyToOne

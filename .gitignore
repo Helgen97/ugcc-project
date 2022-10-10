@@ -1,4 +1,11 @@
 
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
 .DS_Store
 styles/css/contacts.css
 styles/css/documents.css
@@ -19,3 +26,7 @@ styles/css/e-books.css
 styles/css/kahetyzm.css
 styles/css/allmedia.css
 styles/css/allmedia.css
+upload/
+.idea/
+!/out/
+/target

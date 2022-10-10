@@ -1,7 +1,9 @@
-const TITLE_MAX_LENGTH = 300;
+const TITLE_MAX_LENGTH = 200;
 const DESCRIPTION_MAX_LENGTH = 500;
-const TEXT_MAX_LENGTH = 3000;
+const TEXT_MAX_LENGTH = 5000;
 const URL_MAX_LENGTH = 300;
+const IMAGE_DESCRIPTION_LENGTH = 120;
+const CONTACT_FIELDS_MAX_LENGTH = 150;
 
 //------------
 
@@ -17,11 +19,8 @@ let newsImageUploadButton = $("#news-imageUploadBtn");
 let newsImagePreview = $("#news-imagePreview");
 let newsSectionInput = $("#news-sectionInput");
 let newsTitleInput = $("#news-titleInput");
-let newsTitleMaxLengthHelpArea = $("#news-titleMaxLength");
 let newsDescriptionInput = $("#news-descriptionInput");
-let newsDescriptionMaxLengthHelpArea = $("#news-descriptionMaxLength");
 let newsTextInput = $("#news-textInput");
-let newsTextMaxLengthHelpArea = $("#news-textMaxLength");
 let newsForm = $("#news-form");
 let newsApplyButton = $("#news-btn");
 
@@ -42,9 +41,7 @@ let documentMenu = $("#document-menu");
 let documentBlockTitle = $("#document-blockTitle");
 let documentSectionInput = $("#document-sectionInput");
 let documentTitleInput = $("#document-titleInput");
-let documentTitleMaxLengthHelpArea = $("#document-titleMaxLength");
 let documentDescriptionInput = $("#document-descriptionInput");
-let documentDescriptionMaxLengthHelpArea = $("#document-descriptionMaxLength");
 let documentImageInput = $("#document-imageInput");
 let documentImageUploadButton = $("#document-imageUploadBtn");
 let documentImagePreview = $("#document-imagePreview");
@@ -74,10 +71,20 @@ let articleImageInput = $("#article-imageInput");
 let articleImagePreview = $("#article-imagePreview");
 let articleImageUploadButton = $("#article-imageUploadBtn");
 let articleImageDescriptionInput = $("#article-imageDescriptionInput");
-let articleImageDescriptionMaxLengthArea = $("#article-imageDescriptionMaxLength");
 let articleTextInput = $("#article-text");
-let articleTextMaxLengthArea = $("#article-textMaxLength");
 let articleApplyButton = $("#article-editBtn");
+
+//------------
+
+let contactMenuOpenBlockButton = $("#contacts-openBlockBtn");
+let contactMenu = $("#contacts-menu");
+let contactsForm = $("#contactsForm");
+let contactsTownInput = $("#contacts-townInput");
+let contactsAddressInput = $("#contacts-addressInput");
+let contactsCountryInput = $("#contacts-countryInput");
+let contactsPhoneInput = $("#contacts-phoneInput");
+let contactsEmailInput = $("#contacts-emailInput");
+let contactsApplyButton = $("#contacts-applyBtn");
 
 //------------
 
@@ -110,6 +117,15 @@ let article = {
     imageURL: "",
     imageDescription: "",
     text: "",
+}
+
+let contacts = {
+    id: 0,
+    townAndIndex: '',
+    address: '',
+    country: '',
+    phone: '',
+    email: ''
 }
 
 //------------
@@ -190,6 +206,18 @@ function createCard(title, id, editFunction, deleteFunction) {
     return card;
 }
 
+function inputKeyUp(input, object, field, maxLength) {
+    let value = $(input).val();
+    object[field] = value;
+    $(input).next(".inputMaxLength").text(maxLength > value.length ? `Залишилось символів: ${maxLength - value.length}` : "Перевищено ліміт символів");
+}
+
+function summernoteInputKeyUp(input, object, field, maxLength) {
+    let value = $(input).summernote('code');
+    object[field] = value;
+    $(input).next().next(".inputMaxLength").text(maxLength > value.length ? `Залишилось символів: ${maxLength - value.length}` : "Перевищено ліміт символів")
+}
+
 function imageInputChange(imageInput, imagePreview) {
     const [file] = imageInput.files;
     if (file) {
@@ -215,8 +243,8 @@ async function uploadImage(fieldToPutData, imageInput, imagePreview) {
         data: formData,
         processData: false,
         contentType: false,
-    }).then(function (responce) {
-        fieldToPutData["imageURL"] = responce.data;
+    }).then(function (response) {
+        fieldToPutData["imageURL"] = response.data;
         createPrependAndScrollToAlert("success", "Зображення успішно завантажено.", imagePreview);
     }).catch(function (error) {
         console.error(error)
@@ -241,8 +269,8 @@ async function uploadFile() {
         data: formData,
         processData: false,
         contentType: false,
-    }).then(function (responce) {
-        doc["documentURL"] = responce.data;
+    }).then(function (response) {
+        doc["documentURL"] = response.data;
         createPrependAndScrollToAlert("success", "Файл успішно завантажено.", documentFileAlertBlock);
     }).catch(function (error) {
         console.error(error)
@@ -264,11 +292,11 @@ function resetNewsInputsAndObject() {
     };
     newsBlockTitle.text("Створити новину");
     newsSectionInput.val("0").change();
-    newsImageInput.val("");
+    newsImageInput.val("").keyup();
     newsImageInput.next(".custom-file-label").html("Виберіть зображення");
     newsImagePreview[0].src = "./imgs/uploadPhoto.png";
-    newsTitleInput.val("");
-    newsDescriptionInput.val("");
+    newsTitleInput.val("").keyup();
+    newsDescriptionInput.val("").keyup();
     newsTextInput.summernote("code", "");
     newsApplyButton.text("Створити");
     newsApplyButton.attr("data-purpose", "create");
@@ -279,12 +307,10 @@ function prepareFormToEditNews() {
     newsSectionInput.val(news.section.id).change();
     newsImageInput.next(".custom-file-label").html(news.imageURL);
     newsImagePreview[0].src = news.imageURL;
-    newsTitleInput.val(news.title);
-    newsTitleMaxLengthHelpArea.text(TITLE_MAX_LENGTH > news.title.length ? `Залишилось символів: ${TITLE_MAX_LENGTH - news.title.length}` : "Перевищено ліміт символів");
-    newsDescriptionInput.val(news.description);
-    newsDescriptionMaxLengthHelpArea.text(DESCRIPTION_MAX_LENGTH > news.description.length ? `Залишилось символів: ${DESCRIPTION_MAX_LENGTH - news.description.length}` : "Перевищено ліміт символів");
+    newsTitleInput.val(news.title).keyup();
+    newsDescriptionInput.val(news.description).keyup();
     newsTextInput.summernote('code', news.text);
-    newsTextMaxLengthHelpArea.text(TEXT_MAX_LENGTH > news.text.length ? `Залишилось символів: ${TEXT_MAX_LENGTH - news.text.length}` : "Перевищено ліміт символів");
+    newsTextInput.keyup();
     newsApplyButton.text("Редагувати")
     newsApplyButton.attr("data-purpose", "change")
 }
@@ -373,15 +399,11 @@ newsImageInput.on('change', newsImageInputChange);
 newsImageUploadButton.on('click', newsUploadImage);
 
 newsTitleInput.on('keyup', function () {
-    let title = $(this).val();
-    news.title = title;
-    newsTitleMaxLengthHelpArea.text(TEXT_MAX_LENGTH > title.length ? `Залишилось символів: ${TITLE_MAX_LENGTH - title.length}` : "Перевищено ліміт символів");
+    inputKeyUp(this, news, "title", TEXT_MAX_LENGTH);
 });
 
 newsDescriptionInput.on('keyup', function () {
-    let description = $(this).val();
-    news.description = description;
-    newsDescriptionMaxLengthHelpArea.text(DESCRIPTION_MAX_LENGTH > description.length ? `Залишилось символів: ${DESCRIPTION_MAX_LENGTH - description.length}` : "Перевищено ліміт символів");
+    inputKeyUp(this, news, "description", DESCRIPTION_MAX_LENGTH);
 });
 
 newsTextInput.summernote({
@@ -401,9 +423,7 @@ newsTextInput.summernote({
     ],
     callbacks: {
         onKeyup: function () {
-            let text = $(this).summernote('code');
-            news.text = text;
-            newsTextMaxLengthHelpArea.text(TEXT_MAX_LENGTH > text.length ? `Залишилось символів: ${TEXT_MAX_LENGTH - text.length}` : "Перевищено ліміт символів");
+            summernoteInputKeyUp(this, news, "text", TEXT_MAX_LENGTH);
         }
     }
 });
@@ -428,8 +448,8 @@ async function editNewsButtonClick() {
     let card = $(this).parent().parent().parent();
 
     if (confirm("Ви дійсно бажаєте редагувати цю новину?")) {
-        await axios.get(`/api/news/${newsID}`).then(function (responce) {
-            news = responce.data;
+        await axios.get(`/api/news/${newsID}`).then(function (response) {
+            news = response.data;
             prepareFormToEditNews();
             hideBlocks();
             newsMenu.toggle();
@@ -505,8 +525,8 @@ function resetDocumentsInputsAndObject() {
     };
     documentBlockTitle.text("Створити документ");
     documentSectionInput.val("0").change();
-    documentTitleInput.val("")
-    documentDescriptionInput.val("");
+    documentTitleInput.val("").keyup();
+    documentDescriptionInput.val("").keyup();
     documentImageInput.val("");
     documentImageInput.next(".custom-file-label").html("Виберіть зображення");
     documentImagePreview[0].src = "./imgs/uploadPhoto.png";
@@ -519,8 +539,8 @@ function resetDocumentsInputsAndObject() {
 function prepareFormToEditDocument() {
     documentBlockTitle.text("Редагувати документ");
     documentSectionInput.val(doc.section.id).change();
-    documentTitleInput.val(doc.title)
-    documentDescriptionInput.val(doc.description);
+    documentTitleInput.val(doc.title).keyup()
+    documentDescriptionInput.val(doc.description).keyup();
     documentImageInput.val("");
     documentImageInput.next(".custom-file-label").html(doc.imageURL);
     documentImagePreview[0].src = doc.imageURL;
@@ -610,15 +630,11 @@ documentSectionInput.on('change', () => {
 })
 
 documentTitleInput.on('keyup', function () {
-    let title = $(this).val();
-    doc.title = title;
-    documentTitleMaxLengthHelpArea.text(TITLE_MAX_LENGTH > title.length ? `Залишилось символів: ${TITLE_MAX_LENGTH - title.length}` : "Перевищено ліміт символів.")
+    inputKeyUp(this, doc, "title", TITLE_MAX_LENGTH);
 })
 
 documentDescriptionInput.on('keyup', function () {
-    let description = $(this).val();
-    doc.description = description;
-    documentDescriptionMaxLengthHelpArea.text(DESCRIPTION_MAX_LENGTH > description.length ? `Залишилось символів: ${DESCRIPTION_MAX_LENGTH - description.length}` : "Перевищено ліміт символів.")
+    inputKeyUp(this, doc, "description", DESCRIPTION_MAX_LENGTH)
 })
 
 documentImageInput.on('change', documentsImageInputChange);
@@ -690,8 +706,8 @@ documentListFetchPageButton.on("click", async function () {
     }
 
     await axios.get(`/api/documents/pages?page=${documentsNextPage}&size=10`)
-        .then(function (responce) {
-            let documentCards = responce.data.content.map(
+        .then(function (response) {
+            let documentCards = response.data.content.map(
                 (document) => createCard(document.id, document.title, editDocumentButtonClick, deleteDocumentButtonClick));
             documentsList.append(documentCards);
             documentsNextPage++;
@@ -717,10 +733,8 @@ function prepareFormToEditArticle() {
     articleImageInput.val("");
     articleImagePreview[0].src = article.imageURL;
     articleImageInput.next(".custom-file-label").html(article.imageURL);
-    articleImageDescriptionInput.val(article.imageDescription);
-    articleImageDescriptionMaxLengthArea.text(DESCRIPTION_MAX_LENGTH > article.imageDescription.length ? `Залишилось символів: ${DESCRIPTION_MAX_LENGTH - article.imageDescription.length}` : "Перевищено ліміт символів");
+    articleImageDescriptionInput.val(article.imageDescription).keyup();
     articleTextInput.summernote('code', article.text);
-    articleTextMaxLengthArea.text(TEXT_MAX_LENGTH > article.text.length ? `Залишилось символів: ${TEXT_MAX_LENGTH - article.text.length}` : "Перевищено ліміт символів")
 }
 
 function articleImageInputChange() {
@@ -739,7 +753,7 @@ function isOneOfArticleFieldsIsEmpty() {
 
 function isOneOfArticleFieldsIsReachSymbolLimit() {
     return article.imageURL.length > URL_MAX_LENGTH ||
-        article.imageDescription.length > DESCRIPTION_MAX_LENGTH ||
+        article.imageDescription.length > IMAGE_DESCRIPTION_LENGTH ||
         article.text.length > TEXT_MAX_LENGTH;
 }
 
@@ -775,9 +789,7 @@ articleImageInput.on('change', articleImageInputChange);
 articleImageUploadButton.on('click', articleImageUpload);
 
 articleImageDescriptionInput.on('keyup', function () {
-    let description = $(this).val();
-    article.imageDescription = description;
-    articleImageDescriptionMaxLengthArea.text(DESCRIPTION_MAX_LENGTH > description.length ? `Залишилось символів: ${DESCRIPTION_MAX_LENGTH - description.length}` : "Перевищено ліміт символів");
+    inputKeyUp(this, article, "imageDescription", IMAGE_DESCRIPTION_LENGTH)
 })
 
 articleTextInput.summernote({
@@ -797,9 +809,7 @@ articleTextInput.summernote({
     ],
     callbacks: {
         onKeyup: function () {
-            let text = $(this).summernote('code');
-            article.text = text;
-            articleTextMaxLengthArea.text(TEXT_MAX_LENGTH > text.length ? `Залишилось символів: ${TEXT_MAX_LENGTH - text.length}` : "Перевищено ліміт символів");
+            summernoteInputKeyUp(this, article, "text", TEXT_MAX_LENGTH)
         }
     }
 })
@@ -808,7 +818,7 @@ articleApplyButton.on('click', async function () {
     if (isOneOfArticleFieldsIsEmptyOrReachSymbolLimits()) {
         return;
     }
-    console.log(article)
+
     await axios.put(
         "/api/articles",
         JSON.stringify(article),
@@ -827,3 +837,87 @@ articleApplyButton.on('click', async function () {
 })
 
 //----------
+
+function prepareFormToEditContacts() {
+    contactsTownInput.val(contacts.townAndIndex).keyup();
+    contactsAddressInput.val(contacts.address).keyup();
+    contactsCountryInput.val(contacts.country).keyup();
+    contactsPhoneInput.val(contacts.phone).keyup();
+    contactsEmailInput.val(contacts.email).keyup();
+}
+
+function isOneOfContactFieldsIsEmpty() {
+    return contacts.townAndIndex.length === 0 ||
+        contacts.address.length === 0 ||
+        contacts.country.length === 0 ||
+        contacts.phone.length === 0 ||
+        contacts.email.length === 0
+}
+
+function isOneOfContactFieldsIsReachSymbolLimit() {
+    return contacts.townAndIndex.length > CONTACT_FIELDS_MAX_LENGTH ||
+        contacts.address.length > CONTACT_FIELDS_MAX_LENGTH ||
+        contacts.country.length > CONTACT_FIELDS_MAX_LENGTH ||
+        contacts.phone.length > CONTACT_FIELDS_MAX_LENGTH ||
+        contacts.email.length > CONTACT_FIELDS_MAX_LENGTH
+}
+
+function isOneOfContactFieldsIsEmptyOrReachSymbolLimits() {
+    if (isOneOfContactFieldsIsEmpty()) {
+        createPrependAndScrollToAlert("warning", " Заповніть порожні поля!", contactsForm)
+        return true;
+    } else if (isOneOfContactFieldsIsReachSymbolLimit()) {
+        createPrependAndScrollToAlert("warning", " Деякі поля перевищили ліміт символів!", contactsForm)
+        return true;
+    }
+    return false;
+}
+
+contactMenuOpenBlockButton.on('click', async function () {
+    await axios.get("/api/contacts/1")
+        .then(function (response) {
+            contacts = response.data;
+            hideBlocks();
+            prepareFormToEditContacts();
+            contactMenu.toggle();
+        }).catch(function (error) {
+            console.log(error)
+        })
+})
+
+contactsTownInput.on('keyup', function () {
+    inputKeyUp(this, contacts, "townAndIndex", CONTACT_FIELDS_MAX_LENGTH);
+})
+
+contactsAddressInput.on('keyup', function () {
+    inputKeyUp(this, contacts, "address", CONTACT_FIELDS_MAX_LENGTH);
+})
+
+contactsCountryInput.on('keyup', function () {
+    inputKeyUp(this, contacts, "country", CONTACT_FIELDS_MAX_LENGTH);
+})
+
+contactsPhoneInput.on('keyup', function () {
+    inputKeyUp(this, contacts, "phone", CONTACT_FIELDS_MAX_LENGTH);
+})
+
+contactsEmailInput.on('keyup', function () {
+    inputKeyUp(this, contacts, "email", CONTACT_FIELDS_MAX_LENGTH)
+})
+
+contactsApplyButton.on('click', async function () {
+    if (isOneOfContactFieldsIsEmptyOrReachSymbolLimits()) {
+        return;
+    }
+
+    await axios.put('/api/contacts')
+        .then(function (response) {
+            createPrependAndScrollToAlert("success", "Контактні дані успішно змінені", contactsForm);
+        })
+        .catch(function (error) {
+            console.error(error);
+            createPrependAndScrollToAlert("danger", `Помилка при редагуванні контактних данних. Спробуйте ще раз`, contactsForm);
+        })
+})
+
+

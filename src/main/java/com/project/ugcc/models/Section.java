@@ -19,7 +19,7 @@ public class Section {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
-    @Column(length = 500)
+    @Column(length = 200)
     private String title;
 
     private Category category;

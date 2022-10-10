@@ -28,3 +28,5 @@ insert into types (section_id, title, item_type) values (8, 'Структура 
 insert into articles (image_description, imageurl, text, id) values ('', '', '', 10);
 insert into types (section_id, title, item_type) values (8, 'Історія Донецького Екзархату', 'Article');
 insert into articles (image_description, imageurl, text, id) values ('', '', '', 11);
+insert into contacts (town_and_index, address, country, phone, email) values ('', '', '', '', '');
+insert into site_users (login, password, role) VALUES ('admin', '$2a$10$sj3gOaIKlitMGr.I7lm0W.pgYbhfLCIndxF89r1OTPw2jdlIOrgRW', 'ROLE_ADMIN')

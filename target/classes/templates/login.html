@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,48 +7,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вхід до панелі керування сайтом</title>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="../../../../../ugcc-project/imgs/favicons/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="../../../../../ugcc-project/imgs/favicons/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="../../../../../ugcc-project/imgs/favicons/favicon-16x16.png" />
-    <link rel="manifest" href="../../../../../ugcc-project/imgs/favicons/site.webmanifest" />
-    <link rel="mask-icon" href="../../../../../ugcc-project/imgs/favicons/safari-pinned-tab.svg" color="#00b9ee" />
-    <link rel="shortcut icon" href="../../../../../ugcc-project/imgs/favicons/favicon.ico" />
-    <meta name="msapplication-TileColor" content="#2d89ef" />
-    <meta name="msapplication-config" content="./imgs/favicons/browserconfig.xml" />
-    <meta name="theme-color" content="#ffffff" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./imgs/favicons/apple-touch-icon.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="./imgs/favicons/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="./imgs/favicons/favicon-16x16.png"/>
+    <link rel="manifest" href="./imgs/favicons/site.webmanifest"/>
+    <link rel="mask-icon" href="./imgs/favicons/safari-pinned-tab.svg" color="#00b9ee"/>
+    <link rel="shortcut icon" href="./imgs/favicons/favicon.ico"/>
+    <meta name="msapplication-TileColor" content="#2d89ef"/>
+    <meta name="msapplication-config" content="./imgs/favicons/browserconfig.xml"/>
+    <meta name="theme-color" content="#ffffff"/>
 
-    <link rel="stylesheet" href="../../../../../ugcc-project/styles/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="./styles/bootstrap/bootstrap.min.css">
 </head>
 
 <body>
 
-    <div class="container w-50 border border-light shadow-sm rounded my-5 mx-auto p-3">
-        <div class="border-bottom border-dark text-center">
-            <h1>Авторизація</h1>
-        </div>
-        <form class="my-3">
-            <div class="mb-3">
-                <label for="login" class="form-label">Логін:</label>
-                <input type="text" class="form-control" id="login" placeholder="Введіть логін">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Пароль:</label>
-                <input type="password" class="form-control" id="password" placeholder="Введіть пароль">
-            </div>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <div>Невірний логін або пароль!</div>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="text-center">
-                <button type="button" class="btn btn-primary w-25 mx-auto">Вхід</button>
-            </div>
-        </form>
+<div class="container w-50 border border-light shadow-sm rounded my-5 mx-auto p-3">
+    <div class="border-bottom border-dark text-center">
+        <h1>Авторизація</h1>
     </div>
+    <form class="my-3" th:action='@{/login}' method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label">Логін:</label>
+            <input name="username" type="text" class="form-control" id="username" placeholder="Введіть логін">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Пароль:</label>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Введіть пароль">
+        </div>
+        <div th:if="${message} != null" class="alert alert-warning alert-dismissible fade show" role="alert">
+            <div th:text="${message}"></div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary w-25 mx-auto">Вхід</button>
+        </div>
+    </form>
+</div>
 
-    <script src="../../../../../ugcc-project/scripts/jquery-3.6.1.min.js"></script>
-    <script src="../../../../../ugcc-project/scripts/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="./scripts/jquery-3.6.1.min.js"></script>
+<script src="./scripts/bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

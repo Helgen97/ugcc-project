@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk" xmlns:th="http://thymeleaf.org">
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@
     <meta name="theme-color" content="#ffffff"/>
 
     <link rel="stylesheet" href="./styles/bootstrap/bootstrap.min.css">
-    <link href="./styles/summernote/summernote-bs4.min.css"  rel="stylesheet">
+    <link href="./styles/summernote/summernote-bs4.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -53,16 +53,18 @@
                 Сторінки
             </button>
             <div class="dropdown-menu w-100">
-                <a class="articlePage-btn dropdown-item" th:each="article : ${articlesList}" th:text="${article.title}" th:data-id="${article.ID}"></a>
+                <a class="articlePage-btn dropdown-item" th:each="article : ${articlesList}" th:text="${article.title}"
+                   th:data-id="${article.ID}"></a>
             </div>
         </div>
         <div class="mb-3 text-center">
-            <button id="contacts-OpenBlockBtn" type="button" class="w-100 btn btn-primary">Контакти</button>
+            <button id="contacts-openBlockBtn" type="button" class="w-100 btn btn-primary">Контакти</button>
         </div>
         <div class="mb-3 text-center">
             <button id="credentials-OpenBlockBtn" type="button" class="w-100 btn btn-warning">Змінити логін
                 та
-                пароль</button>
+                пароль
+            </button>
         </div>
     </div>
     <div id="blocks" class="w-75 p-3 border border-light shadow rounded">
@@ -85,7 +87,8 @@
                     </div>
                     <select id="news-sectionInput" class="custom-select">
                         <option value="0" selected>Розділ...</option>
-                        <option th:each="newsSection : ${newsSections}" th:value="${newsSection.ID}" th:text="${newsSection.title}"></option>
+                        <option th:each="newsSection : ${newsSections}" th:value="${newsSection.ID}"
+                                th:text="${newsSection.title}"></option>
                     </select>
                 </div>
                 <div class="input-group w-75 mx-auto mb-3">
@@ -104,7 +107,8 @@
                     </div>
                     <div class="w-100 mt-3 text-center">
                         <h6 class="w-100">Превью зображення</h6>
-                        <img id="news-imagePreview" class="w-25" alt="Превью завантаженого зображення" src="./imgs/uploadPhoto.png">
+                        <img id="news-imagePreview" class="w-25" alt="Превью завантаженого зображення"
+                             src="./imgs/uploadPhoto.png">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -113,9 +117,9 @@
                     </div>
                     <input id="news-titleInput" type="text" class="form-control" placeholder="Назва новини"
                            aria-describedby="news-titleHelp">
-                    <small id="news-titleMaxLength" class="form-text text-muted">Залишилось символів:</small>
-                    <small id="news-titleHelp" class="form-text text-muted">Наприклад: «Карітас Кам’янське»:
-                        допомога потребуючим як спосіб пережити лихо війни</small>
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
+                    <small id="news-titleHelp" class="form-text text-muted">Наприклад: "«Карітас Кам’янське»:
+                        допомога потребуючим як спосіб пережити лихо війни"</small>
                 </div>
                 <div class="mb-3">
                     <div class="w-100 p-1 text-center">
@@ -123,14 +127,14 @@
                     </div>
                     <textarea id="news-descriptionInput" class="form-control" rows="4"
                               placeholder="Короткий опис" aria-describedby="news-descriptionHelp"></textarea>
-                    <small id="news-descriptionMaxLength" class="form-text text-muted">Залишилось символів: </small>
-                    <small id="news-descriptionHelp" class="form-text text-muted">Наприклад: Після 24 лютого місто
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
+                    <small id="news-descriptionHelp" class="form-text text-muted">Наприклад: "Після 24 лютого місто
                         Кам’янське, що на Дніпропетровщині, стало одним із місць транзиту і притулку для тих, хто
                         втікає від війни. Сюди прибуло понад 20 тисяч переселенців. Місцевий осередок благодійного
                         фонду Карітас, що діє при греко-католицькій парафії Преображення Господнього, був однією із
                         перших організацій, що відгукнулися на потреби переселенців, допомагаючи їм ліками,
                         продуктовими та гігієнічними наборами, організовуючи переїзд в західні області
-                        країни.</small>
+                        країни."</small>
                 </div>
                 <div class="mb-3">
                     <div class="w-100 p-1 text-center">
@@ -138,7 +142,7 @@
                     </div>
                     <textarea id="news-textInput" name="editordata"
                               aria-describedby="news-text-help"></textarea>
-                    <small id="news-textMaxLength" class="form-text text-muted">Залишилось символів: </small>
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small class="form-text text-muted">Заповніть і стилізуйте, як бажаєте,
                         основний текст новини</small>
                 </div>
@@ -167,7 +171,9 @@
                 </div>
             </div>
             <div class="w-100 text-center">
-                <button type="button" class="w-50 btn btn-primary" id="newsList-moreBtn" th:data-total-pages="${newsList.totalPages}">Показати ще</button>
+                <button type="button" class="w-50 btn btn-primary" id="newsList-moreBtn"
+                        th:data-total-pages="${newsList.totalPages}">Показати ще
+                </button>
             </div>
         </div>
         <div id="document-menu" class="p-2" style="display: none;">
@@ -181,7 +187,9 @@
                     </div>
                     <select id="document-sectionInput" class="custom-select">
                         <option value="0" selected>Розділ...</option>
-                        <option th:each="docSection : ${documentSections}" th:value="${docSection.ID}" th:text="${docSection.title}">Документи Екзархату</option>
+                        <option th:each="docSection : ${documentSections}" th:value="${docSection.ID}"
+                                th:text="${docSection.title}">
+                        </option>
                     </select>
 
                 </div>
@@ -191,25 +199,24 @@
                     </div>
                     <input id="document-titleInput" type="text" class="form-control" placeholder="Назва документу"
                            aria-describedby="document-titleHelp">
-                    <small id="document-titleMaxLength" class="form-text text-muted">Залишилось символів:</small>
-                    <small id="document-titleHelp" class="form-text text-muted">Наприклад: Декрет про скликання
-                        Єпископів УГКЦ 2022 року</small>
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
+                    <small id="document-titleHelp" class="form-text text-muted">Наприклад: "Декрет про скликання
+                        Єпископів УГКЦ 2022 року"</small>
                 </div>
                 <div class="mb-3">
                     <div class="w-100 p-1 text-center">
                         <h5>Опис документу</h5>
                     </div>
-                    <textarea id="document-descriptionInput" class="form-control" rows="4" placeholder="Короткий опис документу"
+                    <textarea id="document-descriptionInput" class="form-control" rows="4"
+                              placeholder="Короткий опис документу"
                               aria-describedby="news-description-help"></textarea>
-                    <small id="document-descriptionMaxLength" class="form-text text-muted">Залишилось символів: </small>
-                    <small id="document-descriptionHelp" class="form-text text-muted">Наприклад: Господь Бог наділив
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
+                    <small id="document-descriptionHelp" class="form-text text-muted">Наприклад: "Господь Бог наділив
                         нашого
                         славного попередника Блаженнішого Любомира Гузара, главу УГКЦ в 2001–2011 роках, багатьма
                         талантами, які він упродовж свого життя і служіння рясно примножив. Він був не лише
                         очільником Церкви, а й мірилом моральності людських вчинків. Маючи глибоку віру, патріарх
-                        навчав слова Євангелія про найбільшу заповідь любові до Бога і ближнього. Саме тому він
-                        найбільше мріяв бути людиною, яка носить у собі образ невидимого Бога, що проявляється в ній
-                        через видимі діла служіння тому, хто в потребі.</small>
+                        навчав слова Євангелія про найбільшу заповідь любові до Бога і ближнього."</small>
                 </div>
                 <div class="input-group w-75 mx-auto mb-3">
                     <div class="w-100 p-1 text-center">
@@ -227,7 +234,8 @@
                     </div>
                     <div class="w-100 mt-3 text-center">
                         <h6 class="w-100">Превью зображення</h6>
-                        <img id="document-imagePreview" class="w-25" alt="Превью завантаженого зображення" src="./imgs/uploadPhoto.png">
+                        <img id="document-imagePreview" class="w-25" alt="Превью завантаженого зображення"
+                             src="./imgs/uploadPhoto.png">
                     </div>
                 </div>
                 <div class="input-group w-75 mx-auto mb-3">
@@ -260,14 +268,17 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${document.ID} + '. ' + ${document.title}"></h5>
                         <div class="d-flex justify-content-between text-center">
-                            <button class="w-75 mr-2 btn btn-primary" th:attr="data-id=${document.ID}">Редагувати</button>
+                            <button class="w-75 mr-2 btn btn-primary" th:attr="data-id=${document.ID}">Редагувати
+                            </button>
                             <button class="w-25 ml-2 btn btn-danger" th:attr="data-id=${document.ID}">Видалити</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="w-100 text-center">
-                <button type="button" class="w-50 btn btn-primary" id="documentList-moreBtn" th:data-total-pages="${documentsList.totalPages}">Показати ще</button>
+                <button type="button" class="w-50 btn btn-primary" id="documentList-moreBtn"
+                        th:data-total-pages="${documentsList.totalPages}">Показати ще
+                </button>
             </div>
         </div>
         <div id="article-menu" class="p-2" style="display: none;">
@@ -291,7 +302,8 @@
                     </div>
                     <div class="w-100 mt-3 text-center">
                         <h6 class="w-100">Превью зображення</h6>
-                        <img id="article-imagePreview" class="w-25" alt="Превью завантаженого зображення" src="./imgs/uploadPhoto.png">
+                        <img id="article-imagePreview" class="w-25" alt="Превью завантаженого зображення"
+                             src="./imgs/uploadPhoto.png">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -300,9 +312,10 @@
                     </div>
                     <input id="article-imageDescriptionInput" type="text" class="form-control"
                            placeholder="Підпис до зображення" aria-describedby="article-imageDescriptionInputHelp">
-                    <small id="article-imageDescriptionMaxLength" class="form-text text-muted">Залишилось символів:</small>
-                    <small id="article-imageDescriptionInputHelp" class="form-text text-muted">Наприклад: Донецький
-                        Екзархат</small>
+                    <small class="form-text text-muted inputMaxLength">Залишилось
+                        символів:</small>
+                    <small id="article-imageDescriptionInputHelp" class="form-text text-muted">Наприклад: "Донецький
+                        Екзархат"</small>
                 </div>
                 <div class="mb-3">
                     <div class="w-100 p-1 text-center">
@@ -310,7 +323,7 @@
                     </div>
                     <textarea id="article-text" name="editordata"
                               aria-describedby="article-textHelp"></textarea>
-                    <small id="article-textMaxLength" class="form-text text-muted">Залишилось символів:</small>
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
                     <small id="article-textHelp" class="form-text text-muted">Заповніть і стилізуйте, як бажаєте,
                         основний текст статті</small>
                 </div>
@@ -325,38 +338,44 @@
             </div>
             <div id="contactsForm" class="w-75 mx-auto">
                 <div class="form-group">
-                    <label for="town-input">Місто та почтовий індекс</label>
-                    <input type="text" class="form-control" id="town-input" aria-describedby="town-input-help">
-                    <small id="town-input-help" class="form-text text-muted">Наприклад: м. Запоріжжя, 69095</small>
+                    <label for="contacts-townInput">Місто та почтовий індекс</label>
+                    <input type="text" class="form-control" id="contacts-townInput" aria-describedby="contacts-townInputHelp">
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
+                    <small id="contacts-townInputHelp" class="form-text text-muted">Наприклад: м. Запоріжжя, 69095</small>
                 </div>
                 <div class="form-group">
-                    <label for="address-input">Адреса</label>
-                    <input type="password" class="form-control" id="address-input"
-                           aria-describedby="address-input-help">
-                    <small id="address-input-help" class="form-text text-muted">Наприклад: вул. Вербова,11</small>
+                    <label for="contacts-addressInput">Адреса</label>
+                    <input type="text" class="form-control" id="contacts-addressInput"
+                           aria-describedby="contacts-addressInputHelp">
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
+                    <small id="contacts-addressInputHelp" class="form-text text-muted">Наприклад: вул. Вербова,11</small>
                 </div>
                 <div class="form-group">
-                    <label for="country-input">Країна</label>
-                    <input type="password" class="form-control" id="country-input"
-                           aria-describedby="country-input-help">
-                    <small id="country-input-help" class="form-text text-muted">Наприклад: Україна</small>
+                    <label for="contacts-countryInput">Країна</label>
+                    <input type="text" class="form-control" id="contacts-countryInput"
+                           aria-describedby="country-countryInputHelp">
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
+                    <small id="contacts-countryInputHelp" class="form-text text-muted">Наприклад: Україна</small>
                 </div>
                 <div class="form-group">
-                    <label for="phone-input">Телефон</label>
-                    <input type="password" class="form-control" id="phone-input"
-                           aria-describedby="phone-input-help">
-                    <small id="phone-input-help" class="form-text text-muted">Наприклад: +38 (098) 23 096 19</small>
+                    <label for="contacts-phoneInput">Телефон</label>
+                    <input type="text" class="form-control" id="contacts-phoneInput"
+                           aria-describedby="contacts-phoneInputHelp">
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
+                    <small id="contacts-phoneInputHelp" class="form-text text-muted">Наприклад: +38 (098) 23 096 19</small>
                 </div>
                 <div class="form-group">
-                    <label for="email-input">Електронна адреса</label>
-                    <input type="password" class="form-control" id="email-input"
-                           aria-describedby="email-input-help">
-                    <small id="email-input-help" class="form-text text-muted">Наприклад:
+                    <label for="contacts-emailInput">Електронна адреса</label>
+                    <input type="text" class="form-control" id="contacts-emailInput"
+                           aria-describedby="contacts-emailInputHelp">
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
+                    <small id="contacts-emailInputHelp" class="form-text text-muted">Наприклад:
                         press.don.ugcc@gmail.com</small>
                 </div>
                 <div class="my-4 text-center">
-                    <button id="change-contacts-btn" type="submit" class="btn btn-primary w-50">Зберегти
-                        зміни</button>
+                    <button id="contacts-applyBtn" class="btn btn-primary w-50">Зберегти
+                        зміни
+                    </button>
                 </div>
             </div>
         </div>
@@ -380,7 +399,8 @@
                 </div>
                 <div class="text-center">
                     <button id="change-credentials-btn" type="button"
-                            class="btn btn-primary w-25 mx-auto">Змінити</button>
+                            class="btn btn-primary w-25 mx-auto">Змінити
+                    </button>
                 </div>
             </div>
         </div>

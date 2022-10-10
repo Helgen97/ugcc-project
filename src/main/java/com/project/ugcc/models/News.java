@@ -28,7 +28,7 @@ public class News extends Type {
     @Column(length = 300)
     private String imageURL;
 
-    @Column(length = 3000)
+    @Column(length = 5000)
     private String text;
 
     @Column
