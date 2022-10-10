@@ -1,0 +1,61 @@
+@import "vars.scss";
+@import "mixins.scss";
+
+.contacts_info {
+  @include centerBlock(70%);
+  @include flexWithWrapAndJustifyingContent;
+  margin: 1em auto 2em;
+  align-content: center;
+}
+
+.contacts__info__title {
+  width: 100%;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.contacts__info__col:last-child {
+  align-self: center;
+}
+
+.contacts__info__col__text {
+  @include fontStyling(1.2em, 600);
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.contacts__map {
+  @include centerBlock(80%);
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .contacts_info {
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contacts__info__col:last-child {
+    margin-top: 1em;
+    align-self: auto;
+  }
+
+  .contacts__map {
+    width: 100%;
+  }
+}

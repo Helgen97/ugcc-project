@@ -1,0 +1,70 @@
+@import "vars.scss";
+@import "mixins.scss";
+
+.article {
+  padding: 2em 1em;
+}
+
+.article__image-container {
+  width: 40%;
+  margin: 0 0 0.5em 0.5em;
+  float: right;
+  text-align: center;
+}
+
+.article__image {
+  max-width: 100%;
+}
+
+.article__image-description {
+  margin: 0.5em 0;
+  font-weight: 600;
+}
+
+.other-articles {
+  @include centerBlock(70%);
+  margin-top: 2em;
+}
+
+.other-articles__container {
+  @include flexWithWrapAndJustifyingContent;
+  margin-top: 1em;
+  padding: 0 1em;
+}
+
+.other-article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    color: $hoverColor;
+
+    .other-article__icon {
+      background-position: -296px 0;
+    }
+  }
+}
+
+.other-article__icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5em;
+  background: url(../../imgs/svg-sprite.svg) -256px 0;
+}
+
+.other-article__title {
+  @include fontStyling(1.2em, 500);
+}
+
+@media screen and (max-width: $tablet) {
+  .article__image-container {
+    width: 100%;
+    margin-bottom: 1em;
+    float: none;
+  }
+
+  .other-articles {
+    width: 90%;
+  }
+}
