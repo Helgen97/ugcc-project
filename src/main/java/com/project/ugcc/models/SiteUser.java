@@ -1,6 +1,9 @@
 package com.project.ugcc.models;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -17,8 +20,10 @@ public class SiteUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
+    @Column(length = 200)
     private String login;
 
+    @Column(length = 200)
     private String password;
 
     private String role;

@@ -19,14 +19,15 @@
 
     <link rel="stylesheet" href="./styles/bootstrap/bootstrap.min.css">
     <link href="./styles/summernote/summernote-bs4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/css/login-panel.css">
 </head>
 
 <body>
-<div class="w-50 my-2 mx-auto p-1 text-center border border-light shadow rounded">
+<div class="panelTitle text-center border border-light shadow rounded">
     <h3>Панель керування</h3>
 </div>
-<div class="d-flex flex-column flex-lg-row m-5">
-    <div class="w-25 mr-3 p-3 border border-light shadow rounded">
+<div class="panel">
+    <div class="panel__menu border border-light shadow rounded">
         <div class="dropdown mb-3 text-center">
             <button class="btn btn-primary dropdown-toggle w-100" type="button" data-toggle="dropdown"
                     aria-expanded="false">
@@ -57,6 +58,16 @@
                    th:data-id="${article.ID}"></a>
             </div>
         </div>
+        <div class="dropdown mb-3 text-center">
+            <button class="btn btn-primary dropdown-toggle w-100" type="button" data-toggle="dropdown"
+                    aria-expanded="false">
+                Альбоми
+            </button>
+            <div class="dropdown-menu w-100 text-left">
+                <a class="dropdown-item" id="album-openBlockBtn" href="#">Додати альбом</a>
+                <a class="dropdown-item" id="albumList-openBlockBtn" href="#">Cписок альбомів</a>
+            </div>
+        </div>
         <div class="mb-3 text-center">
             <button id="contacts-openBlockBtn" type="button" class="w-100 btn btn-primary">Контакти</button>
         </div>
@@ -66,22 +77,25 @@
                 пароль
             </button>
         </div>
+        <div class="mb-3 text-center">
+            <a href="/login?logout=true" class="w-100 btn btn-info btn-m active" role="button" aria-pressed="true">Вихід з панелі</a>
+        </div>
     </div>
-    <div id="blocks" class="w-75 p-3 border border-light shadow rounded">
-        <div class="p-2" style="display: block;">
-            <div class="w-50 mb-2 mx-auto text-center border-bottom border-dark">
+    <div id="blocks" class="panel__blocks border border-light shadow rounded">
+        <div class="p-1" style="display: block;">
+            <div class="panel__block__title text-center border-bottom border-dark">
                 <h4>Панель керування сайтом</h4>
             </div>
             <div class="text-center">
                 <p>Виберіть пункт з меню для початку роботи з сайтом</p>
             </div>
         </div>
-        <div id="news-menu" class="p-2" style="display: none;">
-            <div class="w-50 mb-2 mx-auto text-center border-bottom border-dark">
+        <div id="news-menu" class="p-1" style="display: none;">
+            <div class="panel__block__title text-center border-bottom border-dark">
                 <h4 id="news-blockTitle">Створити новину</h4>
             </div>
             <div id="news-form">
-                <div class="input-group w-75 mx-auto mb-3">
+                <div class="input-group panel__block__input-container">
                     <div class="w-100 p-1 text-center">
                         <h5>Розділ:</h5>
                     </div>
@@ -91,7 +105,7 @@
                                 th:text="${newsSection.title}"></option>
                     </select>
                 </div>
-                <div class="input-group w-75 mx-auto mb-3">
+                <div class="input-group panel__block__input-container">
                     <div class="w-100 p-1 text-center">
                         <h5>Зображення новини:</h5>
                     </div>
@@ -151,8 +165,8 @@
                 </div>
             </div>
         </div>
-        <div id="newsList-menu" class="p-2" style="display: none;">
-            <div class="w-50 mb-2 mx-auto text-center border-bottom border-dark">
+        <div id="newsList-menu" class="p-1" style="display: none;">
+            <div class="panel__block__title text-center border-bottom border-dark">
                 <h4>Список новини</h4>
             </div>
             <div id="newsList">
@@ -176,12 +190,12 @@
                 </button>
             </div>
         </div>
-        <div id="document-menu" class="p-2" style="display: none;">
-            <div class="w-50 mb-2 mx-auto text-center border-bottom border-dark">
+        <div id="document-menu" class="p-1" style="display: none;">
+            <div class="panel__block__title text-center border-bottom border-dark">
                 <h4 id="document-blockTitle">Додати документ</h4>
             </div>
             <div id="document-form">
-                <div class="input-group w-75 mx-auto mb-3">
+                <div class="input-group panel__block__input-container">
                     <div class="w-100 p-1 text-center">
                         <h5>Розділ документа:</h5>
                     </div>
@@ -218,7 +232,7 @@
                         очільником Церкви, а й мірилом моральності людських вчинків. Маючи глибоку віру, патріарх
                         навчав слова Євангелія про найбільшу заповідь любові до Бога і ближнього."</small>
                 </div>
-                <div class="input-group w-75 mx-auto mb-3">
+                <div class="input-group panel__block__input-container">
                     <div class="w-100 p-1 text-center">
                         <h5>Зображення документа:</h5>
                     </div>
@@ -238,7 +252,7 @@
                              src="./imgs/uploadPhoto.png">
                     </div>
                 </div>
-                <div class="input-group w-75 mx-auto mb-3">
+                <div class="input-group panel__block__input-container">
                     <div class="w-100 p-1 text-center">
                         <h5>Файл документа:</h5>
                     </div>
@@ -259,8 +273,8 @@
                 </div>
             </div>
         </div>
-        <div id="documentList-menu" class="p-2" style="display: none;">
-            <div class="w-50 mb-2 mx-auto text-center border-bottom border-dark">
+        <div id="documentList-menu" class="p-1" style="display: none;">
+            <div class="panel__block__title text-center border-bottom border-dark">
                 <h4>Список документів</h4>
             </div>
             <div id="documentsList">
@@ -281,12 +295,12 @@
                 </button>
             </div>
         </div>
-        <div id="article-menu" class="p-2" style="display: none;">
-            <div class="w-50 mb-2 mx-auto text-center border-bottom border-dark">
+        <div id="article-menu" class="p-1" style="display: none;">
+            <div class="panel__block__title text-center border-bottom border-dark">
                 <h4 id="article-blockTitle"></h4>
             </div>
             <div id="articleForm">
-                <div class="input-group w-75 mx-auto mb-3">
+                <div class="input-group panel__block__input-container">
                     <div class="w-100 p-1 text-center">
                         <h5>Головне зображення статті:</h5>
                     </div>
@@ -332,39 +346,96 @@
                 </div>
             </div>
         </div>
-        <div id="contacts-menu" class="p-2" style="display: none;">
-            <div class="w-50 mb-2 mx-auto text-center border-bottom border-dark">
+        <div id="album-menu" class="p-1" style="display: none">
+            <div class="panel__block__title text-center border-bottom border-dark">
+                <h4 id="album-blockTitle"></h4>
+            </div>
+            <div id="albumForm">
+                <div class="input-group panel__block__input-container">
+                    <div class="w-100 p-1 text-center">
+                        <h5>Розділ:</h5>
+                    </div>
+                    <select id="album-sectionInput" class="custom-select">
+                        <option value="0" selected>Розділ...</option>
+                        <option th:each="albumsSection : ${albumsSections}" th:value="${albumsSection.ID}"
+                                th:text="${albumsSection.title}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="w-100 p-1 text-center">
+                    <h5>Назва альбому</h5>
+                </div>
+                <input id="album-titleInput" type="text" class="form-control" placeholder="Назва новини"
+                       aria-describedby="album-titleHelp">
+                <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
+                <small id="album-titleHelp" class="form-text text-muted">Наприклад: "«Карітас Кам’янське»:
+                    допомога потребуючим як спосіб пережити лихо війни"</small>
+            </div>
+            <div class="input-group panel__block__input-container">
+                <div class="w-100 p-1 text-center">
+                    <h5>Додати зображення до альбому :</h5>
+                </div>
+                <div class="custom-file mb-3">
+                    <input type="file" class="custom-file-input" id="album-imageInput"
+                           accept="image/*">
+                    <label class="custom-file-label" for="news-imageInput">Виберіть фото</label>
+                </div>
+                <div class="w-100 text-center">
+                    <button class="w-50 btn btn-primary" type="button"
+                            id="album-imageUploadBtn">Завантажити
+                    </button>
+                </div>
+                <div class="w-100 mt-3 text-center">
+                    <h6 class="w-100">Превью зображення</h6>
+                    <img id="album-imagePreview" class="w-25" alt="Превью завантаженого зображення"
+                         src="./imgs/uploadPhoto.png">
+                </div>
+            </div>
+            <div>
+                <div class="w-100 p-1 text-center">
+                    <h5>Додані зображення</h5>
+                </div>
+                <div id="uploadedImageList" class="uploadedImageList">
+                </div>
+            </div>
+            <div class="mb-3 text-center">
+                <button id="album-applyBtn" type="button" class="w-50 btn btn-primary">Cтворити альбом</button>
+            </div>
+        </div>
+        <div id="contacts-menu" class="p-1" style="display: none;">
+            <div class="panel__block__title text-center border-bottom border-dark">
                 <h4>Редагування контактних данних</h4>
             </div>
-            <div id="contactsForm" class="w-75 mx-auto">
-                <div class="form-group">
+            <div id="contactsForm">
+                <div class="form-group panel__block__input-container">
                     <label for="contacts-townInput">Місто та почтовий індекс</label>
                     <input type="text" class="form-control" id="contacts-townInput" aria-describedby="contacts-townInputHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="contacts-townInputHelp" class="form-text text-muted">Наприклад: м. Запоріжжя, 69095</small>
                 </div>
-                <div class="form-group">
+                <div class="form-group panel__block__input-container">
                     <label for="contacts-addressInput">Адреса</label>
                     <input type="text" class="form-control" id="contacts-addressInput"
                            aria-describedby="contacts-addressInputHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="contacts-addressInputHelp" class="form-text text-muted">Наприклад: вул. Вербова,11</small>
                 </div>
-                <div class="form-group">
+                <div class="form-group panel__block__input-container">
                     <label for="contacts-countryInput">Країна</label>
                     <input type="text" class="form-control" id="contacts-countryInput"
                            aria-describedby="country-countryInputHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="contacts-countryInputHelp" class="form-text text-muted">Наприклад: Україна</small>
                 </div>
-                <div class="form-group">
+                <div class="form-group panel__block__input-container">
                     <label for="contacts-phoneInput">Телефон</label>
                     <input type="text" class="form-control" id="contacts-phoneInput"
                            aria-describedby="contacts-phoneInputHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="contacts-phoneInputHelp" class="form-text text-muted">Наприклад: +38 (098) 23 096 19</small>
                 </div>
-                <div class="form-group">
+                <div class="form-group panel__block__input-container">
                     <label for="contacts-emailInput">Електронна адреса</label>
                     <input type="text" class="form-control" id="contacts-emailInput"
                            aria-describedby="contacts-emailInputHelp">
@@ -379,26 +450,28 @@
                 </div>
             </div>
         </div>
-        <div id="credential-menu" class="p-2" style="display: none;">
-            <div class="w-50 mb-2 mx-auto text-center border-bottom border-dark">
+        <div id="credential-menu" class="p-1" style="display: none;">
+            <div class="panel__block__title text-center border-bottom border-dark">
                 <h4>Зміна данних для входу</h4>
             </div>
-            <div id="change-credentials-form" class="w-50 mx-auto">
-                <div class="mb-3">
-                    <label for="login-input" class="form-label">Логін:</label>
-                    <input type="text" class="form-control" id="login-input" placeholder="Введіть новий логін"
-                           aria-describedby="login-input-help">
-                    <small id="login-input-help" class="form-text text-muted">Наприклад: admin</small>
+            <div id="credentialsForm">
+                <div class="mb-3 panel__block__input-container">
+                    <label for="credential-loginInput" class="form-label">Логін:</label>
+                    <input type="text" class="form-control" id="credential-loginInput" placeholder="Введіть новий логін"
+                           aria-describedby="credential-loginInputHelp">
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
+                    <small id="credential-loginInputHelp" class="form-text text-muted">Наприклад: admin</small>
                 </div>
-                <div class="mb-3">
-                    <label for="password-input" class="form-label">Пароль:</label>
-                    <input type="password" class="form-control" id="password-input"
-                           placeholder="Введіть новий пароль" aria-describedby="password-input-help">
-                    <small id="password-input-help" class="form-text text-muted">Наприклад:
+                <div class="mb-3 panel__block__input-container">
+                    <label for="credential-passwordInput" class="form-label">Пароль:</label>
+                    <input type="password" class="form-control" id="credential-passwordInput"
+                           placeholder="Введіть новий пароль" aria-describedby="credential-passwordInputHelp">
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
+                    <small id="credential-passwordInputHelp" class="form-text text-muted">Наприклад:
                         ugcc-site-password</small>
                 </div>
                 <div class="text-center">
-                    <button id="change-credentials-btn" type="button"
+                    <button id="credentials-btn" type="button"
                             class="btn btn-primary w-25 mx-auto">Змінити
                     </button>
                 </div>

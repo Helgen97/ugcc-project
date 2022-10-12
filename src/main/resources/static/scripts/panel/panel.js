@@ -4,6 +4,7 @@ const TEXT_MAX_LENGTH = 5000;
 const URL_MAX_LENGTH = 300;
 const IMAGE_DESCRIPTION_LENGTH = 120;
 const CONTACT_FIELDS_MAX_LENGTH = 150;
+const CREDENTIALS_MAX_LENGTH = 200;
 
 //------------
 
@@ -88,6 +89,15 @@ let contactsApplyButton = $("#contacts-applyBtn");
 
 //------------
 
+let credentialOpenBlockButton = $("#credentials-OpenBlockBtn");
+let credentialMenu = $("#credential-menu");
+let credentialForm = $("#credentialsForm");
+let credentialLoginInput = $("#credential-loginInput");
+let credentialPasswordInput = $("#credential-passwordInput");
+let credentialApplyButton = $("#credentials-btn");
+
+//------------
+
 let news = {
     title: "",
     section: {
@@ -119,6 +129,15 @@ let article = {
     text: "",
 }
 
+let album = {
+    id: 0,
+    title: "",
+    section: {
+        id: 0
+    },
+    contentURLs: []
+}
+
 let contacts = {
     id: 0,
     townAndIndex: '',
@@ -127,6 +146,15 @@ let contacts = {
     phone: '',
     email: ''
 }
+
+let user = {
+    id: 0,
+    login: "",
+    password: "",
+    role: ""
+}
+
+let userRawPassword = "";
 
 //------------
 
@@ -838,6 +866,163 @@ articleApplyButton.on('click', async function () {
 
 //----------
 
+let albumOpenBlockButton = $("#album-openBlockBtn");
+let albumMenu = $("#album-menu");
+let albumBlockTitle = $("#album-blockTitle");
+let albumForm = $("#albumForm")
+let albumSectionInput = $("#album-sectionInput");
+let albumTitleInput = $("#album-titleInput");
+let albumImageInput = $("#album-imageInput");
+let albumImageUploadButton = $("#album-imageUploadBtn");
+let albumImagePreview = $("#album-imagePreview");
+let uploadedImageList = $("#uploadedImageList")
+let albumApplyButton = $("#album-applyBtn");
+
+function createUploadedImageCard(imageSrc, buttonFunction) {
+    let card = document.createElement("div");
+    card.setAttribute("class", "card");
+
+    let image = document.createElement("img");
+    image.setAttribute("src", imageSrc);
+    image.setAttribute("class", "card-img-top");
+
+    let cardBody = document.createElement("div");
+    cardBody.setAttribute("class", "card-body text-center");
+
+    let button = document.createElement("button");
+    button.setAttribute("class", "btn btn-primary");
+    button.innerText = "Видалити";
+    button.addEventListener("click", buttonFunction);
+
+    card.append(image);
+    cardBody.append(button);
+    card.append(cardBody);
+
+    return card;
+}
+
+function deleteImageFromAlbum() {
+    let card = $(this).parent().parent();
+    let cardImageSource = $(this).parent().prev("img")[0].src;
+    album.contentURLs = album.contentURLs.filter((src) => src !== cardImageSource);
+    card.toggle();
+}
+
+function resetAlbumForm() {
+    album = {
+        id: 0,
+        title: "",
+        section: {
+            id: 0
+        },
+        contentURLs: []
+    }
+    albumBlockTitle.text("Створення альбому")
+    albumSectionInput.val("0").change();
+    albumTitleInput.val("").keyup();
+    albumImageInput.val("");
+    albumImageInput.next(".custom-file-label").html("Виберіть зображення");
+    albumImagePreview[0].src = "./imgs/uploadPhoto.png";
+    albumApplyButton.text("Створити альбом");
+    albumApplyButton.attr("data-purpose", "create")
+}
+
+function isOneOfAlbumFieldsIsEmpty() {
+    return album.title.length === 0 || album.contentURLs.length === 0 || album.section.id === "0";
+}
+
+function isOneOfAlbumFieldsIsEmptyOrReachSymbolLimit() {
+    if (isOneOfAlbumFieldsIsEmpty()) {
+        createPrependAndScrollToAlert("warning", " Заповніть порожні поля!", albumForm)
+        return true;
+    } else if (article.title.length > TITLE_MAX_LENGTH) {
+        createPrependAndScrollToAlert("warning", " Деякі поля перевищили ліміт символів!", albumForm)
+        return true;
+    }
+    return false;
+}
+
+async function createAlbum() {
+    await axios.post(
+        "/api/albums",
+        JSON.stringify(album),
+        {
+            headers: {
+                'Content-Type': "application/json"
+            }
+        }
+    ).then(function (response) {
+        console.log(response.data)
+        createPrependAndScrollToAlert("success", "Альбом успішно створено");
+    }).catch(function (error) {
+        console.error(error);
+        createPrependAndScrollToAlert("danger", "При створенні альбому щось пішло не так, споробуйте ще раз", albumForm);
+    })
+}
+
+albumOpenBlockButton.on('click', function (e) {
+    e.preventDefault();
+    hideBlocks();
+    resetAlbumForm();
+    albumMenu.toggle();
+})
+
+albumSectionInput.on('change', function () {
+    album.section.id = $(this).val();
+})
+
+albumTitleInput.on('keyup', function () {
+    inputKeyUp(this, album, "title", TITLE_MAX_LENGTH)
+})
+
+albumImageInput.on('change', function () {
+    imageInputChange(albumImageInput[0], albumImagePreview[0]);
+})
+
+albumImageUploadButton.on('click', async function () {
+    const [file] = albumImageInput[0].files;
+    if (!file) {
+        createPrependAndScrollToAlert("warning", "Спочатку виберіть зображення.", albumImagePreview.parent());
+        return
+    }
+    let formData = new FormData();
+    formData.append("file", file);
+
+    await axios({
+        method: "post",
+        url: "/api/upload?folder=images",
+        enctype: 'multipart/form-data',
+        cache: false,
+        data: formData,
+        processData: false,
+        contentType: false,
+    }).then(function (response) {
+        if(!album.contentURLs.includes(response.data)) {
+            album.contentURLs.push(response.data);
+            uploadedImageList.append(createUploadedImageCard(response.data, deleteImageFromAlbum))
+        }
+        createPrependAndScrollToAlert("success", "Зображення успішно завантажено.", albumImagePreview.parent());
+    }).catch(function (error) {
+        console.error(error)
+        createPrependAndScrollToAlert("danger", "Сталася помилка. Зображення не завантажено. Спробуйте ще раз.", albumImagePreview.parent());
+    });
+})
+
+albumApplyButton.on('click', async function () {
+    if (isOneOfAlbumFieldsIsEmptyOrReachSymbolLimit()) {
+        return
+    }
+
+    let buttonPurpose = this.dataset.purpose;
+    if (buttonPurpose === "create") {
+        await createAlbum();
+    } else if (buttonPurpose === "change") {
+        await changeAlbum();
+    }
+})
+
+//----------
+
 function prepareFormToEditContacts() {
     contactsTownInput.val(contacts.townAndIndex).keyup();
     contactsAddressInput.val(contacts.address).keyup();
@@ -910,7 +1095,14 @@ contactsApplyButton.on('click', async function () {
         return;
     }
 
-    await axios.put('/api/contacts')
+    await axios.put(
+        '/api/contacts',
+        JSON.stringify(contacts),
+        {
+            headers: {
+                'Content-Type': "application/json"
+            }
+        })
         .then(function (response) {
             createPrependAndScrollToAlert("success", "Контактні дані успішно змінені", contactsForm);
         })
@@ -920,4 +1112,62 @@ contactsApplyButton.on('click', async function () {
         })
 })
 
+//----------
+
+function prepareFormToEditCredentials() {
+    credentialLoginInput.val(user.login).keyup();
+    ;
+}
+
+credentialOpenBlockButton.on('click', async function () {
+    await axios.get("/api/users/1")
+        .then(function (response) {
+            user = response.data;
+            hideBlocks();
+            prepareFormToEditCredentials();
+            credentialMenu.toggle();
+        }).catch(function (error) {
+            console.error(error);
+        })
+})
+
+credentialLoginInput.on('keyup', function () {
+    inputKeyUp(this, user, "login", CREDENTIALS_MAX_LENGTH)
+})
+
+credentialPasswordInput.on('keyup', function () {
+    let value = $(this).val();
+    userRawPassword = value;
+    $(this).next(".inputMaxLength").text(CREDENTIALS_MAX_LENGTH > value.length ? `Залишилось символів: ${CREDENTIALS_MAX_LENGTH - value.length}` : "Перевищено ліміт символів");
+})
+
+credentialApplyButton.on('click', async function () {
+    if (confirm("Змінити дані?")) {
+        await axios.put(
+            "/api/users",
+            JSON.stringify(user),
+            {
+                headers: {
+                    'Content-Type': "application/json"
+                }
+            })
+            .then(function () {
+                createPrependAndScrollToAlert("success", "Логін для входу змінено. Будь ласка переавторизуйтесь", credentialForm)
+            }).catch(function (error) {
+                console.error(error);
+                createPrependAndScrollToAlert("danger", "При змінені логіну щось пішло не так. Спробуйте ще раз", credentialForm)
+            })
+
+        if (userRawPassword !== "") {
+            await axios.patch(
+                `/api/users?id=${user.id}&rawPassword=${userRawPassword}`,
+            ).then(function () {
+                createPrependAndScrollToAlert("success", "Пароль для входу змінено. Будь ласка переавторизуйтесь", credentialForm)
+            }).catch(function (error) {
+                console.error(error);
+                createPrependAndScrollToAlert("danger", "При змінені паролю щось пішло не так. Спробуйте ще раз", credentialForm)
+            })
+        }
+    }
+})
 

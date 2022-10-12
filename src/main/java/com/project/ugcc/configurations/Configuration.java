@@ -9,12 +9,9 @@ public class Configuration {
 
     @Bean
     public CommandLineRunner run(final FileStorageService fileService) {
-        return new CommandLineRunner() {
-            @Override
-            public void run(String... strings) throws Exception {
-                fileService.deleteAll();
-                fileService.init();
-            }
+        return strings -> {
+            fileService.deleteAll();
+            fileService.init();
         };
     }
 }

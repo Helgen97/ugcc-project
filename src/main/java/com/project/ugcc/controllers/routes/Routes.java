@@ -1,9 +1,6 @@
 package com.project.ugcc.controllers.routes;
 
-import com.project.ugcc.services.modelsService.ArticleService;
-import com.project.ugcc.services.modelsService.DocumentService;
-import com.project.ugcc.services.modelsService.NewsService;
-import com.project.ugcc.services.modelsService.SectionService;
+import com.project.ugcc.services.modelsService.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.parameters.P;
@@ -20,13 +17,19 @@ public class Routes {
     private final NewsService newsService;
     private final DocumentService documentService;
     private final ArticleService articleService;
+    private final AlbumService albumService;
 
     @Autowired
-    public Routes(SectionService sectionService, NewsService newsService, DocumentService documentService, ArticleService articleService) {
+    public Routes(SectionService sectionService,
+                  NewsService newsService,
+                  DocumentService documentService,
+                  ArticleService articleService,
+                  AlbumService albumService) {
         this.sectionService = sectionService;
         this.newsService = newsService;
         this.documentService = documentService;
         this.articleService = articleService;
+        this.albumService = albumService;
     }
 
     @GetMapping("/login")
@@ -37,7 +40,7 @@ public class Routes {
             model.addAttribute("message", "Невірний логін або пароль!");
         }
         if(logout) {
-            model.addAttribute("message", "Вихід успішно виконан");
+            model.addAttribute("message", "Вихід успішно виконано");
         }
         return "login.html";
     }
@@ -49,6 +52,7 @@ public class Routes {
         model.addAttribute("documentSections", sectionService.getAllByCategory("DOCUMENTS"));
         model.addAttribute("documentsList", documentService.getPageOfDocuments(0, 10));
         model.addAttribute("articlesList", articleService.getAll());
+        model.addAttribute("albumsSections", sectionService.getAllByCategory("MEDIA"));
         return "panel.html";
     }
 }
