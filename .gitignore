@@ -26,7 +26,8 @@ styles/css/e-books.css
 styles/css/kahetyzm.css
 styles/css/allmedia.css
 styles/css/allmedia.css
-upload/
+uploads/
 .idea/
 !/out/
-/target
+target/
+logs/

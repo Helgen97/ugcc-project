@@ -20,6 +20,9 @@ public abstract class Type {
     private Long ID;
 
     @Column(length = 200)
+    private String namedId;
+
+    @Column(length = 200)
     private String title;
 
     @ManyToOne

@@ -9,11 +9,13 @@ public interface FileService {
 
     void init();
 
+    void createDirectory(String path);
+
     void saveFile(MultipartFile file, String folder);
 
     Path load(String filename);
 
-    Resource loadAsResource(String filename, String folder);
+    Resource loadAsResource(String filename, String folder, String date);
 
     void deleteAll();
 

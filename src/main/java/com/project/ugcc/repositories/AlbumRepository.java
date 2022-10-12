@@ -5,8 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface AlbumRepository extends TypeRepository<Album> {
+
+    Optional<Album> findByNamedId(String namedId);
 
     Page<Album> findAllBySectionID(Long id, Pageable pageable);
 

@@ -16,8 +16,15 @@ public class ArticleDTO extends TypeDTO {
     private String imageDescription;
     private String text;
 
-    private ArticleDTO(Long ID, String title, SectionDTO section, String imageURL, String imageDescription, String text) {
-        super(ID, title, section);
+    private ArticleDTO(
+            Long ID,
+            String namedId,
+            String title,
+            SectionDTO section,
+            String imageURL,
+            String imageDescription,
+            String text) {
+        super(ID, namedId, title, section);
         this.imageURL = imageURL;
         this.imageDescription = imageDescription;
         this.text = text;
@@ -26,6 +33,7 @@ public class ArticleDTO extends TypeDTO {
     public static ArticleDTO of(Article article) {
         return new ArticleDTO(
                 article.getID(),
+                article.getNamedId(),
                 article.getTitle(),
                 SectionDTO.of(article.getSection()),
                 article.getImageURL(),

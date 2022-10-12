@@ -10,6 +10,7 @@ import lombok.*;
 public abstract class TypeDTO {
 
     private Long ID;
+    private String namedId;
     private String title;
     private SectionDTO section;
 }

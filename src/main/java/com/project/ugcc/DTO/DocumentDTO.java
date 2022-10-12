@@ -20,13 +20,14 @@ public class DocumentDTO extends TypeDTO{
     private LocalDateTime creationDate;
 
     private DocumentDTO(Long ID,
+                        String namedId,
                         String title,
                         SectionDTO section,
                         String description,
                         String imageURL,
                         String documentURL,
                         LocalDateTime creationDate) {
-        super(ID, title, section);
+        super(ID, namedId, title, section);
         this.description = description;
         this.imageURL = imageURL;
         this.documentURL = documentURL;
@@ -36,6 +37,7 @@ public class DocumentDTO extends TypeDTO{
     public static DocumentDTO of(Document document) {
         return new DocumentDTO(
                 document.getID(),
+                document.getNamedId(),
                 document.getTitle(),
                 SectionDTO.of(document.getSection()),
                 document.getDescription(),

@@ -5,8 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface NewsRepository extends TypeRepository<News> {
+
+    Optional<News> findByNamedId(String namedId);
 
     Page<News> findAllBySectionID(Long id, Pageable pageable);
 }

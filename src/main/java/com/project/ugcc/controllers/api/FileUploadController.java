@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @RestController
 @RequestMapping("/api/upload")
 public class FileUploadController {
@@ -23,16 +26,22 @@ public class FileUploadController {
     @PostMapping
     public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam String folder) {
         fileService.saveFile(file, folder);
+
         final String baseUrl =
                 ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-        return String.format("%s/api/upload?filename=%s&folder=%s", baseUrl, file.getOriginalFilename(), folder);
+
+        return String.format("%s/api/upload?filename=%s&folder=%s&date=%s",
+                baseUrl, file.getOriginalFilename(),
+                folder,
+                LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
     }
 
     @GetMapping
-    public ResponseEntity<Resource> getUploadedFile(@RequestParam String filename, @RequestParam String folder) {
+    public ResponseEntity<Resource> getUploadedFile(@RequestParam String filename, @RequestParam String folder, @RequestParam String date) {
 
-        Resource file = fileService.loadAsResource(filename, folder);
+        Resource file = fileService.loadAsResource(filename, folder, date);
+
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                String.format("attachment; filename=\"%s/%s\"", folder, file.getFilename())).body(file);
+                String.format("attachment; filename=\"%s\"", file.getFilename())).body(file);
     }
 }
