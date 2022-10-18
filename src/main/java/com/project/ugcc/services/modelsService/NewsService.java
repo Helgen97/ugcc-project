@@ -6,7 +6,8 @@ import com.project.ugcc.models.News;
 import com.project.ugcc.models.Section;
 import com.project.ugcc.repositories.NewsRepository;
 import com.project.ugcc.repositories.SectionRepository;
-import com.project.ugcc.utils.UrlConverter;
+import com.project.ugcc.services.fileService.FileStorageService;
+import com.project.ugcc.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class NewsService implements TypeService<News> {
@@ -27,18 +27,22 @@ public class NewsService implements TypeService<News> {
 
     private final NewsRepository newsRepository;
     private final SectionRepository sectionRepository;
+    private final FileStorageService fileService;
 
     @Autowired
-    public NewsService(NewsRepository newsRepository, SectionRepository sectionRepository) {
+    public NewsService(NewsRepository newsRepository,
+                       SectionRepository sectionRepository,
+                       FileStorageService fileStorageService) {
         this.newsRepository = newsRepository;
         this.sectionRepository = sectionRepository;
+        this.fileService = fileStorageService;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<News> getOneById(Long id) {
-        LOGGER.info(String.format("Getting news by id: %d", id));
-        return newsRepository.findById(id);
+    public News getOneById(Long id) {
+        LOGGER.info(String.format("Getting news by id. News id: %d", id));
+        return newsRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("News with id %s not found!", id)));
     }
 
     @Override
@@ -49,9 +53,9 @@ public class NewsService implements TypeService<News> {
     }
 
     @Override
-    public Optional<News> getByNamedId(String namedId) {
+    public News getByNamedId(String namedId) {
         LOGGER.info(String.format("Getting news by named id. Named id: %s", namedId));
-        return newsRepository.findByNamedId(namedId);
+        return newsRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("News with named id %s not found!", namedId)));
     }
 
     @Transactional(readOnly = true)
@@ -75,7 +79,7 @@ public class NewsService implements TypeService<News> {
     @Transactional
     public News create(News news) {
         LOGGER.info("Creating new news");
-        news.setNamedId(UrlConverter.urlTransliterate(news.getTitle()));
+        news.setNamedId(Utils.transliterateStringFromCyrillicToLatinChars(news.getTitle()));
         news.setDate(LocalDateTime.now());
         return newsRepository.save(news);
     }
@@ -83,8 +87,8 @@ public class NewsService implements TypeService<News> {
     @Override
     @Transactional
     public News setSectionToModel(News news, Long id) {
-        LOGGER.info(String.format("Setting section to new news. Section id: %d", id));
-        Section sectionFromDB = sectionRepository.findByID(id).orElseThrow(() -> new NotFoundException(String.format("Section with id = %s not found", id)));
+        LOGGER.info(String.format("Setting section to news. Section id: %d", id));
+        Section sectionFromDB = sectionRepository.findByID(id).orElseThrow(() -> new NotFoundException(String.format("Section with id %s not found", id)));
         news.setSection(sectionFromDB);
         return news;
     }
@@ -92,14 +96,22 @@ public class NewsService implements TypeService<News> {
     @Override
     @Transactional
     public News update(News news) {
-        LOGGER.info(String.format("Updating news with id: %d", news.getID()));
+        LOGGER.info(String.format("Updating news. News id: %d", news.getID()));
+
+        News newsToUpdate = newsRepository.findById(news.getID()).orElseThrow(() -> new NotFoundException(String.format("News with id %s not found!", news.getID())));
+        if (!newsToUpdate.getImageURL().equals(news.getImageURL())) {
+            fileService.deleteFile(newsToUpdate.getImageURL());
+        }
         return newsRepository.save(news);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        LOGGER.info(String.format("Deleting news with id: %d", id));
-        newsRepository.deleteById(id);
+        LOGGER.info(String.format("Deleting news. News id: %d", id));
+
+        News newsToDelete = newsRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("News with id %s not found!", id)));
+        fileService.deleteFile(newsToDelete.getImageURL());
+        newsRepository.delete(newsToDelete);
     }
 }

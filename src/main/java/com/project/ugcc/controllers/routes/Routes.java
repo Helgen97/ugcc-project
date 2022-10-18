@@ -46,13 +46,14 @@ public class Routes {
     }
 
     @GetMapping("/a-panel")
-    public String aPanelPage(Model model, @AuthenticationPrincipal User user) {
+    public String aPanelPage(Model model) {
         model.addAttribute("newsSections", sectionService.getAllByCategory("NEWS"));
         model.addAttribute("newsList", newsService.getPageOfNews(0, 10));
         model.addAttribute("documentSections", sectionService.getAllByCategory("DOCUMENTS"));
         model.addAttribute("documentsList", documentService.getPageOfDocuments(0, 10));
         model.addAttribute("articlesList", articleService.getAll());
         model.addAttribute("albumsSections", sectionService.getAllByCategory("MEDIA"));
+        model.addAttribute("albumsList", albumService.getPageOfAlbums(0, 10));
         return "panel.html";
     }
 }

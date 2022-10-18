@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SiteUserService implements ModelService<SiteUser> {
@@ -29,9 +28,9 @@ public class SiteUserService implements ModelService<SiteUser> {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<SiteUser> getOneById(Long id) {
-        LOGGER.info(String.format("Getting user by id: %d", id));
-        return siteUserRepository.findById(id);
+    public SiteUser getOneById(Long id) {
+        LOGGER.info(String.format("Getting user by id. User id: %d", id));
+        return siteUserRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("User with id %d not found", id)));
     }
 
     @Override
@@ -53,8 +52,8 @@ public class SiteUserService implements ModelService<SiteUser> {
     @Override
     @Transactional
     public SiteUser update(SiteUser siteUser) {
-        LOGGER.info(String.format("Updating user with id: %d", siteUser.getID()));
-        SiteUser siteUserToUpdate = siteUserRepository.findById(siteUser.getID()).orElseThrow(() -> new NotFoundException(String.format("User with id: %s not found", siteUser.getID())));
+        LOGGER.info(String.format("Updating user. User id: %d", siteUser.getID()));
+        SiteUser siteUserToUpdate = siteUserRepository.findById(siteUser.getID()).orElseThrow(() -> new NotFoundException(String.format("User with id %s not found", siteUser.getID())));
         siteUserToUpdate.setLogin(siteUser.getLogin());
         siteUserToUpdate.setRole(siteUser.getRole());
         return siteUserRepository.save(siteUserToUpdate);
@@ -63,7 +62,7 @@ public class SiteUserService implements ModelService<SiteUser> {
     @Transactional
     public void changePassword(Long id, String rawPassword) {
         LOGGER.info(String.format("Changing password for user. User id: %d", id));
-        SiteUser siteUser = siteUserRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("User with id: %s not found", id)));
+        SiteUser siteUser = siteUserRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("User with id %s not found", id)));
         siteUser.setPassword(passwordEncoder.encode(rawPassword));
         siteUserRepository.save(siteUser);
     }
@@ -71,7 +70,7 @@ public class SiteUserService implements ModelService<SiteUser> {
     @Override
     @Transactional
     public void delete(Long id) {
-        LOGGER.info(String.format("Deleting user with id: %d", id));
+        LOGGER.info(String.format("Deleting user. User id: %d", id));
         siteUserRepository.deleteById(id);
     }
 }

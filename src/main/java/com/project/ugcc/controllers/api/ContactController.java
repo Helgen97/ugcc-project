@@ -30,7 +30,7 @@ public class ContactController {
 
     @GetMapping("/{id}")
     public ContactDTO getOneById(@PathVariable long id) {
-        return ContactDTO.of(contactsService.getOneById(id).orElseThrow(() -> new NotFoundException("Contact not found!")));
+        return ContactDTO.of(contactsService.getOneById(id));
     }
 
     @PostMapping

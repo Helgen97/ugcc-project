@@ -26,7 +26,9 @@ public class Album extends Type {
     private LocalDateTime creationDate;
 
     @ElementCollection
-    private List<String> contentURLs;
+    private List<String> imagesUrls;
+
+    private String videoUrl;
 
     @Override
     public boolean equals(Object o) {

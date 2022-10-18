@@ -16,7 +16,8 @@ import java.util.List;
 public class AlbumDTO extends TypeDTO {
 
     private LocalDateTime creationDate;
-    private List<String> contentURLs;
+    private List<String> imagesUrls;
+    private String videoUrl;
 
     private AlbumDTO(
             Long ID,
@@ -24,10 +25,12 @@ public class AlbumDTO extends TypeDTO {
             String title,
             SectionDTO section,
             LocalDateTime creationDate,
-            List<String> contentURLs) {
+            List<String> imagesUrls,
+            String videoUrl) {
         super(ID, namedId, title, section);
         this.creationDate = creationDate;
-        this.contentURLs = contentURLs;
+        this.imagesUrls = imagesUrls;
+        this.videoUrl = videoUrl;
     }
 
     public static AlbumDTO of(Album album) {
@@ -37,7 +40,8 @@ public class AlbumDTO extends TypeDTO {
                 album.getTitle(),
                 SectionDTO.of(album.getSection()),
                 album.getCreationDate(),
-                album.getContentURLs()
+                album.getImagesUrls(),
+                album.getVideoUrl()
         );
     }
 }

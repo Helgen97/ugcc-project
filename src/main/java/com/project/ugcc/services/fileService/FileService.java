@@ -11,11 +11,17 @@ public interface FileService {
 
     void createDirectory(String path);
 
-    void saveFile(MultipartFile file, String folder);
+    public boolean isDirectoryEmpty(Path path);
 
-    Path load(String filename);
+    String saveFile(MultipartFile file, String collectionsNameFolder, String collectionsItemTitleFolder);
 
-    Resource loadAsResource(String filename, String folder, String date);
+    Path load(String filePath);
+
+    Resource loadAsResource(String folder, String collectionsFolderName, String date, String collectionsItemTitle, String filename);
+
+    String getPathFromFileUrl(String fileUrl);
+
+    void deleteFile(String fileUrl);
 
     void deleteAll();
 

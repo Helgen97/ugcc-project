@@ -114,11 +114,6 @@
                                accept="image/*">
                         <label class="custom-file-label" for="news-imageInput">Виберіть фото</label>
                     </div>
-                    <div class="w-100 text-center">
-                        <button class="w-50 btn btn-primary" type="button"
-                                id="news-imageUploadBtn">Завантажити
-                        </button>
-                    </div>
                     <div class="w-100 mt-3 text-center">
                         <h6 class="w-100">Превью зображення</h6>
                         <img id="news-imagePreview" class="w-25" alt="Превью завантаженого зображення"
@@ -241,11 +236,6 @@
                                accept="image/*">
                         <label class="custom-file-label" for="news-imageInput">Виберіть фото</label>
                     </div>
-                    <div class="w-100 text-center">
-                        <button class="w-50 btn btn-primary" type="button"
-                                id="document-imageUploadBtn">Завантажити
-                        </button>
-                    </div>
                     <div class="w-100 mt-3 text-center">
                         <h6 class="w-100">Превью зображення</h6>
                         <img id="document-imagePreview" class="w-25" alt="Превью завантаженого зображення"
@@ -262,11 +252,6 @@
                         <label class="custom-file-label" for="document-fileInput">Виберіть файл</label>
                     </div>
                     <div id="document-fileAlerts" class="w-100 mx-1"></div>
-                    <div class="w-100 text-center">
-                        <button class="w-50 btn btn-primary" type="button"
-                                id="document-fileUploadBtn">Завантажити
-                        </button>
-                    </div>
                 </div>
                 <div class="my-4 text-center">
                     <button type="button" id="document-btn" class="w-50 btn btn-primary">Створити документ</button>
@@ -282,9 +267,9 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${document.ID} + '. ' + ${document.title}"></h5>
                         <div class="d-flex justify-content-between text-center">
-                            <button class="w-75 mr-2 btn btn-primary" th:attr="data-id=${document.ID}">Редагувати
+                            <button class="w-75 mr-2 btn btn-primary edit-btn" th:attr="data-id=${document.ID}">Редагувати
                             </button>
-                            <button class="w-25 ml-2 btn btn-danger" th:attr="data-id=${document.ID}">Видалити</button>
+                            <button class="w-25 ml-2 btn btn-danger delete-btn" th:attr="data-id=${document.ID}">Видалити</button>
                         </div>
                     </div>
                 </div>
@@ -308,11 +293,6 @@
                         <input type="file" class="custom-file-input" id="article-imageInput"
                                accept="image/*">
                         <label class="custom-file-label" for="article-imageInput">Виберіть фото</label>
-                    </div>
-                    <div class="w-100 text-center">
-                        <button class="w-50 btn btn-primary" type="button"
-                                id="article-imageUploadBtn">Завантажити
-                        </button>
                     </div>
                     <div class="w-100 mt-3 text-center">
                         <h6 class="w-100">Превью зображення</h6>
@@ -399,8 +379,39 @@
                 <div id="uploadedImageList" class="uploadedImageList">
                 </div>
             </div>
+            <div class="mb-3">
+                <div class="w-100 p-1 text-center">
+                    <h5>Посилання на відео</h5>
+                </div>
+                <input id="album-videoUrlInput" type="text" class="form-control" placeholder="Посилання на відео"
+                       aria-describedby="album-videoUrlHelp">
+                <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
+                <small id="album-videoUrlHelp" class="form-text text-muted">Наприклад: "https://www.youtube.com/watch?v=sjpBgPKQQhw"</small>
+            </div>
             <div class="mb-3 text-center">
                 <button id="album-applyBtn" type="button" class="w-50 btn btn-primary">Cтворити альбом</button>
+            </div>
+        </div>
+        <div id="albumList-menu" class="p-1" style="display: none">
+            <div class="panel__block__title text-center border-bottom border-dark">
+                <h4>Список альбомів</h4>
+            </div>
+            <div id="albumList">
+                <div class="card mb-3" th:each="album : ${albumsList.content}">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${album.ID} + '. ' + ${album.title}"></h5>
+                        <div class="d-flex justify-content-between text-center">
+                            <button class="w-75 mr-2 btn btn-primary edit-btn" th:attr="data-id=${album.ID}">Редагувати
+                            </button>
+                            <button class="w-25 ml-2 btn btn-danger delete-btn" th:attr="data-id=${album.ID}">Видалити</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100 text-center">
+                <button type="button" class="w-50 btn btn-primary" id="albumList-moreBtn"
+                        th:data-total-pages="${albumsList.totalPages}">Показати ще
+                </button>
             </div>
         </div>
         <div id="contacts-menu" class="p-1" style="display: none;">
@@ -485,6 +496,7 @@
 <script src="./scripts/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="./scripts/summernote/summernote-bs4.min.js"></script>
 <script src="./scripts/summernote/summernote-uk-UA.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="./scripts/panel/panel.js"></script>
 </body>
 

@@ -42,7 +42,7 @@ public class DocumentDTO extends TypeDTO{
                 SectionDTO.of(document.getSection()),
                 document.getDescription(),
                 document.getImageURL(),
-                document.getImageURL(),
+                document.getDocumentURL(),
                 document.getCreationDate());
     }
 

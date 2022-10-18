@@ -6,7 +6,8 @@ import com.project.ugcc.models.Article;
 import com.project.ugcc.models.Section;
 import com.project.ugcc.repositories.ArticleRepository;
 import com.project.ugcc.repositories.SectionRepository;
-import com.project.ugcc.utils.UrlConverter;
+import com.project.ugcc.services.fileService.FileStorageService;
+import com.project.ugcc.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ArticleService implements TypeService<Article> {
@@ -26,25 +26,27 @@ public class ArticleService implements TypeService<Article> {
 
     private final ArticleRepository articleRepository;
     private final SectionRepository sectionRepository;
+    private final FileStorageService fileService;
 
     @Autowired
-    public ArticleService(ArticleRepository articleRepository, SectionRepository sectionRepository) {
+    public ArticleService(ArticleRepository articleRepository, SectionRepository sectionRepository, FileStorageService fileStorageService) {
         this.articleRepository = articleRepository;
         this.sectionRepository = sectionRepository;
+        this.fileService = fileStorageService;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Article> getOneById(Long id) {
-        LOGGER.info(String.format("Getting article by id: %d.", id));
-        return articleRepository.findById(id);
+    public Article getOneById(Long id) {
+        LOGGER.info(String.format("Getting article by id. Article id: %d.", id));
+        return articleRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Article with id %d not found", id)));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Article> getByNamedId(String namedId) {
+    public Article getByNamedId(String namedId) {
         LOGGER.info(String.format("Getting article by named id. Named id: %s", namedId));
-        return articleRepository.findByNamedId(namedId);
+        return articleRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("Article with id %s not found", namedId)));
     }
 
     @Override
@@ -75,14 +77,14 @@ public class ArticleService implements TypeService<Article> {
     @Transactional
     public Article create(Article article) {
         LOGGER.info("Creating new article");
-        article.setNamedId(UrlConverter.urlTransliterate(article.getTitle()));
+        article.setNamedId(Utils.transliterateStringFromCyrillicToLatinChars(article.getTitle()));
         return articleRepository.save(article);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Article setSectionToModel(Article article, Long id) {
-        LOGGER.info(String.format("Setting section to new article. Section id: %d", id));
+        LOGGER.info(String.format("Setting section to article. Section id: %d", id));
         Section section = sectionRepository.findByID(id).orElseThrow(() -> new NotFoundException(String.format("Section with ID: %s - not found", id)));
         article.setSection(section);
         return article;
@@ -91,14 +93,22 @@ public class ArticleService implements TypeService<Article> {
     @Override
     @Transactional
     public Article update(Article article) {
-        LOGGER.info(String.format("Updating article with id: %d", article.getID()));
+        LOGGER.info(String.format("Updating article. Article id: %d", article.getID()));
+
+        Article articleToUpdate = articleRepository.findById(article.getID()).orElseThrow(() -> new NotFoundException(String.format("Article with id %s not found!", article.getID())));
+        if (!articleToUpdate.getImageURL().equals(article.getImageURL()) && !articleToUpdate.getImageURL().isEmpty()) {
+            fileService.deleteFile(articleToUpdate.getImageURL());
+        }
         return articleRepository.save(article);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        LOGGER.info(String.format("Deleting album with id: %d", id));
-        articleRepository.deleteById(id);
+        LOGGER.info(String.format("Deleting article. Article id: %d", id));
+
+        Article articleToDelete = articleRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Article with id %s not found!", id)));
+        fileService.deleteFile(articleToDelete.getImageURL());
+        articleRepository.delete(articleToDelete);
     }
 }

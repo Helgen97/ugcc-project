@@ -1,11 +1,10 @@
 package com.project.ugcc.services.modelsService;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ModelService<T> {
 
-    Optional<T> getOneById(Long id);
+    T getOneById(Long id);
 
     List<T> getAll();
 

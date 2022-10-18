@@ -1,10 +1,8 @@
 package com.project.ugcc.controllers.api;
 
 import com.project.ugcc.DTO.NewsDTO;
-import com.project.ugcc.exceptions.NotFoundException;
 import com.project.ugcc.models.News;
 import com.project.ugcc.services.modelsService.NewsService;
-import com.project.ugcc.utils.UrlConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +28,7 @@ public class NewsController {
 
     @GetMapping("/{id}")
     public NewsDTO getOne(@PathVariable Long id) {
-        return NewsDTO.of(newsService.getOneById(id).orElseThrow(() -> new NotFoundException("News not found!")));
+        return NewsDTO.of(newsService.getOneById(id));
     }
 
     @GetMapping("/pages")
@@ -53,7 +51,7 @@ public class NewsController {
 
     @PutMapping
     public NewsDTO updateNews(@RequestBody News news) {
-        return NewsDTO.of(newsService.create(news));
+        return NewsDTO.of(newsService.update(news));
     }
 
     @DeleteMapping("/{id}")

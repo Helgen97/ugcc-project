@@ -1,5 +1,6 @@
 package com.project.ugcc.services.modelsService;
 
+import com.project.ugcc.exceptions.NotFoundException;
 import com.project.ugcc.models.Category;
 import com.project.ugcc.models.Section;
 import com.project.ugcc.repositories.SectionRepository;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SectionService implements ModelService<Section> {
@@ -26,9 +26,9 @@ public class SectionService implements ModelService<Section> {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Section> getOneById(Long id) {
-        LOGGER.info(String.format("Getting section by id: %d", id));
-        return sectionRepository.findByID(id);
+    public Section getOneById(Long id) {
+        LOGGER.info(String.format("Getting section by id. Section id: %d", id));
+        return sectionRepository.findByID(id).orElseThrow(() -> new NotFoundException(String.format("Section with id %d not found", id)));
     }
 
     @Override
@@ -54,14 +54,14 @@ public class SectionService implements ModelService<Section> {
     @Override
     @Transactional
     public Section update(Section section) {
-        LOGGER.info(String.format("Updating section with id: %d", section.getID()));
+        LOGGER.info(String.format("Updating section. Section id %d", section.getID()));
         return sectionRepository.save(section);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        LOGGER.info(String.format("Deleting section with id: %d", id));
+        LOGGER.info(String.format("Deleting section. Section id: %d", id));
         sectionRepository.deleteByID(id);
     }
 }

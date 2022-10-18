@@ -1,7 +1,6 @@
 package com.project.ugcc.controllers.api;
 
 import com.project.ugcc.DTO.SectionDTO;
-import com.project.ugcc.exceptions.NotFoundException;
 import com.project.ugcc.models.Section;
 import com.project.ugcc.services.modelsService.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class SectionController {
 
     @GetMapping("/{id}")
     public SectionDTO getOneById(@PathVariable long id) {
-        return SectionDTO.of(sectionService.getOneById(id).orElseThrow(() -> new NotFoundException("Section not found!")));
+        return SectionDTO.of(sectionService.getOneById(id));
     }
 
     @PostMapping

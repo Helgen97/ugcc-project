@@ -6,7 +6,8 @@ import com.project.ugcc.models.Document;
 import com.project.ugcc.models.Section;
 import com.project.ugcc.repositories.DocumentRepository;
 import com.project.ugcc.repositories.SectionRepository;
-import com.project.ugcc.utils.UrlConverter;
+import com.project.ugcc.services.fileService.FileStorageService;
+import com.project.ugcc.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DocumentService implements TypeService<Document> {
@@ -27,25 +27,27 @@ public class DocumentService implements TypeService<Document> {
 
     private final DocumentRepository documentRepository;
     private final SectionRepository sectionRepository;
+    private final FileStorageService fileService;
 
     @Autowired
-    public DocumentService(DocumentRepository documentRepository, SectionRepository sectionRepository) {
+    public DocumentService(DocumentRepository documentRepository, SectionRepository sectionRepository, FileStorageService fileService) {
         this.documentRepository = documentRepository;
         this.sectionRepository = sectionRepository;
+        this.fileService = fileService;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Document> getOneById(Long id) {
-        LOGGER.info(String.format("Getting document by id: %d", id));
-        return documentRepository.findById(id);
+    public Document getOneById(Long id) {
+        LOGGER.info(String.format("Getting document by id. Document Id: %d", id));
+        return documentRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Document with id %s not found", id)));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Document> getByNamedId(String namedId) {
+    public Document getByNamedId(String namedId) {
         LOGGER.info(String.format("Getting document by named id. Named id: %s", namedId));
-        return documentRepository.findByNamedId(namedId);
+        return documentRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("Document with named id: %s not found", namedId)));
     }
 
     @Override
@@ -76,7 +78,7 @@ public class DocumentService implements TypeService<Document> {
     @Transactional
     public Document create(Document document) {
         LOGGER.info("Creating new document");
-        document.setNamedId(UrlConverter.urlTransliterate(document.getTitle()));
+        document.setNamedId(Utils.transliterateStringFromCyrillicToLatinChars(document.getTitle()));
         document.setCreationDate(LocalDateTime.now());
         return documentRepository.save(document);
     }
@@ -93,14 +95,29 @@ public class DocumentService implements TypeService<Document> {
     @Override
     @Transactional
     public Document update(Document document) {
-        LOGGER.info(String.format("Updating document with id: %d", document.getID()));
+        LOGGER.info(String.format("Updating document. Document id: %d", document.getID()));
+
+        Document documentToUpdate = documentRepository.findById(document.getID()).orElseThrow(() -> new NotFoundException(String.format("Document with id: %s not found!", document.getID())));
+
+        if (!documentToUpdate.getImageURL().equals(document.getImageURL())) {
+            fileService.deleteFile(documentToUpdate.getImageURL());
+        }
+        if(!documentToUpdate.getDocumentURL().equals(document.getDocumentURL())) {
+            fileService.deleteFile(documentToUpdate.getDocumentURL());
+        }
+
         return documentRepository.save(document);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        LOGGER.info(String.format("Deleting document with id: %d", id));
-        documentRepository.deleteById(id);
+        LOGGER.info(String.format("Deleting document. Document id: %d", id));
+
+        Document documentToDelete = documentRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("News with id: %s not found!", id)));
+        fileService.deleteFile(documentToDelete.getImageURL());
+        fileService.deleteFile(documentToDelete.getDocumentURL());
+
+        documentRepository.delete(documentToDelete);
     }
 }

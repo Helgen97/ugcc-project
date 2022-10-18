@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -24,22 +25,26 @@ public class FileUploadController {
     }
 
     @PostMapping
-    public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam String folder) {
-        fileService.saveFile(file, folder);
+    public String uploadFile(@RequestParam("file") MultipartFile file,
+                             @RequestParam String collectionName,
+                             @RequestParam String collectionItemTitle) {
+        String filePath = fileService.saveFile(file, collectionName, collectionItemTitle);
 
         final String baseUrl =
                 ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
 
-        return String.format("%s/api/upload?filename=%s&folder=%s&date=%s",
-                baseUrl, file.getOriginalFilename(),
-                folder,
-                LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
+        return baseUrl + "/api/upload/" + filePath;
     }
 
-    @GetMapping
-    public ResponseEntity<Resource> getUploadedFile(@RequestParam String filename, @RequestParam String folder, @RequestParam String date) {
+    @GetMapping("/{folder}/{collectionFolderName}/{date}/{collectionItemTitle}/{filename}")
+    public ResponseEntity<Resource> getUploadedFile(@PathVariable String folder,
+                                                    @PathVariable String collectionFolderName,
+                                                    @PathVariable String date,
+                                                    @PathVariable String collectionItemTitle,
+                                                    @PathVariable String filename
+                                                    ) {
 
-        Resource file = fileService.loadAsResource(filename, folder, date);
+        Resource file = fileService.loadAsResource(folder, collectionFolderName, date, collectionItemTitle, filename);
 
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                 String.format("attachment; filename=\"%s\"", file.getFilename())).body(file);

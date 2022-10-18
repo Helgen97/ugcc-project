@@ -1,7 +1,6 @@
 package com.project.ugcc.controllers.api;
 
 import com.project.ugcc.DTO.SiteUserDTO;
-import com.project.ugcc.exceptions.NotFoundException;
 import com.project.ugcc.models.SiteUser;
 import com.project.ugcc.services.modelsService.SiteUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class SiteUserController {
 
     @GetMapping("/{id}")
     public SiteUserDTO getOneById(@PathVariable long id) {
-        return SiteUserDTO.of(siteUserService.getOneById(id).orElseThrow(() -> new NotFoundException("user not found!")));
+        return SiteUserDTO.of(siteUserService.getOneById(id));
     }
 
     @PostMapping

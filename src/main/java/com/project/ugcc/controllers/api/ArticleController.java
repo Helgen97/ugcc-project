@@ -24,7 +24,7 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     public ArticleDTO getOneById(@PathVariable Long id) {
-        return ArticleDTO.of(articleService.getOneById(id).orElseThrow(() -> new NotFoundException(String.format("No Article wit id %s", id))));
+        return ArticleDTO.of(articleService.getOneById(id));
     }
 
     @GetMapping

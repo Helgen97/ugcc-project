@@ -24,7 +24,7 @@ public class AlbumController {
 
     @GetMapping("/{id}")
     public AlbumDTO getOneById(@PathVariable Long id) {
-        return AlbumDTO.of(albumService.getOneById(id).orElseThrow(() -> new NotFoundException(String.format("No Album wit id %s", id))));
+        return AlbumDTO.of(albumService.getOneById(id));
     }
 
     @GetMapping

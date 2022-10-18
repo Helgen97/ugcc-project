@@ -1,7 +1,6 @@
 package com.project.ugcc.controllers.api;
 
 import com.project.ugcc.DTO.DocumentDTO;
-import com.project.ugcc.exceptions.NotFoundException;
 import com.project.ugcc.models.Document;
 import com.project.ugcc.services.modelsService.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class DocumentController {
 
     @GetMapping("/{id}")
     public DocumentDTO getOne(@PathVariable Long id) {
-        return DocumentDTO.of(documentService.getOneById(id).orElseThrow(() -> new NotFoundException("Document not found")));
+        return DocumentDTO.of(documentService.getOneById(id));
     }
 
     @GetMapping("/pages")
@@ -44,18 +43,18 @@ public class DocumentController {
     }
 
     @PostMapping
-    public DocumentDTO create(@RequestBody Document document, @RequestParam Long sectionId){
+    public DocumentDTO create(@RequestBody Document document, @RequestParam Long sectionId) {
         Document documentWithSection = documentService.setSectionToModel(document, sectionId);
         return DocumentDTO.of(documentService.create(documentWithSection));
     }
 
     @PutMapping
-    public DocumentDTO update(@RequestBody Document document){
+    public DocumentDTO update(@RequestBody Document document) {
         return DocumentDTO.of(documentService.update(document));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         documentService.delete(id);
     }
 }
