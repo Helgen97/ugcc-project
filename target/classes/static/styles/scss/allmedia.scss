@@ -30,6 +30,17 @@
   margin: 1em 0;
 }
 
+.media__block-title {
+  margin: 1em 0;
+  text-align: center;
+}
+
+.media__video-container {
+  @include centerBlock(60%);
+  padding: 1em;
+  text-align: center;
+}
+
 @media screen and (max-width: $tablet) {
   .media__list {
     flex-direction: column;
@@ -37,6 +48,10 @@
     .section {
       flex: 1 0 100%;
     }
+  }
+
+  .media__video-container {
+    width: 100%;
   }
 }
 

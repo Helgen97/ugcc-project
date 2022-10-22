@@ -12,5 +12,5 @@ public interface DocumentRepository extends TypeRepository<Document> {
 
     Optional<Document> findByNamedId(String namedId);
 
-    Page<Document> findAllBySectionID(Long id, Pageable pageable);
+    Page<Document> findAllBySectionId(Long id, Pageable pageable);
 }

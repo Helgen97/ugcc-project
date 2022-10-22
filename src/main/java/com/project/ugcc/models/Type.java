@@ -1,6 +1,9 @@
 package com.project.ugcc.models;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -17,7 +20,7 @@ public abstract class Type {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
 
     @Column(length = 200)
     private String namedId;
@@ -34,11 +37,11 @@ public abstract class Type {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Type item = (Type) o;
-        return Objects.equals(getID(), item.getID()) && getSection().equals(item.getSection());
+        return Objects.equals(getId(), item.getId()) && getSection().equals(item.getSection());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getID(), getSection());
+        return Objects.hash(getId(), getSection());
     }
 }

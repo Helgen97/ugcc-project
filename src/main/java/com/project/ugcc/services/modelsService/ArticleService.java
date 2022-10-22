@@ -17,7 +17,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleService implements TypeService<Article> {
@@ -57,19 +59,26 @@ public class ArticleService implements TypeService<Article> {
     }
 
     @Transactional(readOnly = true)
+    public List<ArticleDTO> getFourRandomArticleExceptArticleWithId(Long id) {
+        List<Article> articleList = articleRepository.findAll().stream().filter(article -> !article.getId().equals(id)).collect(Collectors.toList());
+        Collections.shuffle(articleList);
+        return articleList.stream().limit(4).map(ArticleDTO::of).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public Page<ArticleDTO> getPageOfArticles(int page, int size) {
         LOGGER.info(String.format("Get page of articles. Page: %d. Size: %d", page, size));
         Page<Article> articlePage = articleRepository.findAll(
-                PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "ID")));
+                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
         return articlePage.map(ArticleDTO::of);
     }
 
     @Transactional(readOnly = true)
     public Page<ArticleDTO> getPageOfArticlesBySectionId(Long id, int page, int size) {
         LOGGER.info(String.format("Get page of articles by section id. Section id: %d. Page: %d. Size: %d", id, page, size));
-        Page<Article> articlePage = articleRepository.findAllBySectionID(
+        Page<Article> articlePage = articleRepository.findAllBySectionId(
                 id,
-                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "ID")));
+                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
         return articlePage.map(ArticleDTO::of);
     }
 
@@ -85,7 +94,7 @@ public class ArticleService implements TypeService<Article> {
     @Transactional(readOnly = true)
     public Article setSectionToModel(Article article, Long id) {
         LOGGER.info(String.format("Setting section to article. Section id: %d", id));
-        Section section = sectionRepository.findByID(id).orElseThrow(() -> new NotFoundException(String.format("Section with ID: %s - not found", id)));
+        Section section = sectionRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Section with ID: %s - not found", id)));
         article.setSection(section);
         return article;
     }
@@ -93,11 +102,11 @@ public class ArticleService implements TypeService<Article> {
     @Override
     @Transactional
     public Article update(Article article) {
-        LOGGER.info(String.format("Updating article. Article id: %d", article.getID()));
+        LOGGER.info(String.format("Updating article. Article id: %d", article.getId()));
 
-        Article articleToUpdate = articleRepository.findById(article.getID()).orElseThrow(() -> new NotFoundException(String.format("Article with id %s not found!", article.getID())));
-        if (!articleToUpdate.getImageURL().equals(article.getImageURL()) && !articleToUpdate.getImageURL().isEmpty()) {
-            fileService.deleteFile(articleToUpdate.getImageURL());
+        Article articleToUpdate = articleRepository.findById(article.getId()).orElseThrow(() -> new NotFoundException(String.format("Article with id %s not found!", article.getId())));
+        if (!articleToUpdate.getImageUrl().equals(article.getImageUrl()) && !articleToUpdate.getImageUrl().isEmpty()) {
+            fileService.deleteFile(articleToUpdate.getImageUrl());
         }
         return articleRepository.save(article);
     }
@@ -108,7 +117,7 @@ public class ArticleService implements TypeService<Article> {
         LOGGER.info(String.format("Deleting article. Article id: %d", id));
 
         Article articleToDelete = articleRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Article with id %s not found!", id)));
-        fileService.deleteFile(articleToDelete.getImageURL());
+        fileService.deleteFile(articleToDelete.getImageUrl());
         articleRepository.delete(articleToDelete);
     }
 }

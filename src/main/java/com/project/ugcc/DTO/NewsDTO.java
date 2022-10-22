@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @ToString
@@ -15,35 +13,35 @@ import java.time.LocalDateTime;
 public class NewsDTO extends TypeDTO {
 
     private String description;
-    private String imageURL;
+    private String imageUrl;
     private String text;
-    private LocalDateTime date;
+    private String creationDate;
 
     private NewsDTO(
-            Long ID,
+            Long id,
             String namedId,
             String title,
             SectionDTO section,
             String description,
-            String imageURL,
+            String imageUrl,
             String text,
-            LocalDateTime date) {
-        super(ID, namedId, title, section);
+            String creationDate) {
+        super(id, namedId, title, section);
         this.description = description;
-        this.imageURL = imageURL;
+        this.imageUrl = imageUrl;
         this.text = text;
-        this.date = date;
+        this.creationDate = creationDate;
     }
 
     public static NewsDTO of(News news) {
         return new NewsDTO(
-                news.getID(),
+                news.getId(),
                 news.getNamedId(),
                 news.getTitle(),
                 SectionDTO.of(news.getSection()),
                 news.getDescription(),
-                news.getImageURL(),
+                news.getImageUrl(),
                 news.getText(),
-                news.getDate());
+                news.getCreationDate());
     }
 }

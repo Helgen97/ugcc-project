@@ -1,7 +1,6 @@
 package com.project.ugcc.controllers.api;
 
 import com.project.ugcc.DTO.AlbumDTO;
-import com.project.ugcc.exceptions.NotFoundException;
 import com.project.ugcc.models.Album;
 import com.project.ugcc.services.modelsService.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;

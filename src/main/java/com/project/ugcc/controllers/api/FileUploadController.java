@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 @RestController
 @RequestMapping("/api/upload")
 public class FileUploadController {
@@ -42,7 +38,7 @@ public class FileUploadController {
                                                     @PathVariable String date,
                                                     @PathVariable String collectionItemTitle,
                                                     @PathVariable String filename
-                                                    ) {
+    ) {
 
         Resource file = fileService.loadAsResource(folder, collectionFolderName, date, collectionItemTitle, filename);
 

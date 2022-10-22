@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -15,19 +14,19 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class AlbumDTO extends TypeDTO {
 
-    private LocalDateTime creationDate;
+    private String creationDate;
     private List<String> imagesUrls;
     private String videoUrl;
 
     private AlbumDTO(
-            Long ID,
+            Long id,
             String namedId,
             String title,
             SectionDTO section,
-            LocalDateTime creationDate,
+            String creationDate,
             List<String> imagesUrls,
             String videoUrl) {
-        super(ID, namedId, title, section);
+        super(id, namedId, title, section);
         this.creationDate = creationDate;
         this.imagesUrls = imagesUrls;
         this.videoUrl = videoUrl;
@@ -35,7 +34,7 @@ public class AlbumDTO extends TypeDTO {
 
     public static AlbumDTO of(Album album) {
         return new AlbumDTO(
-                album.getID(),
+                album.getId(),
                 album.getNamedId(),
                 album.getTitle(),
                 SectionDTO.of(album.getSection()),

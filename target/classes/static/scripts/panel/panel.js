@@ -1,6 +1,6 @@
 const TITLE_MAX_LENGTH = 200;
 const DESCRIPTION_MAX_LENGTH = 500;
-const TEXT_MAX_LENGTH = 5000;
+const TEXT_MAX_LENGTH = 10000;
 const URL_MAX_LENGTH = 300;
 const IMAGE_DESCRIPTION_LENGTH = 120;
 const CONTACT_FIELDS_MAX_LENGTH = 150;
@@ -88,6 +88,16 @@ let albumApplyButton = $("#album-applyBtn");
 
 //------------
 
+let albumsNextPage = 1;
+let albumListOpenBlockButton = $("#albumList-openBlockBtn");
+let albumListMenu = $("#albumList-menu");
+let albumsList = $("#albumList");
+let albumListFetchPageButton = $("#albumList-moreBtn");
+let editAlbumButtons = [...$("#albumList .edit-btn")];
+let deleteAlbumButtons = [...$("#albumList .delete-btn")];
+
+//------------
+
 let contactMenuOpenBlockButton = $("#contacts-openBlockBtn");
 let contactMenu = $("#contacts-menu");
 let contactsForm = $("#contactsForm");
@@ -115,7 +125,7 @@ let news = {
         id: "0"
     },
     description: "",
-    imageURL: "",
+    imageUrl: "",
     text: "",
 };
 
@@ -125,8 +135,8 @@ let doc = {
         id: "0",
     },
     description: "",
-    imageURL: "",
-    documentURL: "",
+    imageUrl: "",
+    documentUrl: "",
 }
 
 let article = {
@@ -135,7 +145,7 @@ let article = {
     section: {
         id: "0"
     },
-    imageURL: "",
+    imageUrl: "",
     imageDescription: "",
     text: "",
 }
@@ -199,7 +209,8 @@ function createAlert(alertType, alertText, alertLink) {
     if (alertLink) {
         let link = document.createElement("a");
         link.setAttribute("href", alertLink);
-        link.innerText = alertLink;
+        link.setAttribute("target", "_blank");
+        link.innerText = "переглянути";
         alert.append(link);
     }
 
@@ -308,7 +319,7 @@ async function uploadImage(objectToPutData, imageInput, collectionName, collecti
         processData: false,
         contentType: false,
     }).then(function (response) {
-        objectToPutData["imageURL"] = response.data;
+        objectToPutData["imageUrl"] = response.data;
         createPrependAndScrollToAlert("success", "Зображення успішно завантажено.", alertPrependArea);
         isSuccess = true;
     }).catch(function (error) {
@@ -339,7 +350,7 @@ async function uploadFile(collectionItemTitle) {
         processData: false,
         contentType: false,
     }).then(function (response) {
-        doc["documentURL"] = response.data;
+        doc["documentUrl"] = response.data;
         createPrependAndScrollToAlert("success", "Файл успішно завантажено.", documentFileAlertBlock);
         isSuccess = true;
     }).catch(function (error) {
@@ -360,7 +371,7 @@ function resetNewsInputsAndObject() {
         section: {
             id: "0"
         },
-        imageURL: "",
+        imageUrl: "",
         text: "",
     };
     newsBlockTitle.text("Створити новину");
@@ -378,8 +389,8 @@ function resetNewsInputsAndObject() {
 function prepareFormToEditNews() {
     newsBlockTitle.text("Редагування новини")
     newsSectionInput.val(news.section.id).change();
-    newsImageInput.next(".custom-file-label").html(news.imageURL);
-    newsImagePreview[0].src = news.imageURL;
+    newsImageInput.next(".custom-file-label").html(news.imageUrl);
+    newsImagePreview[0].src = news.imageUrl;
     newsTitleInput.val(news.title).keyup();
     newsDescriptionInput.val(news.description).keyup();
     newsTextInput.summernote('code', news.text);
@@ -424,9 +435,10 @@ async function createNews() {
                 'Content-Type': "application/json"
             }
         }
-    ).then(function (response) {
-        createPrependAndScrollToAlert("success", `Новина успішно створена`, newsForm);
-        newsList.prepend(createCard(response.data.title, response.data.id, editNewsButtonClick, deleteNewsButtonClick))
+    ).then(function ({data}) {
+        createPrependAndScrollToAlert("success", `Новина успішно створена, `, newsForm, `/news/${data.namedId}`);
+        resetNewsInputsAndObject();
+        newsList.prepend(createCard(data.title, data.id, editNewsButtonClick, deleteNewsButtonClick))
     }).catch(function (error) {
         console.error(error)
         createPrependAndScrollToAlert("danger", `Помилка при створенні новини. Спробуйте ще раз`, newsForm);
@@ -442,8 +454,8 @@ async function changeNews() {
                 'Content-Type': "application/json"
             }
         }
-    ).then(function (response) {
-        createPrependAndScrollToAlert("success", `Новина успішно змінена`, newsForm);
+    ).then(function ({data}) {
+        createPrependAndScrollToAlert("success", `Новина успішно змінена, `, newsForm, `/news/${data.namedId}`);
     }).catch(function (error) {
         console.error(error);
         createPrependAndScrollToAlert("danger", `Помилка при редагуванні новини. Спробуйте ще раз`, newsForm);
@@ -482,7 +494,7 @@ newsTextInput.summernote({
         ["fontfamily", ["fontname"]],
         ["color", ["color"]],
         ["para", ["ul", "ol", "paragraph"]],
-        ["insert", ["link", "picture", "video"]],
+        ["insert", ["link", "picture", "video", "hr"]],
         ["misk", ["undo", "redo"]],
         ["misk", ["fullscreen", "help"]],
     ],
@@ -509,7 +521,7 @@ newsApplyButton.on("click", async function () {
     } else if (buttonPurpose === "change") {
         if (await confirmAction("Редагувати новину?", "Перевірте правильність введених данних!")) {
             if (newsImageInput[0].files.length !== 0) {
-                await uploadImage(news, newsImageInput[0], "news", news.title)
+                await uploadImage(news, newsImageInput[0], "news", news.title);
             }
             await changeNews();
         }
@@ -595,8 +607,8 @@ function resetDocumentsInputsAndObject() {
             id: "0",
         },
         description: "",
-        imageURL: "",
-        documentURL: "",
+        imageUrl: "",
+        documentUrl: "",
     };
     documentBlockTitle.text("Створити документ");
     documentSectionInput.val("0").change();
@@ -617,10 +629,10 @@ function prepareFormToEditDocument() {
     documentTitleInput.val(doc.title).keyup()
     documentDescriptionInput.val(doc.description).keyup();
     documentImageInput.val("");
-    documentImageInput.next(".custom-file-label").html(doc.imageURL);
-    documentImagePreview[0].src = doc.imageURL;
+    documentImageInput.next(".custom-file-label").html(doc.imageUrl);
+    documentImagePreview[0].src = doc.imageUrl;
     documentFileInput.val("");
-    documentFileInput.next(".custom-file-label").html(doc.documentURL);
+    documentFileInput.next(".custom-file-label").html(doc.documentUrl);
     documentApplyButton.text("Змінити документ");
     documentApplyButton.attr("data-purpose", "change");
 }
@@ -659,9 +671,10 @@ async function createDocument() {
                 'Content-Type': "application/json"
             }
         }
-    ).then(function (response) {
-        createPrependAndScrollToAlert("success", `Документ успішно завантажено, <a href='/document/${response.data.id}' target="_blank">переглянути</a>`, documentForm);
-        documentsList.prepend(createCard(response.data.title, response.data.id, editDocumentButtonClick, deleteDocumentButtonClick));
+    ).then(function ({data}) {
+        createPrependAndScrollToAlert("success", "Документ успішно завантажено, ", documentForm, `/document/${data.namedId}`);
+        documentsList.prepend(createCard(data.data.title, data.data.id, editDocumentButtonClick, deleteDocumentButtonClick));
+        resetDocumentsInputsAndObject();
     }).catch(function (error) {
         console.error(error)
         createPrependAndScrollToAlert("danger", `Помилка при створенні новини. Спробуйте ще раз`, documentForm);
@@ -677,8 +690,8 @@ async function changeDocument() {
                 'Content-Type': "application/json"
             }
         }
-    ).then(function (response) {
-        createPrependAndScrollToAlert("success", "Документ успішно змінений", documentForm);
+    ).then(function ({data}) {
+        createPrependAndScrollToAlert("success", "Документ успішно змінений, ", documentForm, `/documents/${data.namedId}`);
     }).catch(function (error) {
         console.error(error);
         createPrependAndScrollToAlert("danger", `Помилка при редагуванні документа. Спробуйте ще раз`, documentForm);
@@ -808,8 +821,8 @@ deleteDocumentButtons.forEach((button) => {
 function prepareFormToEditArticle() {
     articleBlockTitle.text(article.title);
     articleImageInput.val("");
-    articleImagePreview[0].src = article.imageURL;
-    articleImageInput.next(".custom-file-label").html(article.imageURL);
+    articleImagePreview[0].src = article.imageUrl;
+    articleImageInput.next(".custom-file-label").html(article.imageUrl);
     articleImageDescriptionInput.val(article.imageDescription).keyup();
     articleTextInput.summernote('code', article.text);
 }
@@ -901,8 +914,8 @@ articleApplyButton.on('click', async function () {
                     'Content-Type': "application/json"
                 }
             })
-            .then(function (response) {
-                createPrependAndScrollToAlert("success", "Стаття успішно змінена", articleForm);
+            .then(function ({data}) {
+                createPrependAndScrollToAlert("success", "Стаття успішно змінена, ", articleForm, `/article/${data.namedId}`);
             })
             .catch(function (error) {
                 console.error(error);
@@ -937,7 +950,6 @@ function resetAlbumForm() {
 }
 
 function prepareFormToEditAlbum() {
-    console.log(album)
     albumBlockTitle.text("Редагування альбому");
     albumSectionInput.val(album.section.id).change();
     albumTitleInput.val(album.title).keyup();
@@ -947,6 +959,7 @@ function prepareFormToEditAlbum() {
     albumVideoUrlInput.val(album.videoUrl).keyup();
     albumApplyButton.text("Змінити альбом");
     albumApplyButton.attr("data-purpose", "change")
+    albumUploadedImageList.html("");
 
     let albumImageCards = album.imagesUrls.map((imageUrl) => createUploadedImageCard(imageUrl));
     albumUploadedImageList.append(albumImageCards);
@@ -983,7 +996,7 @@ function createUploadedImageCard(imageSrc) {
 }
 
 function isOneOfAlbumFieldsIsEmpty() {
-    return album.title.length === 0 || album.section.id === "0" && (album.imagesUrls.length === 0 || album.videoUrl.length === 0);
+    return album.title.length === 0 || album.section.id === "0" && (album.imagesUrls.length === 1 || album.videoUrl.length === 0);
 }
 
 function isOneOfAlbumFieldsIsEmptyOrReachSymbolLimit() {
@@ -1007,8 +1020,9 @@ async function createAlbum() {
             }
         }
     ).then(function ({data}) {
-        createPrependAndScrollToAlert("success", "Альбом успішно створено", albumForm);
+        createPrependAndScrollToAlert("success", "Альбом успішно створено, ", albumForm, `/albums/${data.namedId}`);
         albumsList.append(createCard(data.title, data.id, editAlbumButtonClick, deleteAlbumButtonClick))
+        resetAlbumForm();
     }).catch(function (error) {
         console.error(error);
         createPrependAndScrollToAlert("danger", "При створенні альбому щось пішло не так, споробуйте ще раз", albumForm);
@@ -1017,15 +1031,15 @@ async function createAlbum() {
 
 async function changeAlbum() {
     await axios.put(
-        `/api/albums`,
+        "/api/albums",
         JSON.stringify(album),
         {
             headers: {
                 'Content-Type': "application/json"
             }
         }
-    ).then(function (response) {
-        createPrependAndScrollToAlert("success", "Альбом успішно змінено", albumForm);
+    ).then(function ({data}) {
+        createPrependAndScrollToAlert("success", "Альбом успішно змінено, ", albumForm, `/albums/${data.namedId}`);
     }).catch(function (error) {
         console.error(error);
         createPrependAndScrollToAlert("danger", "При зміненні альбому щось пішло не так, споробуйте ще раз", albumForm);
@@ -1131,7 +1145,7 @@ async function deleteAlbumButtonClick() {
     let card = $(this).parent().parent().parent();
 
     if (await confirmAction("Ви дійсно бажаете видалити цей альбом?")) {
-        await axios.delete(`/api/documents/${albumID}`).then(function () {
+        await axios.delete(`/api/albums/${albumID}`).then(function () {
             card.toggle();
         }).catch(function (error) {
             console.error(error);
@@ -1140,14 +1154,6 @@ async function deleteAlbumButtonClick() {
     }
 
 }
-
-let albumsNextPage = 1;
-let albumListOpenBlockButton = $("#albumList-openBlockBtn");
-let albumListMenu = $("#albumList-menu");
-let albumsList = $("#albumList");
-let albumListFetchPageButton = $("#albumList-moreBtn");
-let editAlbumButtons = [...$("#albumList .edit-btn")];
-let deleteAlbumButtons = [...$("#albumList .delete-btn")];
 
 albumListOpenBlockButton.on("click", function (e) {
     e.preventDefault();
@@ -1266,8 +1272,8 @@ contactsApplyButton.on('click', async function () {
                     'Content-Type': "application/json"
                 }
             })
-            .then(function (response) {
-                createPrependAndScrollToAlert("success", "Контактні дані успішно змінені", contactsForm);
+            .then(function () {
+                createPrependAndScrollToAlert("success", "Контактні дані успішно змінені, ", contactsForm, "/contacts");
             })
             .catch(function (error) {
                 console.error(error);

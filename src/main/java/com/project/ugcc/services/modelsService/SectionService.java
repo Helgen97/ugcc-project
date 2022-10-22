@@ -28,7 +28,13 @@ public class SectionService implements ModelService<Section> {
     @Transactional(readOnly = true)
     public Section getOneById(Long id) {
         LOGGER.info(String.format("Getting section by id. Section id: %d", id));
-        return sectionRepository.findByID(id).orElseThrow(() -> new NotFoundException(String.format("Section with id %d not found", id)));
+        return sectionRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Section with id %d not found", id)));
+    }
+
+    @Transactional(readOnly = true)
+    public Section getByNamedId(String namedId) {
+        LOGGER.info(String.format("Getting section by namedId. NamedId: %s.", namedId));
+        return sectionRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("Section with namedId %s not found", namedId)));
     }
 
     @Override
@@ -54,7 +60,7 @@ public class SectionService implements ModelService<Section> {
     @Override
     @Transactional
     public Section update(Section section) {
-        LOGGER.info(String.format("Updating section. Section id %d", section.getID()));
+        LOGGER.info(String.format("Updating section. Section id %d", section.getId()));
         return sectionRepository.save(section);
     }
 
@@ -62,6 +68,6 @@ public class SectionService implements ModelService<Section> {
     @Transactional
     public void delete(Long id) {
         LOGGER.info(String.format("Deleting section. Section id: %d", id));
-        sectionRepository.deleteByID(id);
+        sectionRepository.deleteById(id);
     }
 }

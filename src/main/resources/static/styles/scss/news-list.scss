@@ -39,6 +39,15 @@
   }
 }
 
+.page.active {
+  background-color: gold;
+
+  &:hover {
+    font-weight: 500;
+    box-shadow: none;
+  }
+}
+
 @media screen and(max-width: $tablet) {
   .sections-list {
     .section {

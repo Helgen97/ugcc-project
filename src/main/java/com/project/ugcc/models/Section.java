@@ -17,10 +17,12 @@ public class Section {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
 
     @Column(length = 200)
     private String title;
+
+    private String namedId;
 
     private Category category;
 
@@ -33,11 +35,11 @@ public class Section {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Section section = (Section) o;
-        return ID == section.ID && category == section.category;
+        return id == section.id && category == section.category;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, category);
+        return Objects.hash(id, category);
     }
 }

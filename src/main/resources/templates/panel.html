@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html lang="uk" xmlns:th="http://www.thymeleaf.org">
 
+<!--/*@thymesVar id="newsSections" type="java.util.List<com.project.ugcc.models.News>"*/-->
+<!--/*@thymesVar id="newsList" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.NewsDTO>"*/-->
+<!--/*@thymesVar id="news" type="com.project.ugcc.DTO.NewsDTO"*/-->
+<!--/*@thymesVar id="documentSections" type="java.util.List<com.project.ugcc.models.Section>"*/-->
+<!--/*@thymesVar id="documentsList" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.DocumentDTO>"*/-->
+<!--/*@thymesVar id="document" type="com.project.ugcc.DTO.DocumentDTO"*/-->
+<!--/*@thymesVar id="articlesList" type="java.util.List<com.project.ugcc.models.Article>"*/-->
+<!--/*@thymesVar id="albumsSections" type="java.util.List<com.project.ugcc.models.Album>"*/-->
+<!--/*@thymesVar id="albumsList" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.AlbumDTO>"*/-->
+<!--/*@thymesVar id="album" type="com.project.ugcc.DTO.AlbumDTO"*/-->
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Панель керування сайтом</title>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="./imgs/favicons/apple-touch-icon.png"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="./imgs/favicons/favicon-32x32.png"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="./imgs/favicons/favicon-16x16.png"/>
-    <link rel="manifest" href="./imgs/favicons/site.webmanifest"/>
-    <link rel="mask-icon" href="./imgs/favicons/safari-pinned-tab.svg" color="#00b9ee"/>
-    <link rel="shortcut icon" href="./imgs/favicons/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/imgs/favicons/apple-touch-icon.png}"/>
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/imgs/favicons/favicon-32x32.png}"/>
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/imgs/favicons/favicon-16x16.png}"/>
+    <link rel="manifest" th:href="@{/imgs/favicons/site.webmanifest}"/>
+    <link rel="mask-icon" th:href="@{/imgs/favicons/safari-pinned-tab.svg}" color="#00b9ee"/>
+    <link rel="shortcut icon" th:href="@{/imgs/favicons/favicon.ico}"/>
     <meta name="msapplication-TileColor" content="#2d89ef"/>
     <meta name="msapplication-config" content="./imgs/favicons/browserconfig.xml"/>
     <meta name="theme-color" content="#ffffff"/>
 
-    <link rel="stylesheet" href="./styles/bootstrap/bootstrap.min.css">
-    <link href="./styles/summernote/summernote-bs4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./styles/css/login-panel.css">
+    <link rel="stylesheet" th:href="@{/styles/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/styles/summernote/summernote-bs4.min.css}">
+    <link rel="stylesheet" th:href="@{/styles/css/login-panel.css}">
 </head>
 
 <body>
@@ -55,7 +66,7 @@
             </button>
             <div class="dropdown-menu w-100">
                 <a class="articlePage-btn dropdown-item" th:each="article : ${articlesList}" th:text="${article.title}"
-                   th:data-id="${article.ID}"></a>
+                   th:data-id="${article.id}"></a>
             </div>
         </div>
         <div class="dropdown mb-3 text-center">
@@ -78,7 +89,8 @@
             </button>
         </div>
         <div class="mb-3 text-center">
-            <a href="/login?logout=true" class="w-100 btn btn-info btn-m active" role="button" aria-pressed="true">Вихід з панелі</a>
+            <a href="/login?logout=true" class="w-100 btn btn-info btn-m active" role="button" aria-pressed="true">Вихід
+                з панелі</a>
         </div>
     </div>
     <div id="blocks" class="panel__blocks border border-light shadow rounded">
@@ -101,7 +113,7 @@
                     </div>
                     <select id="news-sectionInput" class="custom-select">
                         <option value="0" selected>Розділ...</option>
-                        <option th:each="newsSection : ${newsSections}" th:value="${newsSection.ID}"
+                        <option th:each="newsSection : ${newsSections}" th:value="${newsSection.id}"
                                 th:text="${newsSection.title}"></option>
                     </select>
                 </div>
@@ -117,7 +129,7 @@
                     <div class="w-100 mt-3 text-center">
                         <h6 class="w-100">Превью зображення</h6>
                         <img id="news-imagePreview" class="w-25" alt="Превью завантаженого зображення"
-                             src="./imgs/uploadPhoto.png">
+                             th:src="@{./imgs/uploadPhoto.png}">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -167,13 +179,13 @@
             <div id="newsList">
                 <div class="card mb-3" th:each="news : ${newsList.content}">
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${news.ID} + '. ' + ${news.title}"></h5>
+                        <h5 class="card-title" th:text="${news.id} + '. ' + ${news.title}"></h5>
                         <div class="d-flex justify-content-between text-center">
                             <button class="w-75 mr-2 btn btn-primary edit-btn"
-                                    th:attr="data-id=${news.ID}">Редагувати
+                                    th:attr="data-id=${news.id}">Редагувати
                             </button>
                             <button class="w-25 ml-2 btn btn-danger delete-btn"
-                                    th:attr="data-id=${news.ID}">Видалити
+                                    th:attr="data-id=${news.id}">Видалити
                             </button>
                         </div>
                     </div>
@@ -196,7 +208,7 @@
                     </div>
                     <select id="document-sectionInput" class="custom-select">
                         <option value="0" selected>Розділ...</option>
-                        <option th:each="docSection : ${documentSections}" th:value="${docSection.ID}"
+                        <option th:each="docSection : ${documentSections}" th:value="${docSection.id}"
                                 th:text="${docSection.title}">
                         </option>
                     </select>
@@ -239,7 +251,7 @@
                     <div class="w-100 mt-3 text-center">
                         <h6 class="w-100">Превью зображення</h6>
                         <img id="document-imagePreview" class="w-25" alt="Превью завантаженого зображення"
-                             src="./imgs/uploadPhoto.png">
+                             th:src="@{./imgs/uploadPhoto.png}">
                     </div>
                 </div>
                 <div class="input-group panel__block__input-container">
@@ -265,11 +277,14 @@
             <div id="documentsList">
                 <div class="card mb-3" th:each="document : ${documentsList.content}">
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${document.ID} + '. ' + ${document.title}"></h5>
+                        <h5 class="card-title" th:text="${document.id} + '. ' + ${document.title}"></h5>
                         <div class="d-flex justify-content-between text-center">
-                            <button class="w-75 mr-2 btn btn-primary edit-btn" th:attr="data-id=${document.ID}">Редагувати
+                            <button class="w-75 mr-2 btn btn-primary edit-btn" th:attr="data-id=${document.id}">
+                                Редагувати
                             </button>
-                            <button class="w-25 ml-2 btn btn-danger delete-btn" th:attr="data-id=${document.ID}">Видалити</button>
+                            <button class="w-25 ml-2 btn btn-danger delete-btn" th:attr="data-id=${document.id}">
+                                Видалити
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -297,7 +312,7 @@
                     <div class="w-100 mt-3 text-center">
                         <h6 class="w-100">Превью зображення</h6>
                         <img id="article-imagePreview" class="w-25" alt="Превью завантаженого зображення"
-                             src="./imgs/uploadPhoto.png">
+                             th:src="@{./imgs/uploadPhoto.png}">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -337,7 +352,7 @@
                     </div>
                     <select id="album-sectionInput" class="custom-select">
                         <option value="0" selected>Розділ...</option>
-                        <option th:each="albumsSection : ${albumsSections}" th:value="${albumsSection.ID}"
+                        <option th:each="albumsSection : ${albumsSections}" th:value="${albumsSection.id}"
                                 th:text="${albumsSection.title}"></option>
                     </select>
                 </div>
@@ -369,7 +384,7 @@
                 <div class="w-100 mt-3 text-center">
                     <h6 class="w-100">Превью зображення</h6>
                     <img id="album-imagePreview" class="w-25" alt="Превью завантаженого зображення"
-                         src="./imgs/uploadPhoto.png">
+                         th:src="@{./imgs/uploadPhoto.png}">
                 </div>
             </div>
             <div>
@@ -386,7 +401,8 @@
                 <input id="album-videoUrlInput" type="text" class="form-control" placeholder="Посилання на відео"
                        aria-describedby="album-videoUrlHelp">
                 <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
-                <small id="album-videoUrlHelp" class="form-text text-muted">Наприклад: "https://www.youtube.com/watch?v=sjpBgPKQQhw"</small>
+                <small id="album-videoUrlHelp" class="form-text text-muted">Наприклад:
+                    "https://www.youtube.com/watch?v=sjpBgPKQQhw"</small>
             </div>
             <div class="mb-3 text-center">
                 <button id="album-applyBtn" type="button" class="w-50 btn btn-primary">Cтворити альбом</button>
@@ -399,11 +415,12 @@
             <div id="albumList">
                 <div class="card mb-3" th:each="album : ${albumsList.content}">
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${album.ID} + '. ' + ${album.title}"></h5>
+                        <h5 class="card-title" th:text="${album.id} + '. ' + ${album.title}"></h5>
                         <div class="d-flex justify-content-between text-center">
-                            <button class="w-75 mr-2 btn btn-primary edit-btn" th:attr="data-id=${album.ID}">Редагувати
+                            <button class="w-75 mr-2 btn btn-primary edit-btn" th:attr="data-id=${album.id}">Редагувати
                             </button>
-                            <button class="w-25 ml-2 btn btn-danger delete-btn" th:attr="data-id=${album.ID}">Видалити</button>
+                            <button class="w-25 ml-2 btn btn-danger delete-btn" th:attr="data-id=${album.id}">Видалити
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -421,16 +438,19 @@
             <div id="contactsForm">
                 <div class="form-group panel__block__input-container">
                     <label for="contacts-townInput">Місто та почтовий індекс</label>
-                    <input type="text" class="form-control" id="contacts-townInput" aria-describedby="contacts-townInputHelp">
+                    <input type="text" class="form-control" id="contacts-townInput"
+                           aria-describedby="contacts-townInputHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
-                    <small id="contacts-townInputHelp" class="form-text text-muted">Наприклад: м. Запоріжжя, 69095</small>
+                    <small id="contacts-townInputHelp" class="form-text text-muted">Наприклад: м. Запоріжжя,
+                        69095</small>
                 </div>
                 <div class="form-group panel__block__input-container">
                     <label for="contacts-addressInput">Адреса</label>
                     <input type="text" class="form-control" id="contacts-addressInput"
                            aria-describedby="contacts-addressInputHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
-                    <small id="contacts-addressInputHelp" class="form-text text-muted">Наприклад: вул. Вербова,11</small>
+                    <small id="contacts-addressInputHelp" class="form-text text-muted">Наприклад: вул.
+                        Вербова,11</small>
                 </div>
                 <div class="form-group panel__block__input-container">
                     <label for="contacts-countryInput">Країна</label>
@@ -444,7 +464,8 @@
                     <input type="text" class="form-control" id="contacts-phoneInput"
                            aria-describedby="contacts-phoneInputHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
-                    <small id="contacts-phoneInputHelp" class="form-text text-muted">Наприклад: +38 (098) 23 096 19</small>
+                    <small id="contacts-phoneInputHelp" class="form-text text-muted">Наприклад: +38 (098) 23 096
+                        19</small>
                 </div>
                 <div class="form-group panel__block__input-container">
                     <label for="contacts-emailInput">Електронна адреса</label>
@@ -491,13 +512,13 @@
     </div>
 </div>
 
-<script src="./scripts/jquery-3.6.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="./scripts/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="./scripts/summernote/summernote-bs4.min.js"></script>
-<script src="./scripts/summernote/summernote-uk-UA.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="./scripts/panel/panel.js"></script>
+<script th:src="@{/scripts/jquery-3.6.1.min.js}"></script>
+<script th:src="@{/scripts/axios/axios.min.js}"></script>
+<script th:src="@{/scripts/bootstrap/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/scripts/summernote/summernote-bs4.min.js}"></script>
+<script th:src="@{/scripts/summernote/summernote-uk-UA.min.js}"></script>
+<script th:src="@{/scripts/sweetAlert/sweetalert.min.js}"></script>
+<script th:src="@{/scripts/panel/panel.js}"></script>
 </body>
 
 </html>

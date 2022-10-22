@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+
+<!--/*@thymesVar id="title" type="java.lang.String"*/-->
+<!--/*@thymesVar id="description" type="java.lang.String"*/-->
+<!--/*@thymesVar id="url" type="java.lang.String"*/-->
+<!--/*@thymesVar id="metaImage" type="java.lang.String"*/-->
+<!--/*@thymesVar id="mainAlbum" type="com.project.ugcc.DTO.AlbumDTO"*/-->
+<!--/*@thymesVar id="otherAlbums" type="java.util.List<com.project.ugcc.DTO.AlbumDTO>"*/-->
+
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${title}"></title>
+    <meta name="title" th:content="${title}"/>
+    <meta name="description" th:content="${description}"/>
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" th:content="${url}"/>
+    <meta property="og:title" th:content="${title}"/>
+    <meta property="og:description" th:content="${description}"/>
+    <meta property="og:image" th:content="${metaImage}"/>
+
+    <meta property="twitter:card" content="summary_large_image"/>
+    <meta property="twitter:url" th:content="${url}"/>
+    <meta property="twitter:title" th:content="${title}"/>
+    <meta property="twitter:description" th:content="${description}"/>
+    <meta property="twitter:image" th:content="${metaImage}"/>
+
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/imgs/favicons/apple-touch-icon.png}"/>
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/imgs/favicons/favicon-32x32.png}"/>
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/imgs/favicons/favicon-16x16.png}"/>
+    <link rel="manifest" th:href="@{/imgs/favicons/site.webmanifest}"/>
+    <link rel="mask-icon" th:href="@{/imgs/favicons/safari-pinned-tab.svg}" color="#00b9ee"/>
+    <link rel="shortcut icon" th:href="@{/imgs/favicons/favicon.ico}"/>
+    <meta name="msapplication-TileColor" content="#2d89ef"/>
+    <meta name="msapplication-config" content="./imgs/favicons/browserconfig.xml"/>
+    <meta name="theme-color" content="#ffffff"/>
+
+    <meta name="author" content="Dmytro Donchenko"/>
+    <meta name="copyright" content="2016 Донецький екзархат УГКЦ"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet" th:href="@{/styles/css/normalize.css}"/>
+    <link rel="stylesheet" th:href="@{/styles/css/itc-slider.min.css}">
+    <link rel="stylesheet" th:href="@{/styles/css/index.css}"/>
+</head>
+
+<body>
+<header th:replace="fragments/header.html"></header>
+
+<div th:replace="fragments/navigation.html"></div>
+
+<div th:replace="fragments/modal.html"></div>
+
+<main>
+    <div class="content">
+        <div class="block main-media">
+            <div class="block-title">
+                <h1 th:text="${mainAlbum.title}"></h1>
+            </div>
+            <div class="media__date">
+                <p th:text="${mainAlbum.creationDate}"></p>
+            </div>
+            <div class="media__block-title">
+                <h2>Фото:</h2>
+            </div>
+            <div id="carousel" class="w-100 h-min-content carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li th:each="image, stat : ${mainAlbum.imagesUrls}" data-target="#carousel"
+                        th:data-slide-to="${stat.index}" th:class="${stat.index == 0} ? 'active'"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div th:each="image, stat : ${mainAlbum.imagesUrls}"
+                         th:class="${stat.index} == 0 ? 'carousel-item active' : 'carousel-item'">
+                        <img class="d-block w-100" th:src="${image}" th:alt="${mainAlbum.title}">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-target="#carousel"
+                        data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-target="#carousel"
+                        data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </button>
+            </div>
+            <div th:if="${!mainAlbum.videoUrl.isEmpty()}" class="media__block-title">
+                <h2>Відео:</h2>
+            </div>
+            <div th:if="${!mainAlbum.videoUrl.isEmpty()}" class="media__video-container">
+                <iframe width="100%" height="320"
+                        th:src="${mainAlbum.videoUrl}">
+                </iframe>
+            </div>
+        </div>
+        <div class="block">
+            <div class="block-title">
+                <h2>Інші альбоми</h2>
+            </div>
+            <div class="media__list">
+                <a th:each="album : ${otherAlbums}" th:href="@{/albums/{namedId}(namedId=${album.namedId})}"
+                   class="section">
+                    <div class="section__image-container">
+                        <img th:src="${album.imagesUrls.get(0)}" th:alt="${album.title}" class="section__image">
+                    </div>
+                    <div class="section__info">
+                        <div class="section__info__date">
+                            <p th:text="${album.creationDate}"></p>
+                        </div>
+                        <div class="section__info__title">
+                            <p th:text="${album.title}"></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/sidebar.html"></div>
+</main>
+
+
+<div th:replace="fragments/friends.html"></div>
+
+<footer th:replace="fragments/footer.html"></footer>
+
+<script th:src="@{/scripts/jquery-3.6.1.min.js}"></script>
+<script th:src="@{/scripts/itc-slider.min.js}" defer></script>
+<script th:src="@{/scripts/bootstrap/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/scripts/index.js}"></script>
+</body>
+
+</html>

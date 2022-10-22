@@ -1,7 +1,6 @@
 package com.project.ugcc.controllers.api;
 
 import com.project.ugcc.DTO.ArticleDTO;
-import com.project.ugcc.exceptions.NotFoundException;
 import com.project.ugcc.models.Article;
 import com.project.ugcc.services.modelsService.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;

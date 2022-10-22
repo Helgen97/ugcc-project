@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public abstract class TypeDTO {
 
-    private Long ID;
+    private Long id;
     private String namedId;
     private String title;
     private SectionDTO section;

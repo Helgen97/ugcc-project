@@ -24,7 +24,7 @@ public class SiteUserDTO {
 
     public static SiteUserDTO of(SiteUser siteUser) {
         return new SiteUserDTO(
-                siteUser.getID(),
+                siteUser.getId(),
                 siteUser.getLogin(),
                 siteUser.getRole()
         );

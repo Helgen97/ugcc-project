@@ -12,6 +12,6 @@ public interface AlbumRepository extends TypeRepository<Album> {
 
     Optional<Album> findByNamedId(String namedId);
 
-    Page<Album> findAllBySectionID(Long id, Pageable pageable);
+    Page<Album> findAllBySectionId(Long id, Pageable pageable);
 
 }

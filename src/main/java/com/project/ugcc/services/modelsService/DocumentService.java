@@ -18,7 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DocumentService implements TypeService<Document> {
@@ -58,19 +60,26 @@ public class DocumentService implements TypeService<Document> {
     }
 
     @Transactional(readOnly = true)
+    public List<DocumentDTO> getFourRandomDocumentsExceptArticleWithId(Long id) {
+        List<Document> documentList = documentRepository.findAll().stream().filter(document -> !document.getId().equals(id)).collect(Collectors.toList());
+        Collections.shuffle(documentList);
+        return documentList.stream().limit(4).map(DocumentDTO::of).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public Page<DocumentDTO> getPageOfDocuments(int page, int size) {
         LOGGER.info(String.format("Get page of documents. Page: %d. Size: %d", page, size));
         Page<Document> documentPage = documentRepository.findAll(
-                PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "ID")));
+                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
         return documentPage.map(DocumentDTO::of);
     }
 
     @Transactional(readOnly = true)
     public Page<DocumentDTO> getPageOfDocumentsBySectionId(Long id, int page, int size) {
         LOGGER.info(String.format("Get page of documents by section id. Section id: %d. Page: %d. Size: %d", id, page, size));
-        Page<Document> documentPage = documentRepository.findAllBySectionID(
+        Page<Document> documentPage = documentRepository.findAllBySectionId(
                 id,
-                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "ID")));
+                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
         return documentPage.map(DocumentDTO::of);
     }
 
@@ -79,7 +88,7 @@ public class DocumentService implements TypeService<Document> {
     public Document create(Document document) {
         LOGGER.info("Creating new document");
         document.setNamedId(Utils.transliterateStringFromCyrillicToLatinChars(document.getTitle()));
-        document.setCreationDate(LocalDateTime.now());
+        document.setCreationDate(Utils.convertDateToUkrainianDateString(LocalDateTime.now()));
         return documentRepository.save(document);
     }
 
@@ -87,7 +96,7 @@ public class DocumentService implements TypeService<Document> {
     @Transactional(readOnly = true)
     public Document setSectionToModel(Document document, Long sectionId) {
         LOGGER.info(String.format("Setting section to new document. Section id: %d", sectionId));
-        Section section = sectionRepository.findByID(sectionId).orElseThrow(() -> new NotFoundException("Section with this ID not found"));
+        Section section = sectionRepository.findById(sectionId).orElseThrow(() -> new NotFoundException("Section with this ID not found"));
         document.setSection(section);
         return document;
     }
@@ -95,15 +104,15 @@ public class DocumentService implements TypeService<Document> {
     @Override
     @Transactional
     public Document update(Document document) {
-        LOGGER.info(String.format("Updating document. Document id: %d", document.getID()));
+        LOGGER.info(String.format("Updating document. Document id: %d", document.getId()));
 
-        Document documentToUpdate = documentRepository.findById(document.getID()).orElseThrow(() -> new NotFoundException(String.format("Document with id: %s not found!", document.getID())));
+        Document documentToUpdate = documentRepository.findById(document.getId()).orElseThrow(() -> new NotFoundException(String.format("Document with id: %s not found!", document.getId())));
 
-        if (!documentToUpdate.getImageURL().equals(document.getImageURL())) {
-            fileService.deleteFile(documentToUpdate.getImageURL());
+        if (!documentToUpdate.getImageUrl().equals(document.getImageUrl())) {
+            fileService.deleteFile(documentToUpdate.getImageUrl());
         }
-        if(!documentToUpdate.getDocumentURL().equals(document.getDocumentURL())) {
-            fileService.deleteFile(documentToUpdate.getDocumentURL());
+        if (!documentToUpdate.getDocumentUrl().equals(document.getDocumentUrl())) {
+            fileService.deleteFile(documentToUpdate.getDocumentUrl());
         }
 
         return documentRepository.save(document);
@@ -115,8 +124,8 @@ public class DocumentService implements TypeService<Document> {
         LOGGER.info(String.format("Deleting document. Document id: %d", id));
 
         Document documentToDelete = documentRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("News with id: %s not found!", id)));
-        fileService.deleteFile(documentToDelete.getImageURL());
-        fileService.deleteFile(documentToDelete.getDocumentURL());
+        fileService.deleteFile(documentToDelete.getImageUrl());
+        fileService.deleteFile(documentToDelete.getDocumentUrl());
 
         documentRepository.delete(documentToDelete);
     }

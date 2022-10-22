@@ -1,7 +1,6 @@
 package com.project.ugcc.controllers.api;
 
 import com.project.ugcc.DTO.ContactDTO;
-import com.project.ugcc.exceptions.NotFoundException;
 import com.project.ugcc.models.Contact;
 import com.project.ugcc.services.modelsService.ContactsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-;
 
 @RestController
 @RequestMapping("/api/contacts")

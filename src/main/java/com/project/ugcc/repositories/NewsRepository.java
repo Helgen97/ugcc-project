@@ -12,5 +12,9 @@ public interface NewsRepository extends TypeRepository<News> {
 
     Optional<News> findByNamedId(String namedId);
 
-    Page<News> findAllBySectionID(Long id, Pageable pageable);
+    Page<News> findAllBySectionId(Long id, Pageable pageable);
+
+    Page<News> findAllBySectionNamedId(String namedId, Pageable pageable);
+
+    Page<News> findAllByTitleContainingIgnoreCase(String query, Pageable pageable);
 }

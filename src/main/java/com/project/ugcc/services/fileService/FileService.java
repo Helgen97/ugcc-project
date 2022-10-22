@@ -11,7 +11,7 @@ public interface FileService {
 
     void createDirectory(String path);
 
-    public boolean isDirectoryEmpty(Path path);
+    boolean isDirectoryEmpty(Path path);
 
     String saveFile(MultipartFile file, String collectionsNameFolder, String collectionsItemTitleFolder);
 

@@ -10,7 +10,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +22,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class Album extends Type {
 
-    private LocalDateTime creationDate;
+    private String creationDate;
 
     @ElementCollection
     private List<String> imagesUrls;
@@ -35,7 +34,7 @@ public class Album extends Type {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Album album = (Album) o;
-        return getID() != null && Objects.equals(getID(), album.getID());
+        return getId() != null && Objects.equals(getId(), album.getId());
     }
 
     @Override

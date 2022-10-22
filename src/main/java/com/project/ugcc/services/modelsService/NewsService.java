@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class NewsService implements TypeService<News> {
@@ -53,25 +54,43 @@ public class NewsService implements TypeService<News> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public News getByNamedId(String namedId) {
         LOGGER.info(String.format("Getting news by named id. Named id: %s", namedId));
         return newsRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("News with named id %s not found!", namedId)));
     }
 
     @Transactional(readOnly = true)
+    public Page<NewsDTO> getPageOfNewsBySectionNamedId(String namedId, int page, int size) {
+        LOGGER.info(String.format("Getting page of news by section namedId. Section namedId: %s. Page: %d. Size: %d", namedId, page, size));
+        Page<News> newsPage = newsRepository.findAllBySectionNamedId(namedId,
+                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
+        return newsPage.map(NewsDTO::of);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<NewsDTO> getPageOfNewsBySearchQuery(String query, int page, int size) {
+        LOGGER.info(String.format("Page of news by search query. Query: %s. Page: %d. Size: %d", query, page, size));
+        Page<News> newsPage = newsRepository.findAllByTitleContainingIgnoreCase(query,
+                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
+        return newsPage.map(NewsDTO::of);
+    }
+
+
+    @Transactional(readOnly = true)
     public Page<NewsDTO> getPageOfNews(int page, int size) {
         LOGGER.info(String.format("Get page of news. Page: %d. Size: %d", page, size));
         Page<News> newsPage = newsRepository.findAll(
-                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "ID")));
+                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
         return newsPage.map(NewsDTO::of);
     }
 
     @Transactional(readOnly = true)
     public Page<NewsDTO> getPageOfNewsBySectionId(Long id, int page, int size) {
         LOGGER.info(String.format("Get page of news by section id. Section id: %d. Page: %d. Size: %d", id, page, size));
-        Page<News> newsPage = newsRepository.findAllBySectionID(
+        Page<News> newsPage = newsRepository.findAllBySectionId(
                 id,
-                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "ID")));
+                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
         return newsPage.map(NewsDTO::of);
     }
 
@@ -80,7 +99,7 @@ public class NewsService implements TypeService<News> {
     public News create(News news) {
         LOGGER.info("Creating new news");
         news.setNamedId(Utils.transliterateStringFromCyrillicToLatinChars(news.getTitle()));
-        news.setDate(LocalDateTime.now());
+        news.setCreationDate(Utils.convertDateToUkrainianDateString(LocalDateTime.now()));
         return newsRepository.save(news);
     }
 
@@ -88,7 +107,7 @@ public class NewsService implements TypeService<News> {
     @Transactional
     public News setSectionToModel(News news, Long id) {
         LOGGER.info(String.format("Setting section to news. Section id: %d", id));
-        Section sectionFromDB = sectionRepository.findByID(id).orElseThrow(() -> new NotFoundException(String.format("Section with id %s not found", id)));
+        Section sectionFromDB = sectionRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Section with id %s not found", id)));
         news.setSection(sectionFromDB);
         return news;
     }
@@ -96,11 +115,11 @@ public class NewsService implements TypeService<News> {
     @Override
     @Transactional
     public News update(News news) {
-        LOGGER.info(String.format("Updating news. News id: %d", news.getID()));
+        LOGGER.info(String.format("Updating news. News id: %d", news.getId()));
 
-        News newsToUpdate = newsRepository.findById(news.getID()).orElseThrow(() -> new NotFoundException(String.format("News with id %s not found!", news.getID())));
-        if (!newsToUpdate.getImageURL().equals(news.getImageURL())) {
-            fileService.deleteFile(newsToUpdate.getImageURL());
+        News newsToUpdate = newsRepository.findById(news.getId()).orElseThrow(() -> new NotFoundException(String.format("News with id %s not found!", news.getId())));
+        if (!newsToUpdate.getImageUrl().equals(news.getImageUrl())) {
+            fileService.deleteFile(newsToUpdate.getImageUrl());
         }
         return newsRepository.save(news);
     }
@@ -111,7 +130,7 @@ public class NewsService implements TypeService<News> {
         LOGGER.info(String.format("Deleting news. News id: %d", id));
 
         News newsToDelete = newsRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("News with id %s not found!", id)));
-        fileService.deleteFile(newsToDelete.getImageURL());
+        fileService.deleteFile(newsToDelete.getImageUrl());
         newsRepository.delete(newsToDelete);
     }
 }

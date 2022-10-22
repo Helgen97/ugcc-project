@@ -1,5 +1,7 @@
 package com.project.ugcc.utils;
 
+import java.time.LocalDateTime;
+
 public class Utils {
 
     public static String transliterateStringFromCyrillicToLatinChars(String message) {
@@ -14,5 +16,16 @@ public class Utils {
             }
         }
         return builder.toString();
+    }
+
+    public static String convertDateToUkrainianDateString(LocalDateTime date) {
+        return date.getDayOfMonth() + " " +
+                convertIntMonthToUkraineMonth(date.getMonthValue()) + " " +
+                date.getYear();
+    }
+
+    private static String convertIntMonthToUkraineMonth(int month) {
+        String[] ukMonths = new String[]{"січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"};
+        return ukMonths[month - 1];
     }
 }

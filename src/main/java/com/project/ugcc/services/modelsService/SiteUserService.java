@@ -52,8 +52,8 @@ public class SiteUserService implements ModelService<SiteUser> {
     @Override
     @Transactional
     public SiteUser update(SiteUser siteUser) {
-        LOGGER.info(String.format("Updating user. User id: %d", siteUser.getID()));
-        SiteUser siteUserToUpdate = siteUserRepository.findById(siteUser.getID()).orElseThrow(() -> new NotFoundException(String.format("User with id %s not found", siteUser.getID())));
+        LOGGER.info(String.format("Updating user. User id: %d", siteUser.getId()));
+        SiteUser siteUserToUpdate = siteUserRepository.findById(siteUser.getId()).orElseThrow(() -> new NotFoundException(String.format("User with id %s not found", siteUser.getId())));
         siteUserToUpdate.setLogin(siteUser.getLogin());
         siteUserToUpdate.setRole(siteUser.getRole());
         return siteUserRepository.save(siteUserToUpdate);

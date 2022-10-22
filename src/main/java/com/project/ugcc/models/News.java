@@ -10,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -26,20 +25,20 @@ public class News extends Type {
     private String description;
 
     @Column(length = 300)
-    private String imageURL;
+    private String imageUrl;
 
-    @Column(length = 5000)
+    @Column(length = 30000)
     private String text;
 
     @Column
-    private LocalDateTime date;
+    private String creationDate;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         News news = (News) o;
-        return getID() != null && Objects.equals(getID(), news.getID());
+        return getId() != null && Objects.equals(getId(), news.getId());
     }
 
     @Override

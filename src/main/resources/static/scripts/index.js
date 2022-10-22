@@ -11,6 +11,32 @@ let mobileSearchInput = $("#mobile_search_input");
 let desktopSearchInput = $("#desktop_search_input");
 let desktopSearchButton = $("#desktop_search_button");
 
+let modalContent = $(".modal__dialog-content");
+
+function createBroadcastCard(broadcastTitle, imageSource, broadcastLink) {
+    let card = document.createElement("div");
+    card.setAttribute("class", "modal__dialog-content__block");
+
+    let title = document.createElement("p");
+    title.setAttribute("class", "modal__dialog-content__block-title");
+    title.innerText = "Трансляція";
+
+    let image = document.createElement("img");
+    image.setAttribute("src", imageSource);
+    image.setAttribute("alt", broadcastTitle);
+    image.setAttribute("class", "modal__dialog-content__block-image");
+
+    let link = document.createElement("a");
+    link.setAttribute("href", broadcastLink);
+    link.setAttribute("target", "_blank");
+    link.setAttribute("class", "social-btn youtube");
+    link.innerText = "YouTube";
+
+    card.append(title, image, link);
+    return card;
+}
+
+
 modalOpenButton.on("click", (event) => {
     event.preventDefault();
     modalWindowContainer.addClass("isActive");
@@ -26,17 +52,20 @@ mobileSearchOpenButton.on("click", () => {
 
 mobileSearchInput.on("keyup", (event) => {
     if (event.key === "Enter") {
-        alert(event.target.value);
+        let baseUrl = window.location.origin;
+        window.location.href = `${baseUrl}/search?query=${event.target.value}`
     }
 });
 
 desktopSearchButton.on("click", () => {
-    alert(desktopSearchInput.val());
+    let baseUrl = window.location.origin;
+    window.location.href = `${baseUrl}/search?query=${desktopSearchInput.val()}`
 });
 
 desktopSearchInput.on("keyup", (event) => {
     if (event.key === "Enter") {
-        alert(event.target.value);
+        let baseUrl = window.location.origin;
+        window.location.href = `${baseUrl}/search?query=${event.target.value}`
     }
 });
 

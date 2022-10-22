@@ -1,0 +1,59 @@
+<div class="sidebar">
+    <div class="sidebar__search-block">
+        <div class="sidebar-block-title">
+            <p>Пошук</p>
+        </div>
+        <div class="sidebar__search-block__input-container">
+            <input id="desktop_search_input" class="sidebar__search-block__input-container__input" type="text"
+                   placeholder="Пошук новин">
+            <button id="desktop_search_button" class="sidebar__search-block__input-container__button"></button>
+        </div>
+    </div>
+    <div class="sidebar__calendar-block">
+        <iframe id="calendar" width='260' height='240' frameborder='no' scrolling='no'
+                src='https://prayer-service.online/u-widget.html'></iframe>
+    </div>
+    <div class="sidebar__live-block">
+        <div class="sidebar-block-title">
+            <p>Трансляції</p>
+        </div>
+        <div class="sidebar__live-block__content">
+            <p>Розклад трансляцій</p>
+            <p>богослужінь та літургій</p>
+            <div class="sidebar__live-block__content__image-container">
+                <img th:src="@{/imgs/live.jpeg}" class="sidebar__live-block__content__image" alt="Розклад трансляцій богослужінь та літургій">
+            </div>
+            <div class="main-btn">
+                <a href="#" id="modal">До списку трансляцій</a>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar__church-block">
+        <div class="sidebar-block-title">
+            <p>Вчення церкви</p>
+        </div>
+        <div class="sidebar__church-block__image-container">
+            <img class="sidebar__church-block__image" th:src="@{/imgs/kahetyzm-ugcc.png}" alt="'Кахетизм - вчення церкви'">
+        </div>
+        <div class="main-btn">
+            <a th:href="@{/kahetyzm-ugcc}">Ознайомитись</a>
+        </div>
+    </div>
+    <div class="sidebar__media-block">
+        <div class="sidebar-block-title">
+            <p>Медіа зона</p>
+        </div>
+        <div class="sidebar__media-block__buttons">
+            <a th:href="@{/gallery}" class="social-btn photo">Галерея</a>
+        </div>
+    </div>
+    <div class="sidebar__socials-block">
+        <div class="sidebar-block-title">
+            <p>Ми у соц. мережах</p>
+        </div>
+        <div class="sidebar__socials-block__buttons">
+            <a href="https://www.facebook.com/xdonetsk" target="_blank" class="social-btn facebook">Facebook</a>
+            <a href="https://www.instagram.com/dn_exarchate/" target="_blank" class="social-btn instagram">Instagram</a>
+        </div>
+    </div>
+</div>

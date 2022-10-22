@@ -18,7 +18,7 @@ public class SiteUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
 
     @Column(length = 200)
     private String login;
@@ -33,11 +33,11 @@ public class SiteUser {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SiteUser user = (SiteUser) o;
-        return ID == user.ID && login.equals(user.login);
+        return id == user.id && login.equals(user.login);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, login);
+        return Objects.hash(id, login);
     }
 }
