@@ -1,0 +1,82 @@
+.main-document {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .block-title {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+}
+
+.main-document__image-container {
+  width: 45%;
+}
+
+.main-document__image {
+  max-width: 100%;
+}
+
+.main-document__info {
+  width: 45%;
+  padding: 1em;
+}
+
+.main-document__info__date {
+  text-align: end;
+}
+
+.main-document__info__description {
+  margin: 1em 0;
+  font-weight: 500;
+}
+
+.main-document__info__download-btn {
+  display: flex;
+  @include centerBlock(100%);
+  justify-content: center;
+  align-items: center;
+  @include fontStyling(1.3em, 600);
+
+  &:hover {
+    color: $hoverColor;
+
+    .download-btn__icon {
+      background-position: -548px 0;
+    }
+  }
+}
+
+.download-btn__icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 0.5em;
+  background: url(../../imgs/svg-sprite.svg) -498px 0;
+}
+
+.other-documents {
+  margin-top: 2em;
+}
+
+.other-documents__container {
+  @include flexWithWrapAndJustifyingContent;
+  padding: 1em;
+
+  .document {
+    justify-self: center;
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .main-document {
+    display: block;
+  }
+
+  .main-document__image-container {
+    width: 100%;
+  }
+
+  .main-document__info {
+    width: 100%;
+  }
+}

@@ -1,0 +1,65 @@
+.friends {
+  width: fit-content;
+  margin: 2em auto;
+  overflow: hidden;
+  @include blockBackground;
+}
+
+.friends__block {
+  display: block;
+  width: max-content;
+  margin: 1em;
+  align-items: center;
+  text-align: center;
+
+  .friends__block__logo {
+    max-width: 90px;
+    max-height: auto;
+  }
+
+  .friends__block__description {
+    margin-top: 10px;
+    @include fontStyling(0.8em, 600);
+    transition: color 0.2s linear;
+  }
+
+  &:hover {
+    .friends__block__description {
+      color: $hoverColor;
+    }
+  }
+}
+
+.slider__item {
+  flex: 1 0 20%;
+  max-width: 20%;
+  align-self: baseline;
+  justify-self: center;
+}
+
+@media screen and (min-width: $mobile) and (max-width: $tablet) {
+  .friends {
+    width: 77%;
+  }
+
+  .slider__wrapper {
+    margin-left: 1.5em;
+  }
+
+  .slider__item {
+    flex: 1 0 33.3333333333%;
+    max-width: 33.3333333333%;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .friends {
+    @include centerBlock(90%);
+    margin-top: 1em;
+  }
+
+  .slider__item {
+    flex: 1 0 50%;
+    max-width: 50%;
+  }
+}

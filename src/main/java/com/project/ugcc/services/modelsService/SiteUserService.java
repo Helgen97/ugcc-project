@@ -1,5 +1,6 @@
 package com.project.ugcc.services.modelsService;
 
+import com.project.ugcc.DTO.SiteUserDTO;
 import com.project.ugcc.exceptions.NotFoundException;
 import com.project.ugcc.models.SiteUser;
 import com.project.ugcc.repositories.SiteUserRepository;
@@ -11,9 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class SiteUserService implements ModelService<SiteUser> {
+public class SiteUserService implements ModelService<SiteUser, SiteUserDTO> {
 
     private final static Logger LOGGER = LogManager.getLogger(SiteUserService.class.getName());
 
@@ -28,35 +30,35 @@ public class SiteUserService implements ModelService<SiteUser> {
 
     @Override
     @Transactional(readOnly = true)
-    public SiteUser getOneById(Long id) {
+    public SiteUserDTO getOneById(Long id) {
         LOGGER.info(String.format("Getting user by id. User id: %d", id));
-        return siteUserRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("User with id %d not found", id)));
+        return SiteUserDTO.of(siteUserRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("User with id %d not found", id))));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<SiteUser> getAll() {
+    public List<SiteUserDTO> getAll() {
         LOGGER.info("Getting all users");
-        return siteUserRepository.findAll();
+        return siteUserRepository.findAll().stream().map(SiteUserDTO::of).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public SiteUser create(SiteUser siteUser) {
+    public SiteUserDTO create(SiteUser siteUser) {
         LOGGER.info("Creating new user");
         String password = passwordEncoder.encode(siteUser.getPassword());
         siteUser.setPassword(password);
-        return siteUserRepository.save(siteUser);
+        return SiteUserDTO.of(siteUserRepository.save(siteUser));
     }
 
     @Override
     @Transactional
-    public SiteUser update(SiteUser siteUser) {
+    public SiteUserDTO update(SiteUser siteUser) {
         LOGGER.info(String.format("Updating user. User id: %d", siteUser.getId()));
         SiteUser siteUserToUpdate = siteUserRepository.findById(siteUser.getId()).orElseThrow(() -> new NotFoundException(String.format("User with id %s not found", siteUser.getId())));
         siteUserToUpdate.setLogin(siteUser.getLogin());
         siteUserToUpdate.setRole(siteUser.getRole());
-        return siteUserRepository.save(siteUserToUpdate);
+        return SiteUserDTO.of(siteUserRepository.save(siteUserToUpdate));
     }
 
     @Transactional

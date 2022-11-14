@@ -1,0 +1,27 @@
+.section {
+    display: block;
+    margin-top: 1.5em;
+    padding: 0 1em;
+  
+    &:hover {
+      .section__info__title {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .section__image {
+    max-width: 100%;
+  }
+  
+  .section__info__date {
+    margin: 0.25em 0;
+  }
+  
+  .section__info__title {
+    font-weight: 600;
+  }
+  
+  .section__info__description {
+    max-height: 180px;
+  }

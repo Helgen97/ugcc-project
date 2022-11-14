@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
@@ -22,22 +21,22 @@ public class SiteUserController {
 
     @GetMapping
     public List<SiteUserDTO> getAll() {
-        return siteUserService.getAll().stream().map(SiteUserDTO::of).collect(Collectors.toList());
+        return siteUserService.getAll();
     }
 
     @GetMapping("/{id}")
     public SiteUserDTO getOneById(@PathVariable long id) {
-        return SiteUserDTO.of(siteUserService.getOneById(id));
+        return siteUserService.getOneById(id);
     }
 
     @PostMapping
     public SiteUserDTO createUser(@RequestBody SiteUser siteUser) {
-        return SiteUserDTO.of(siteUserService.create(siteUser));
+        return siteUserService.create(siteUser);
     }
 
     @PutMapping
     public SiteUserDTO updateUser(@RequestBody SiteUser siteUser) {
-        return SiteUserDTO.of(siteUserService.update(siteUser));
+        return siteUserService.update(siteUser);
     }
 
     @PatchMapping

@@ -20,9 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Service
-public class NewsService implements TypeService<News> {
+public class NewsService implements TypeService<News, NewsDTO> {
 
     private final static Logger LOGGER = LogManager.getLogger(NewsService.class.getName());
 
@@ -41,23 +42,23 @@ public class NewsService implements TypeService<News> {
 
     @Override
     @Transactional(readOnly = true)
-    public News getOneById(Long id) {
+    public NewsDTO getOneById(Long id) {
         LOGGER.info(String.format("Getting news by id. News id: %d", id));
-        return newsRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("News with id %s not found!", id)));
+        return NewsDTO.of(newsRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("News with id %s not found!", id))));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<News> getAll() {
+    public List<NewsDTO> getAll() {
         LOGGER.info("Getting all news");
-        return newsRepository.findAll(Sort.by(Sort.Direction.DESC, "ID"));
+        return newsRepository.findAll(Sort.by(Sort.Direction.DESC, "id")).stream().map(NewsDTO::of).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public News getByNamedId(String namedId) {
+    public NewsDTO getByNamedId(String namedId) {
         LOGGER.info(String.format("Getting news by named id. Named id: %s", namedId));
-        return newsRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("News with named id %s not found!", namedId)));
+        return NewsDTO.of(newsRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("News with named id %s not found!", namedId))));
     }
 
     @Transactional(readOnly = true)
@@ -96,11 +97,11 @@ public class NewsService implements TypeService<News> {
 
     @Override
     @Transactional
-    public News create(News news) {
+    public NewsDTO create(News news) {
         LOGGER.info("Creating new news");
         news.setNamedId(Utils.transliterateStringFromCyrillicToLatinChars(news.getTitle()));
         news.setCreationDate(Utils.convertDateToUkrainianDateString(LocalDateTime.now()));
-        return newsRepository.save(news);
+        return NewsDTO.of(newsRepository.save(news));
     }
 
     @Override
@@ -114,14 +115,14 @@ public class NewsService implements TypeService<News> {
 
     @Override
     @Transactional
-    public News update(News news) {
+    public NewsDTO update(News news) {
         LOGGER.info(String.format("Updating news. News id: %d", news.getId()));
 
         News newsToUpdate = newsRepository.findById(news.getId()).orElseThrow(() -> new NotFoundException(String.format("News with id %s not found!", news.getId())));
         if (!newsToUpdate.getImageUrl().equals(news.getImageUrl())) {
             fileService.deleteFile(newsToUpdate.getImageUrl());
         }
-        return newsRepository.save(news);
+        return NewsDTO.of(newsRepository.save(news));
     }
 
     @Override

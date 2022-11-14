@@ -44,9 +44,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
-    <link rel="stylesheet" th:href="@{/styles/css/normalize.css}"/>
-    <link rel="stylesheet" th:href="@{/styles/css/itc-slider.min.css}">
-    <link rel="stylesheet" th:href="@{/styles/css/index.css}"/>
+    <link rel="stylesheet" th:href="@{/styles/index.css}"/>
 </head>
 
 <body>
@@ -64,7 +62,7 @@
             </div>
             <div class="article">
                 <div class="article__image-container">
-                    <img th:src="${article.imageUrl}" th:alt="${article.imageDescription}" class="article__image">
+                    <img th:src="${article.imageUrl}" th:alt="${article.imageDescription}" class="article__image" loading='lazy'>
                     <p class="article__image-description" th:text="${article.imageDescription}"></p>
                 </div>
                 <div th:utext="${article.text}"></div>
@@ -93,8 +91,6 @@
 
 <footer th:replace="fragments/footer.html"></footer>
 
-<script th:src="@{/scripts/jquery-3.6.1.min.js}"></script>
-<script th:src="@{/scripts/itc-slider.min.js}" defer></script>
 <script th:src="@{/scripts/index.js}"></script>
 
 </body>

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/sections")
@@ -24,24 +23,24 @@ public class SectionController {
     public List<SectionDTO> getAll(@RequestParam(required = false) String category) {
         return category == null
                 ?
-                sectionService.getAll().stream().map(SectionDTO::of).collect(Collectors.toList())
+                sectionService.getAll()
                 :
-                sectionService.getAllByCategory(category).stream().map(SectionDTO::of).collect(Collectors.toList());
+                sectionService.getAllByCategory(category);
     }
 
     @GetMapping("/{id}")
     public SectionDTO getOneById(@PathVariable long id) {
-        return SectionDTO.of(sectionService.getOneById(id));
+        return sectionService.getOneById(id);
     }
 
     @PostMapping
     public SectionDTO createSection(@RequestBody Section section) {
-        return SectionDTO.of(sectionService.create(section));
+        return sectionService.create(section);
     }
 
     @PutMapping
     public SectionDTO updateSection(@RequestBody Section section) {
-        return SectionDTO.of(sectionService.update(section));
+        return sectionService.update(section);
     }
 
     @DeleteMapping("/{id}")

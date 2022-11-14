@@ -1,5 +1,6 @@
 package com.project.ugcc.services.modelsService;
 
+import com.project.ugcc.DTO.SectionDTO;
 import com.project.ugcc.exceptions.NotFoundException;
 import com.project.ugcc.models.Category;
 import com.project.ugcc.models.Section;
@@ -11,9 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class SectionService implements ModelService<Section> {
+public class SectionService implements ModelService<Section, SectionDTO> {
 
     private final static Logger LOGGER = LogManager.getLogger(SectionService.class.getName());
 
@@ -26,42 +28,42 @@ public class SectionService implements ModelService<Section> {
 
     @Override
     @Transactional(readOnly = true)
-    public Section getOneById(Long id) {
+    public SectionDTO getOneById(Long id) {
         LOGGER.info(String.format("Getting section by id. Section id: %d", id));
-        return sectionRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Section with id %d not found", id)));
+        return SectionDTO.of(sectionRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Section with id %d not found", id))));
     }
 
     @Transactional(readOnly = true)
-    public Section getByNamedId(String namedId) {
+    public SectionDTO getByNamedId(String namedId) {
         LOGGER.info(String.format("Getting section by namedId. NamedId: %s.", namedId));
-        return sectionRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("Section with namedId %s not found", namedId)));
+        return SectionDTO.of(sectionRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("Section with namedId %s not found", namedId))));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Section> getAll() {
+    public List<SectionDTO> getAll() {
         LOGGER.info("Getting all sections");
-        return sectionRepository.findAll();
+        return sectionRepository.findAll().stream().map(SectionDTO::of).collect(Collectors.toList());
     }
 
     @Transactional
-    public List<Section> getAllByCategory(String category) {
+    public List<SectionDTO> getAllByCategory(String category) {
         LOGGER.info(String.format("Getting all sections by category. Category: %s", category));
-        return sectionRepository.findAllByCategory(Category.valueOf(category));
+        return sectionRepository.findAllByCategory(Category.valueOf(category)).stream().map(SectionDTO::of).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public Section create(Section section) {
+    public SectionDTO create(Section section) {
         LOGGER.info("Creating new section");
-        return sectionRepository.save(section);
+        return SectionDTO.of(sectionRepository.save(section));
     }
 
     @Override
     @Transactional
-    public Section update(Section section) {
+    public SectionDTO update(Section section) {
         LOGGER.info(String.format("Updating section. Section id %d", section.getId()));
-        return sectionRepository.save(section);
+        return SectionDTO.of(sectionRepository.save(section));
     }
 
     @Override

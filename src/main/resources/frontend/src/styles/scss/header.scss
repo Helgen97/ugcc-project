@@ -1,0 +1,59 @@
+header {
+  @include backgroundImage;
+}
+
+.logo-container {
+  display: flex;
+  @include centerBlock(40%);
+  padding: 1em 0;
+  @include alignAndJustifyToCenter;
+}
+
+.logo-container__image {
+  max-width: 130px;
+}
+
+.logo-container__title {
+  @include fontStylingWithTextColor(2em, 700, $secondTextColor);
+}
+
+.logo-container__description {
+  @include fontStylingWithTextColor(1em, 600, $secondTextColor);
+  text-align: center;
+}
+
+@media screen and (max-width: $mobile) {
+  .logo-container {
+    width: 80%;
+  }
+
+  .logo-container__image {
+    max-width: 70px;
+  }
+
+  .logo-container__title {
+    font-size: 1.2em;
+  }
+
+  .logo-container__description {
+    font-size: 0.6em;
+  }
+}
+
+@media screen and (min-width: $mobile) and (max-width: $tablet) {
+  .logo-container {
+    width: 60%;
+  }
+
+  .logo-container__image {
+    max-width: 100px;
+  }
+
+  .logo-container__title {
+    font-size: 2em;
+  }
+
+  .logo-container__description {
+    font-size: 1em;
+  }
+}

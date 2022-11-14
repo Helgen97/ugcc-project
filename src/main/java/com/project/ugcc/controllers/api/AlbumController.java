@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/albums")
@@ -23,12 +22,12 @@ public class AlbumController {
 
     @GetMapping("/{id}")
     public AlbumDTO getOneById(@PathVariable Long id) {
-        return AlbumDTO.of(albumService.getOneById(id));
+        return albumService.getOneById(id);
     }
 
     @GetMapping
     public List<AlbumDTO> getAll() {
-        return albumService.getAll().stream().map(AlbumDTO::of).collect(Collectors.toList());
+        return albumService.getAll();
     }
 
     @GetMapping("/pages")
@@ -45,12 +44,12 @@ public class AlbumController {
     @PostMapping
     public AlbumDTO create(@RequestBody Album album, @RequestParam Long sectionId) {
         Album albumWithSection = albumService.setSectionToModel(album, sectionId);
-        return AlbumDTO.of(albumService.create(albumWithSection));
+        return albumService.create(albumWithSection);
     }
 
     @PutMapping
     public AlbumDTO update(@RequestBody Album album) {
-        return AlbumDTO.of(albumService.update(album));
+        return albumService.update(album);
     }
 
     @DeleteMapping("/{id}")

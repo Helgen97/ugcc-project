@@ -46,9 +46,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
-    <link rel="stylesheet" th:href="@{/styles/css/normalize.css}"/>
-    <link rel="stylesheet" th:href="@{/styles/css/itc-slider.min.css}">
-    <link rel="stylesheet" th:href="@{/styles/css/index.css}"/>
+    <link rel="stylesheet" th:href="@{/styles/index.css}"/>
 </head>
 
 <body>
@@ -78,7 +76,7 @@
                 <div class="carousel-inner">
                     <div th:each="image, stat : ${mainAlbum.imagesUrls}"
                          th:class="${stat.index} == 0 ? 'carousel-item active' : 'carousel-item'">
-                        <img class="d-block w-100" th:src="${image}" th:alt="${mainAlbum.title}">
+                        <img class="d-block w-100" th:src="${image}" th:alt="${mainAlbum.title}" loading='lazy'>
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-target="#carousel"
@@ -92,16 +90,12 @@
                     <span class="sr-only">Next</span>
                 </button>
             </div>
-            <div th:if="${!mainAlbum.videoUrl.isEmpty()}" class="media__block-title">
+            <div th:if="${!mainAlbum.videoSource.isEmpty()}" class="media__block-title">
                 <h2>Відео:</h2>
             </div>
-            <div th:if="${!mainAlbum.videoUrl.isEmpty()}" class="media__video-container">
-                <iframe width="100%" height="320"
-                        th:src="${mainAlbum.videoUrl}">
-                </iframe>
-            </div>
+            <div th:if="${!mainAlbum.videoSource.isEmpty()}" class="media__video-container" th:utext="${mainAlbum.videoSource}"></div>
         </div>
-        <div class="block">
+        <div class="other-albums block">
             <div class="block-title">
                 <h2>Інші альбоми</h2>
             </div>
@@ -109,7 +103,7 @@
                 <a th:each="album : ${otherAlbums}" th:href="@{/albums/{namedId}(namedId=${album.namedId})}"
                    class="section">
                     <div class="section__image-container">
-                        <img th:src="${album.imagesUrls.get(0)}" th:alt="${album.title}" class="section__image">
+                        <img th:src="${album.imagesUrls.get(0)}" th:alt="${album.title}" class="section__image" loading='lazy'>
                     </div>
                     <div class="section__info">
                         <div class="section__info__date">
@@ -131,9 +125,7 @@
 
 <footer th:replace="fragments/footer.html"></footer>
 
-<script th:src="@{/scripts/jquery-3.6.1.min.js}"></script>
-<script th:src="@{/scripts/itc-slider.min.js}" defer></script>
-<script th:src="@{/scripts/bootstrap/bootstrap.bundle.min.js}"></script>
+
 <script th:src="@{/scripts/index.js}"></script>
 </body>
 

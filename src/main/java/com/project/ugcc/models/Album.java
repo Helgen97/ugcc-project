@@ -6,10 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +24,8 @@ public class Album extends Type {
     @ElementCollection
     private List<String> imagesUrls;
 
-    private String videoUrl;
+    @Column(length = 500)
+    private String videoSource;
 
     @Override
     public boolean equals(Object o) {

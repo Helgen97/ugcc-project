@@ -1,5 +1,6 @@
 package com.project.ugcc.services.modelsService;
 
+import com.project.ugcc.DTO.ContactDTO;
 import com.project.ugcc.exceptions.NotFoundException;
 import com.project.ugcc.models.Contact;
 import com.project.ugcc.repositories.ContactRepository;
@@ -10,9 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class ContactsService implements ModelService<Contact> {
+public class ContactsService implements ModelService<Contact, ContactDTO> {
 
     private final static Logger LOGGER = LogManager.getLogger(ContactsService.class.getName());
 
@@ -25,30 +27,30 @@ public class ContactsService implements ModelService<Contact> {
 
     @Override
     @Transactional(readOnly = true)
-    public Contact getOneById(Long id) {
+    public ContactDTO getOneById(Long id) {
         LOGGER.info(String.format("Getting contact by id. Contact id: %d", id));
-        return contactRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Contact with id %d not found", id)));
+        return ContactDTO.of(contactRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Contact with id %d not found", id))));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Contact> getAll() {
+    public List<ContactDTO> getAll() {
         LOGGER.info("Getting all contacts");
-        return contactRepository.findAll();
+        return contactRepository.findAll().stream().map(ContactDTO::of).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public Contact create(Contact contact) {
+    public ContactDTO create(Contact contact) {
         LOGGER.info("Creating new contact");
-        return contactRepository.save(contact);
+        return ContactDTO.of(contactRepository.save(contact));
     }
 
     @Override
     @Transactional
-    public Contact update(Contact contact) {
+    public ContactDTO update(Contact contact) {
         LOGGER.info(String.format("Updating contact. Contact id: %d", contact.getId()));
-        return contactRepository.save(contact);
+        return ContactDTO.of(contactRepository.save(contact));
     }
 
     @Override

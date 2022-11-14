@@ -1,0 +1,87 @@
+@mixin blockBackground {
+  background-color: $backgroundBlockColor;
+  box-shadow: 0px 5px 4px $blockShadowColor;
+  border-radius: 30px;
+}
+
+@mixin blocksInRightMain {
+  margin-bottom: 2em;
+  padding: 1em;
+  @include blockBackground;
+}
+
+@mixin titleInRightMainBlocks {
+  font-size: 1.2em;
+  text-align: center;
+  font-weight: 700;
+}
+
+@mixin backgroundImage {
+  background: $backgroundImage no-repeat;
+  background-size: cover;
+}
+
+@mixin fontStyling($fontSize, $fontWeight) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+}
+
+@mixin fontStylingWithTextColor($fontSize, $fontWeight, $textColor) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $textColor;
+}
+
+@mixin centerBlock($width) {
+  width: $width;
+  margin: 0 auto;
+}
+
+@mixin alignAndJustifyToCenter {
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin customButton($width, $height, $bgPosition, $bgHoverPosition) {
+  width: $width;
+  height: $height;
+  background: url(../../imgs/svg-sprite.svg) $bgPosition;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+
+  &:hover {
+    background-position: $bgHoverPosition;
+  }
+}
+
+@mixin backgroundWithShadowAndRadius($bgColor, $shadow, $radius) {
+  background-color: $bgColor;
+  box-shadow: $shadow;
+  border-radius: $radius;
+}
+
+@mixin socialButtonStyle($backgroundColor, $btnShadowColor, $socialIconUrl) {
+  background-color: $backgroundColor;
+
+  &:hover {
+    box-shadow: 0px 1px 3px $btnShadowColor;
+  }
+
+  &::before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    width: 21px;
+    height: 21px;
+    right: 5px;
+    top: -1px;
+    background: $socialIconUrl;
+  }
+}
+
+@mixin flexWithWrapAndJustifyingContent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

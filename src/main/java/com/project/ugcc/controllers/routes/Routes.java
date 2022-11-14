@@ -2,15 +2,20 @@ package com.project.ugcc.controllers.routes;
 
 import com.project.ugcc.DTO.*;
 import com.project.ugcc.services.modelsService.*;
+import com.project.ugcc.utils.SiteMapGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.print.Doc;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class Routes {
@@ -21,6 +26,7 @@ public class Routes {
     private final ArticleService articleService;
     private final AlbumService albumService;
     private final ContactsService contactsService;
+    private final SiteMapGenerator siteMapGenerator;
 
     @Autowired
     public Routes(SectionService sectionService,
@@ -28,7 +34,8 @@ public class Routes {
                   DocumentService documentService,
                   ArticleService articleService,
                   AlbumService albumService,
-                  ContactsService contactService
+                  ContactsService contactService,
+                  SiteMapGenerator siteMapGenerator
     ) {
         this.sectionService = sectionService;
         this.newsService = newsService;
@@ -36,6 +43,7 @@ public class Routes {
         this.articleService = articleService;
         this.albumService = albumService;
         this.contactsService = contactService;
+        this.siteMapGenerator = siteMapGenerator;
     }
 
     @GetMapping("/")
@@ -66,7 +74,7 @@ public class Routes {
 
     @GetMapping("/news/{namedId}")
     public String newsPage(Model model, @PathVariable String namedId) {
-        NewsDTO news = NewsDTO.of(newsService.getByNamedId(namedId));
+        NewsDTO news = newsService.getByNamedId(namedId);
         model.addAttribute("title", news.getTitle());
         model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
         model.addAttribute("description", news.getDescription());
@@ -80,7 +88,7 @@ public class Routes {
     public String newsBySectionPage(Model model,
                                     @PathVariable String namedId,
                                     @RequestParam(required = false, defaultValue = "0") int page) {
-        SectionDTO section = SectionDTO.of(sectionService.getByNamedId(namedId));
+        SectionDTO section = sectionService.getByNamedId(namedId);
         model.addAttribute("title", section.getTitle() + " - Донецький екзархат - УГКЦ");
         model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
         model.addAttribute("description", String.format("Новини за розділом. %s. Донецький Екзархат Української Греко-Католицької Церкви.", section.getTitle()));
@@ -107,30 +115,33 @@ public class Routes {
 
     @GetMapping("/documents")
     public String documentsPage(Model model) {
+        Map<String, List<DocumentDTO>> documents = documentService.getAllDocumentsFilteredBySection();
+
         model.addAttribute("title", "Документи - Донецький екзархат - Українська Греко-Католицька Церква");
         model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
         model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
         model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
-        model.addAttribute("documentsOfExarchate", documentService.getPageOfDocumentsBySectionId(4L, 0, 100));
-        model.addAttribute("documentsOfChurch", documentService.getPageOfDocumentsBySectionId(5L, 0, 100));
+        model.addAttribute("documentsOfExarchate", documents.get("documentsOfExarchate"));
+        model.addAttribute("documentsOfChurch", documents.get("documentsOfChurch"));
         return "documents";
     }
 
     @GetMapping("/documents/{namedId}")
     public String documentPage(Model model, @PathVariable String namedId) {
-        DocumentDTO document = DocumentDTO.of(documentService.getByNamedId(namedId));
+        DocumentDTO document = documentService.getByNamedId(namedId);
+
         model.addAttribute("title", document.getTitle() + " - Донецький екзархат - УГКЦ");
         model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
         model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
         model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
         model.addAttribute("mainDocument", document);
-        model.addAttribute("otherDocuments", documentService.getFourRandomDocumentsExceptArticleWithId(document.getId()));
+        model.addAttribute("otherDocuments", documentService.getListWithMainDocumentAndFourRandomDocuments(namedId));
         return "document";
     }
 
     @GetMapping("/article/{namedId}")
     public String articlePage(Model model, @PathVariable String namedId) {
-        ArticleDTO article = ArticleDTO.of(articleService.getByNamedId(namedId));
+        ArticleDTO article = articleService.getByNamedId(namedId);
         model.addAttribute("title", article.getTitle() + " - Донецький екзархат - УГКЦ");
         model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
         model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
@@ -173,7 +184,7 @@ public class Routes {
 
     @GetMapping("/albums/{namedId}")
     public String albumPage(Model model, @PathVariable String namedId) {
-        AlbumDTO album = AlbumDTO.of(albumService.getByNamedId(namedId));
+        AlbumDTO album = albumService.getByNamedId(namedId);
         model.addAttribute("title", "Альбом - " + album.getTitle());
         model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
         model.addAttribute("description", "Альбом - " + album.getTitle() + ". Створено: " + album.getCreationDate());
@@ -189,7 +200,7 @@ public class Routes {
         model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
         model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
         model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
-        model.addAttribute("contacts", ContactDTO.of(contactsService.getOneById(1L)));
+        model.addAttribute("contacts", contactsService.getOneById(1L));
         return "contacts";
     }
 
@@ -216,5 +227,12 @@ public class Routes {
         model.addAttribute("albumsSections", sectionService.getAllByCategory("MEDIA"));
         model.addAttribute("albumsList", albumService.getPageOfAlbums(0, 10));
         return "panel";
+    }
+
+    @GetMapping(value = "/sitemap.txt", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    public String sitemap() {
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        return siteMapGenerator.generateSiteMap(baseUrl);
     }
 }

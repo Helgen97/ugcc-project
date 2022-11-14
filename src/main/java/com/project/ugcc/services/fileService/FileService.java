@@ -11,13 +11,11 @@ public interface FileService {
 
     void createDirectory(String path);
 
-    boolean isDirectoryEmpty(Path path);
-
-    String saveFile(MultipartFile file, String collectionsNameFolder, String collectionsItemTitleFolder);
+    String saveFile(MultipartFile file);
 
     Path load(String filePath);
 
-    Resource loadAsResource(String folder, String collectionsFolderName, String date, String collectionsItemTitle, String filename);
+    Resource loadAsResource(String folder, String fileName);
 
     String getPathFromFileUrl(String fileUrl);
 

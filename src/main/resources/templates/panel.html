@@ -17,7 +17,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Панель керування сайтом</title>
-
     <link rel="apple-touch-icon" sizes="180x180" th:href="@{/imgs/favicons/apple-touch-icon.png}"/>
     <link rel="icon" type="image/png" sizes="32x32" th:href="@{/imgs/favicons/favicon-32x32.png}"/>
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/imgs/favicons/favicon-16x16.png}"/>
@@ -28,9 +27,7 @@
     <meta name="msapplication-config" content="./imgs/favicons/browserconfig.xml"/>
     <meta name="theme-color" content="#ffffff"/>
 
-    <link rel="stylesheet" th:href="@{/styles/bootstrap/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/styles/summernote/summernote-bs4.min.css}">
-    <link rel="stylesheet" th:href="@{/styles/css/login-panel.css}">
+    <link rel="stylesheet" th:href="@{/styles/panel.css}">
 </head>
 
 <body>
@@ -77,6 +74,16 @@
             <div class="dropdown-menu w-100 text-left">
                 <a class="dropdown-item" id="album-openBlockBtn" href="#">Додати альбом</a>
                 <a class="dropdown-item" id="albumList-openBlockBtn" href="#">Cписок альбомів</a>
+            </div>
+        </div>
+        <div class="dropdown mb-3 text-center">
+            <button class="btn btn-primary dropdown-toggle w-100" type="button" data-toggle="dropdown"
+                    aria-expanded="false">
+                Трансляції
+            </button>
+            <div class="dropdown-menu w-100 text-left">
+                <a class="dropdown-item" id="broadcast-openBlockBtn" href="#">Додати трансляцію</a>
+                <a class="dropdown-item" id="broadcastList-openBlockBtn" href="#">Cписок трансляцій</a>
             </div>
         </div>
         <div class="mb-3 text-center">
@@ -512,13 +519,8 @@
     </div>
 </div>
 
-<script th:src="@{/scripts/jquery-3.6.1.min.js}"></script>
-<script th:src="@{/scripts/axios/axios.min.js}"></script>
-<script th:src="@{/scripts/bootstrap/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/scripts/summernote/summernote-bs4.min.js}"></script>
-<script th:src="@{/scripts/summernote/summernote-uk-UA.min.js}"></script>
-<script th:src="@{/scripts/sweetAlert/sweetalert.min.js}"></script>
-<script th:src="@{/scripts/panel/panel.js}"></script>
+<script th:src="@{/scripts/panel.js}"></script>
+
 </body>
 
 </html>

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/contacts")
@@ -22,22 +21,22 @@ public class ContactController {
 
     @GetMapping
     public List<ContactDTO> getAll() {
-        return contactsService.getAll().stream().map(ContactDTO::of).collect(Collectors.toList());
+        return contactsService.getAll();
     }
 
     @GetMapping("/{id}")
     public ContactDTO getOneById(@PathVariable long id) {
-        return ContactDTO.of(contactsService.getOneById(id));
+        return contactsService.getOneById(id);
     }
 
     @PostMapping
     public ContactDTO createContact(@RequestBody Contact contact) {
-        return ContactDTO.of(contactsService.create(contact));
+        return contactsService.create(contact);
     }
 
     @PutMapping
     public ContactDTO updateContact(@RequestBody Contact contact) {
-        return ContactDTO.of(contactsService.update(contact));
+        return contactsService.update(contact);
     }
 
     @DeleteMapping("/{id}")

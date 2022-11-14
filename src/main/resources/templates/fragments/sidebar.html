@@ -6,12 +6,12 @@
         <div class="sidebar__search-block__input-container">
             <input id="desktop_search_input" class="sidebar__search-block__input-container__input" type="text"
                    placeholder="Пошук новин">
-            <button id="desktop_search_button" class="sidebar__search-block__input-container__button"></button>
+            <button id="desktop_search_button" class="sidebar__search-block__input-container__button" title="Пошук новин"></button>
         </div>
     </div>
     <div class="sidebar__calendar-block">
         <iframe id="calendar" width='260' height='240' frameborder='no' scrolling='no'
-                src='https://prayer-service.online/u-widget.html'></iframe>
+                src='https://prayer-service.online/u-widget.html' title="Календар УГКЦ"></iframe>
     </div>
     <div class="sidebar__live-block">
         <div class="sidebar-block-title">
@@ -21,7 +21,7 @@
             <p>Розклад трансляцій</p>
             <p>богослужінь та літургій</p>
             <div class="sidebar__live-block__content__image-container">
-                <img th:src="@{/imgs/live.jpeg}" class="sidebar__live-block__content__image" alt="Розклад трансляцій богослужінь та літургій">
+                <img th:src="@{/imgs/live.jpeg}" class="sidebar__live-block__content__image" alt="Розклад трансляцій богослужінь та літургій" loading='lazy'>
             </div>
             <div class="main-btn">
                 <a href="#" id="modal">До списку трансляцій</a>
@@ -33,7 +33,7 @@
             <p>Вчення церкви</p>
         </div>
         <div class="sidebar__church-block__image-container">
-            <img class="sidebar__church-block__image" th:src="@{/imgs/kahetyzm-ugcc.png}" alt="'Кахетизм - вчення церкви'">
+            <img class="sidebar__church-block__image" th:src="@{/imgs/kahetyzm-ugcc.png}" alt="'Кахетизм - вчення церкви'" loading='lazy'>
         </div>
         <div class="main-btn">
             <a th:href="@{/kahetyzm-ugcc}">Ознайомитись</a>

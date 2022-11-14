@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class AlbumService implements TypeService<Album> {
+public class AlbumService implements TypeService<Album, AlbumDTO> {
 
     private final static Logger LOGGER = LogManager.getLogger(AlbumService.class.getName());
 
@@ -40,23 +40,23 @@ public class AlbumService implements TypeService<Album> {
 
     @Override
     @Transactional(readOnly = true)
-    public Album getOneById(Long id) {
+    public AlbumDTO getOneById(Long id) {
         LOGGER.info(String.format("Getting album by id. Album id: %d", id));
-        return albumRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("No Album wit id %s", id)));
+        return AlbumDTO.of(albumRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("No Album wit id %s", id))));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Album getByNamedId(String namedId) {
+    public AlbumDTO getByNamedId(String namedId) {
         LOGGER.info(String.format("Getting album by named id. Named id: %s", namedId));
-        return albumRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("No Album wit named id %s", namedId)));
+        return AlbumDTO.of(albumRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("No Album wit named id %s", namedId))));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Album> getAll() {
+    public List<AlbumDTO> getAll() {
         LOGGER.info("Getting all albums");
-        return albumRepository.findAll();
+        return albumRepository.findAll().stream().map(AlbumDTO::of).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -84,11 +84,11 @@ public class AlbumService implements TypeService<Album> {
 
     @Override
     @Transactional
-    public Album create(Album album) {
+    public AlbumDTO create(Album album) {
         LOGGER.info("Creating new album");
         album.setNamedId(Utils.transliterateStringFromCyrillicToLatinChars(album.getTitle()));
         album.setCreationDate(Utils.convertDateToUkrainianDateString(LocalDateTime.now()));
-        return albumRepository.save(album);
+        return AlbumDTO.of(albumRepository.save(album));
     }
 
     @Override
@@ -102,7 +102,7 @@ public class AlbumService implements TypeService<Album> {
 
     @Override
     @Transactional
-    public Album update(Album album) {
+    public AlbumDTO update(Album album) {
         LOGGER.info(String.format("Updating album. Album id: %d", album.getId()));
         Album albumToUpdate = albumRepository.findById(album.getId()).orElseThrow(() -> new NotFoundException(String.format("Album with id %d not found", album.getId())));
         albumToUpdate.getImagesUrls().forEach(url -> {
@@ -110,7 +110,7 @@ public class AlbumService implements TypeService<Album> {
                 fileService.deleteFile(url);
             }
         });
-        return albumRepository.save(album);
+        return AlbumDTO.of(albumRepository.save(album));
     }
 
     @Override

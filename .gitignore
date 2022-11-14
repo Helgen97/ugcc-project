@@ -28,3 +28,8 @@ styles/css/allmedia.css
 uploads/
 .idea/
 logs/
+/src/main/resources/frontend/node_modules/
+.classpath
+.project
+.settings/
+target/

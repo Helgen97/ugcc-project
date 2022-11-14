@@ -35,7 +35,7 @@ public class WebSecurityConfiguration {
         http.csrf().disable()
                 .authorizeRequests().antMatchers("/api/**").authenticated()
                 .and()
-                .authorizeRequests().antMatchers(HttpMethod.GET, "/api/uploads").permitAll()
+                .authorizeRequests().antMatchers("/public/**").permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/a-panel").hasRole("ADMIN")
                 .and()

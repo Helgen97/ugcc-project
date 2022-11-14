@@ -18,12 +18,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class DocumentService implements TypeService<Document> {
+public class DocumentService implements TypeService<Document, DocumentDTO> {
 
     private final static Logger LOGGER = LogManager.getLogger(DocumentService.class.getName());
 
@@ -40,30 +39,63 @@ public class DocumentService implements TypeService<Document> {
 
     @Override
     @Transactional(readOnly = true)
-    public Document getOneById(Long id) {
+    public DocumentDTO getOneById(Long id) {
         LOGGER.info(String.format("Getting document by id. Document Id: %d", id));
-        return documentRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Document with id %s not found", id)));
+        return DocumentDTO.of(documentRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Document with id %s not found", id))));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Document getByNamedId(String namedId) {
+    public DocumentDTO getByNamedId(String namedId) {
         LOGGER.info(String.format("Getting document by named id. Named id: %s", namedId));
-        return documentRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("Document with named id: %s not found", namedId)));
+        return DocumentDTO.of(documentRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("Document with named id: %s not found", namedId))));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Document> getAll() {
+    public List<DocumentDTO> getAll() {
         LOGGER.info("Getting all documents");
-        return documentRepository.findAll();
+        return documentRepository.findAll().stream().map(DocumentDTO::of).collect(Collectors.toList());
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public Map<String, List<DocumentDTO>> getAllDocumentsFilteredBySection() {
+        Map<String, List<DocumentDTO>> sortedDocuments = new HashMap<>();
+
+        List<DocumentDTO> documentsOfExarchate = new ArrayList<>();
+        List<DocumentDTO> documentsOfChurch = new ArrayList<>();
+
+        documentRepository.findAll().parallelStream()
+                .map(DocumentDTO::of)
+                .forEach(documentDTO -> {
+                    if (documentDTO.getSection().getId().equals(4L)) {
+                        documentsOfExarchate.add(documentDTO);
+                    } else {
+                        documentsOfChurch.add(documentDTO);
+                    }
+                });
+
+        sortedDocuments.put("documentsOfExarchate", documentsOfExarchate);
+        sortedDocuments.put("documentsOfChurch", documentsOfChurch);
+
+        return sortedDocuments;
     }
 
     @Transactional(readOnly = true)
-    public List<DocumentDTO> getFourRandomDocumentsExceptArticleWithId(Long id) {
-        List<Document> documentList = documentRepository.findAll().stream().filter(document -> !document.getId().equals(id)).collect(Collectors.toList());
-        Collections.shuffle(documentList);
-        return documentList.stream().limit(4).map(DocumentDTO::of).collect(Collectors.toList());
+    public List<DocumentDTO> getListWithMainDocumentAndFourRandomDocuments(String namedId) {
+        List<DocumentDTO> documentList = documentRepository.findAll().stream().
+                map(DocumentDTO::of)
+                .collect(Collectors.toList());
+
+        List<DocumentDTO> neededDocuments = new ArrayList<>();
+
+
+
+        return neededDocuments;
     }
 
     @Transactional(readOnly = true)
@@ -85,11 +117,11 @@ public class DocumentService implements TypeService<Document> {
 
     @Override
     @Transactional
-    public Document create(Document document) {
+    public DocumentDTO create(Document document) {
         LOGGER.info("Creating new document");
         document.setNamedId(Utils.transliterateStringFromCyrillicToLatinChars(document.getTitle()));
         document.setCreationDate(Utils.convertDateToUkrainianDateString(LocalDateTime.now()));
-        return documentRepository.save(document);
+        return DocumentDTO.of(documentRepository.save(document));
     }
 
     @Override
@@ -103,7 +135,7 @@ public class DocumentService implements TypeService<Document> {
 
     @Override
     @Transactional
-    public Document update(Document document) {
+    public DocumentDTO update(Document document) {
         LOGGER.info(String.format("Updating document. Document id: %d", document.getId()));
 
         Document documentToUpdate = documentRepository.findById(document.getId()).orElseThrow(() -> new NotFoundException(String.format("Document with id: %s not found!", document.getId())));
@@ -115,7 +147,7 @@ public class DocumentService implements TypeService<Document> {
             fileService.deleteFile(documentToUpdate.getDocumentUrl());
         }
 
-        return documentRepository.save(document);
+        return DocumentDTO.of(documentRepository.save(document));
     }
 
     @Override

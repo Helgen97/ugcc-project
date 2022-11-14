@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta http-equiv="refresh" content="5; url=/">
+        <title>500! Помилка серверу.</title>
+        <link rel="stylesheet" th:href="@{/styles/error-page.css}"/>
+    </head>
+    <body>
+        <div class="error">
+            <div class="error__header-wrapper">
+                <div class="error__logo">
+                    <a th:href="@{/}"><img th:src="@{/imgs/logo.png}" alt="Донецький Екзархат"/></a>
+                </div>
+                <div class="error__code">
+                    <h1>500</h1>
+                </div>
+            </div>
+            <div class="error-description">
+                <p>Неочікувана помилка серверу.</p>
+                <p>Ми уже працюємо над вирішенням проблеми.</p>
+                <p>Вибачте за незручності!</p>
+            </div>
+        </div>
+    </body>
+</html>

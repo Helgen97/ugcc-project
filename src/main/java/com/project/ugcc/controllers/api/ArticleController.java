@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/articles")
@@ -23,12 +22,12 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     public ArticleDTO getOneById(@PathVariable Long id) {
-        return ArticleDTO.of(articleService.getOneById(id));
+        return articleService.getOneById(id);
     }
 
     @GetMapping
     public List<ArticleDTO> getAll() {
-        return articleService.getAll().stream().map(ArticleDTO::of).collect(Collectors.toList());
+        return articleService.getAll();
     }
 
     @GetMapping("/pages")
@@ -45,12 +44,12 @@ public class ArticleController {
     @PostMapping
     public ArticleDTO create(@RequestBody Article article, @RequestParam Long sectionId) {
         Article articleWithSection = articleService.setSectionToModel(article, sectionId);
-        return ArticleDTO.of(articleService.create(articleWithSection));
+        return articleService.create(articleWithSection);
     }
 
     @PutMapping
     public ArticleDTO update(@RequestBody Article article) {
-        return ArticleDTO.of(articleService.update(article));
+        return articleService.update(article);
     }
 
     @DeleteMapping("/{id}")

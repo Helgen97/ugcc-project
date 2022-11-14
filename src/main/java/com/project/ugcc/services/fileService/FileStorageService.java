@@ -16,8 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Service
 public class FileStorageService implements FileService {
@@ -50,67 +49,41 @@ public class FileStorageService implements FileService {
         }
     }
 
-    @Override
-    public boolean isDirectoryEmpty(Path path) {
-        if (Files.isDirectory(path)) {
-            try (DirectoryStream<Path> directory = Files.newDirectoryStream(path)) {
-                return !directory.iterator().hasNext();
-            } catch (IOException ex) {
-                LOGGER.error("Checking if directory empty error", ex);
-            }
-        }
-
-        return false;
-    }
-
     private String getFolderBasedOnFileContentType(String fileContentType) {
-        return fileContentType.startsWith("image/") ? "images" : "documents";
+        return fileContentType.startsWith("image/") ? "images" : "file";
     }
 
-    private String createFileDestinationDirectory(String fileContentType, String collectionNameFolder, String collectionItemTitleFolder) {
-        String destinationDirectory = baseLocation.toAbsolutePath()
-                + File.separator
-                + getFolderBasedOnFileContentType(fileContentType)
-                + File.separator
-                + collectionNameFolder
-                + File.separator
-                + LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
-                + File.separator
-                + collectionItemTitleFolder;
-        createDirectory(destinationDirectory);
-        return destinationDirectory;
-    }
-
-    private String createFileDestinationPath(String fileDestinationDirectory, String fileOriginalName) {
-        return fileDestinationDirectory.replace(baseLocation.toAbsolutePath() + File.separator, "")
-                + File.separator
-                + fileOriginalName;
+    private String generateRandomFileName(String fileOriginalName) {
+        return Utils.generateRandomName() + fileOriginalName.substring(fileOriginalName.lastIndexOf("."));
     }
 
     @Override
-    public String saveFile(MultipartFile file, String collectionNameFolder, String collectionItemTitleFolder) {
+    public String saveFile(MultipartFile file) {
         LOGGER.info("Saving uploaded file.");
+
         if (file.isEmpty()) {
             LOGGER.error("Could not save empty file.");
             throw new StorageException("Could not save empty file");
         }
 
-        String destinationDirectory = createFileDestinationDirectory(file.getContentType(), collectionNameFolder, Utils.transliterateStringFromCyrillicToLatinChars(collectionItemTitleFolder));
-        String destinationFilePath = createFileDestinationPath(destinationDirectory, file.getOriginalFilename());
 
         try {
-            Path destinationFile = baseLocation.resolve(destinationFilePath).normalize().toAbsolutePath();
+            Path destinationFile = baseLocation.resolve(getFolderBasedOnFileContentType(file.getContentType()) + File.separator
+                    + Paths.get(generateRandomFileName(file.getOriginalFilename())))
+                    .normalize().toAbsolutePath();
 
-            if (!destinationFile.getParent().toString().equals(destinationDirectory)) {
+
+
+            if (!destinationFile.getParent().toString().equals(baseLocation.toAbsolutePath() + File.separator + getFolderBasedOnFileContentType(file.getContentType()))) {
                 LOGGER.error("Cannot store file outside current directory.");
                 throw new StorageException(
                         "Cannot store file outside current directory.");
             }
 
-            try (InputStream inputStream = file.getInputStream()) {
+            try ( InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, destinationFile,
                         StandardCopyOption.REPLACE_EXISTING);
-                return destinationFilePath;
+                return getPathOfUploadedFile(destinationFile);
             }
 
         } catch (IOException ex) {
@@ -119,21 +92,18 @@ public class FileStorageService implements FileService {
         }
     }
 
+    private String getPathOfUploadedFile(Path destinationFile) {
+        return destinationFile.toString().replace(baseLocation.toAbsolutePath() + File.separator, "");
+    }
+
     @Override
     public Path load(String filePath) {
         return baseLocation.resolve(filePath);
     }
 
     @Override
-    public Resource loadAsResource(String folder, String collectionFolderName, String date, String collectionItemTitle, String filename) {
-        String filePath = folder
-                + File.separator
-                + collectionFolderName
-                + File.separator
-                + date
-                + File.separator
-                + collectionItemTitle
-                + File.separator + filename;
+    public Resource loadAsResource(String folder, String filename) {
+        String filePath = folder + File.separator + filename;
         try {
             LOGGER.info("Trying get uploaded file");
             Path file = load(filePath);
@@ -154,7 +124,7 @@ public class FileStorageService implements FileService {
 
     @Override
     public String getPathFromFileUrl(String fileUrl) {
-        return baseLocation + fileUrl.substring(fileUrl.indexOf("upload") + "upload".length());
+        return baseLocation + fileUrl.substring(fileUrl.indexOf("public") + "public".length());
     }
 
     @Override
@@ -166,10 +136,6 @@ public class FileStorageService implements FileService {
 
         try {
             Files.deleteIfExists(path);
-
-            if (isDirectoryEmpty(path.getParent())) {
-                FileSystemUtils.deleteRecursively(path.getParent());
-            }
         } catch (IOException e) {
             LOGGER.error("IOException while deleting file", e);
         }

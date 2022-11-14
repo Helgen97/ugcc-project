@@ -16,7 +16,7 @@ public class AlbumDTO extends TypeDTO {
 
     private String creationDate;
     private List<String> imagesUrls;
-    private String videoUrl;
+    private String videoSource;
 
     private AlbumDTO(
             Long id,
@@ -25,11 +25,11 @@ public class AlbumDTO extends TypeDTO {
             SectionDTO section,
             String creationDate,
             List<String> imagesUrls,
-            String videoUrl) {
+            String videoSource) {
         super(id, namedId, title, section);
         this.creationDate = creationDate;
         this.imagesUrls = imagesUrls;
-        this.videoUrl = videoUrl;
+        this.videoSource = videoSource;
     }
 
     public static AlbumDTO of(Album album) {
@@ -40,7 +40,7 @@ public class AlbumDTO extends TypeDTO {
                 SectionDTO.of(album.getSection()),
                 album.getCreationDate(),
                 album.getImagesUrls(),
-                album.getVideoUrl()
+                album.getVideoSource()
         );
     }
 }

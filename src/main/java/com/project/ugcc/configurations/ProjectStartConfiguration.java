@@ -11,7 +11,6 @@ public class ProjectStartConfiguration {
     @Bean
     public CommandLineRunner run(final FileStorageService fileService) {
         return strings -> {
-            fileService.deleteAll();
             fileService.init();
         };
     }

@@ -1,0 +1,35 @@
+@import 'vars.scss';
+
+.error {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.error__header-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error__logo {
+    width: 30%;
+        
+    img {
+        max-width: 100%;
+    }
+}
+
+.error__code {
+    font-size: 5em;
+}
+
+.error-description {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+@media screen and (max-width: $tablet) {
+    .error {
+        width: 100%;
+    }
+}

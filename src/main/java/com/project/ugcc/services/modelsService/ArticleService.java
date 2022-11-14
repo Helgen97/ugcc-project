@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ArticleService implements TypeService<Article> {
+public class ArticleService implements TypeService<Article, ArticleDTO> {
 
     private final static Logger LOGGER = LogManager.getLogger(ArticleService.class.getName());
 
@@ -39,23 +39,23 @@ public class ArticleService implements TypeService<Article> {
 
     @Override
     @Transactional(readOnly = true)
-    public Article getOneById(Long id) {
+    public ArticleDTO getOneById(Long id) {
         LOGGER.info(String.format("Getting article by id. Article id: %d.", id));
-        return articleRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Article with id %d not found", id)));
+        return ArticleDTO.of(articleRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Article with id %d not found", id))));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Article getByNamedId(String namedId) {
+    public ArticleDTO getByNamedId(String namedId) {
         LOGGER.info(String.format("Getting article by named id. Named id: %s", namedId));
-        return articleRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("Article with id %s not found", namedId)));
+        return ArticleDTO.of(articleRepository.findByNamedId(namedId).orElseThrow(() -> new NotFoundException(String.format("Article with id %s not found", namedId))));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Article> getAll() {
+    public List<ArticleDTO> getAll() {
         LOGGER.info("Getting all articles.");
-        return articleRepository.findAll();
+        return articleRepository.findAll().stream().map(ArticleDTO::of).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -84,10 +84,10 @@ public class ArticleService implements TypeService<Article> {
 
     @Override
     @Transactional
-    public Article create(Article article) {
+    public ArticleDTO create(Article article) {
         LOGGER.info("Creating new article");
         article.setNamedId(Utils.transliterateStringFromCyrillicToLatinChars(article.getTitle()));
-        return articleRepository.save(article);
+        return ArticleDTO.of(articleRepository.save(article));
     }
 
     @Override
@@ -101,14 +101,14 @@ public class ArticleService implements TypeService<Article> {
 
     @Override
     @Transactional
-    public Article update(Article article) {
+    public ArticleDTO update(Article article) {
         LOGGER.info(String.format("Updating article. Article id: %d", article.getId()));
 
         Article articleToUpdate = articleRepository.findById(article.getId()).orElseThrow(() -> new NotFoundException(String.format("Article with id %s not found!", article.getId())));
         if (!articleToUpdate.getImageUrl().equals(article.getImageUrl()) && !articleToUpdate.getImageUrl().isEmpty()) {
             fileService.deleteFile(articleToUpdate.getImageUrl());
         }
-        return articleRepository.save(article);
+        return ArticleDTO.of(articleRepository.save(article));
     }
 
     @Override

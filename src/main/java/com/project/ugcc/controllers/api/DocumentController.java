@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/documents")
@@ -23,12 +22,12 @@ public class DocumentController {
 
     @GetMapping
     public List<DocumentDTO> getAll() {
-        return documentService.getAll().stream().map(DocumentDTO::of).collect(Collectors.toList());
+        return documentService.getAll();
     }
 
     @GetMapping("/{id}")
     public DocumentDTO getOne(@PathVariable Long id) {
-        return DocumentDTO.of(documentService.getOneById(id));
+        return documentService.getOneById(id);
     }
 
     @GetMapping("/pages")
@@ -45,12 +44,12 @@ public class DocumentController {
     @PostMapping
     public DocumentDTO create(@RequestBody Document document, @RequestParam Long sectionId) {
         Document documentWithSection = documentService.setSectionToModel(document, sectionId);
-        return DocumentDTO.of(documentService.create(documentWithSection));
+        return documentService.create(documentWithSection);
     }
 
     @PutMapping
     public DocumentDTO update(@RequestBody Document document) {
-        return DocumentDTO.of(documentService.update(document));
+        return documentService.update(document);
     }
 
     @DeleteMapping("/{id}")

@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/news")
@@ -23,12 +22,12 @@ public class NewsController {
 
     @GetMapping
     public List<NewsDTO> getAll() {
-        return newsService.getAll().stream().map(NewsDTO::of).collect(Collectors.toList());
+        return newsService.getAll();
     }
 
     @GetMapping("/{id}")
     public NewsDTO getOne(@PathVariable Long id) {
-        return NewsDTO.of(newsService.getOneById(id));
+        return newsService.getOneById(id);
     }
 
     @GetMapping("/pages")
@@ -46,12 +45,12 @@ public class NewsController {
     public NewsDTO createNews(@RequestBody News news,
                               @RequestParam Long sectionId) {
         News newsWithSection = newsService.setSectionToModel(news, sectionId);
-        return NewsDTO.of(newsService.create(newsWithSection));
+        return newsService.create(newsWithSection);
     }
 
     @PutMapping
     public NewsDTO updateNews(@RequestBody News news) {
-        return NewsDTO.of(newsService.update(news));
+        return newsService.update(news);
     }
 
     @DeleteMapping("/{id}")
