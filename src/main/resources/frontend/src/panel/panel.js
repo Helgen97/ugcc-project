@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'summernote/dist/summernote-bs4.min.css';
-import '../styles/css/login-panel.css';
+import '../styles/scss/login-panel.scss';
 
 import $ from "jquery";
 import axios from "axios";
@@ -11,7 +11,7 @@ import swal from "sweetalert";
 
 const TITLE_MAX_LENGTH = 200;
 const DESCRIPTION_MAX_LENGTH = 500;
-const TEXT_MAX_LENGTH = 30000;
+const TEXT_MAX_LENGTH = 40000;
 const URL_MAX_LENGTH = 300;
 const IMAGE_DESCRIPTION_LENGTH = 120;
 const CONTACT_FIELDS_MAX_LENGTH = 150;
@@ -39,12 +39,11 @@ let newsApplyButton = $("#news-btn");
 //------------
 
 let newsListNextPage = 1;
+let isNewsListPreloaded = false;
 let newsListOpenBlockButton = $("#newsList-openBlockBtn");
 let newsListMenu = $("#newsList-menu");
 let newsList = $("#newsList");
 let newsListFetchPageOFNewsButton = $("#newsList-moreBtn");
-let editNewsButtons = [...$("#newsList .edit-btn")];
-let deleteNewsButtons = [...$("#newsList .delete-btn")];
 
 //------------
 
@@ -64,12 +63,11 @@ let documentApplyButton = $("#document-btn");
 //------------
 
 let documentsNextPage = 1;
+let isDocumentListPreloaded = false;
 let documentListOpenBlockButton = $("#documentList-openBlockBtn");
 let documentListMenu = $("#documentList-menu");
 let documentsList = $("#documentsList");
 let documentListFetchPageButton = $("#documentList-moreBtn");
-let editDocumentButtons = [...$("#documentsList .edit-btn")];
-let deleteDocumentButtons = [...$("#documentsList .delete-btn")];
 
 //------------
 
@@ -101,12 +99,36 @@ let albumApplyButton = $("#album-applyBtn");
 //------------
 
 let albumsNextPage = 1;
+let isAlbumListPreloaded = false;
 let albumListOpenBlockButton = $("#albumList-openBlockBtn");
 let albumListMenu = $("#albumList-menu");
 let albumsList = $("#albumList");
 let albumListFetchPageButton = $("#albumList-moreBtn");
-let editAlbumButtons = [...$("#albumList .edit-btn")];
-let deleteAlbumButtons = [...$("#albumList .delete-btn")];
+
+//------------
+
+let broadcastOpenBlockButton = $("#broadcast-openBlockBtn");
+let broadcastMenu = $("#broadcast-menu");
+let broadcastBlockTitle = $("#broadcast-blockTitle");
+let broadcastFromInput = $("#broadcast-fromInput");
+let broadcastChurchInput = $("#broadcast-churchInput");
+let broadcastTownInput = $("#broadcast-townInput");
+let broadcastImageInput = $("#broadcast-imageInput");
+let broadcastImagePreview = $("#broadcast-imagePreview");
+let broadcastScheduleInput = $("#broadcast-scheduleInput");
+let broadcastYoutubeInput = $("#broadcast-youtubeInput");
+let broadcastInstagramInput = $("#broadcast-instagramInput");
+let broadcastForm = $("#broadcastForm");
+let broadcastApplyButton = $("#broadcast-btn");
+
+//------------
+
+let broadcastListNextPage = 1;
+let isBroadcastListPreloaded = false;
+let broadcastListOpenBlockBtn = $("#broadcastList-openBlockBtn");
+let broadcastListMenu = $("#broadcastList-menu")
+let broadcastList = $("#broadcastList");
+let broadcastListMoreBtn = $("#broadcastList-moreBtn");
 
 //------------
 
@@ -171,6 +193,16 @@ let album = {
     imagesUrls: [],
     videoSource: ""
 };
+
+let broadcast = {
+    churchFrom: "",
+    churchName: "",
+    churchTown: "",
+    imageUrl: "",
+    schedule: "",
+    youtubeLink: "",
+    instagramLink: ""
+}
 
 let contacts = {
     id: 0,
@@ -351,7 +383,7 @@ async function uploadFile() {
         createPrependAndScrollToAlert("warning", "Спочатку виберіть файл.", documentFileAlertBlock);
         return isSuccess;
     }
-    
+
     let formData = new FormData();
     formData.append("file", file);
 
@@ -445,14 +477,13 @@ async function createNews() {
     await axios.post(
         `/api/news?sectionId=${newsSectionInput.val()}`,
         JSON.stringify(news), {
-        headers: {
-            'Content-Type': "application/json"
+            headers: {
+                'Content-Type': "application/json"
+            }
         }
-    }
-    ).then(function ({ data }) {
-        createPrependAndScrollToAlert("success", `Новина успішно створена, `, newsForm, `/news/${data.namedId}`);
+    ).then(function ({data: {namedId}}) {
+        createPrependAndScrollToAlert("success", `Новина успішно створена, `, newsForm, `/news/${namedId}`);
         resetNewsInputsAndObject();
-        newsList.prepend(createCard(data.title, data.id, editNewsButtonClick, deleteNewsButtonClick))
     }).catch(function (error) {
         console.error(error)
         createPrependAndScrollToAlert("danger", `Помилка при створенні новини. Спробуйте ще раз`, newsForm);
@@ -468,8 +499,8 @@ async function changeNews() {
                 'Content-Type': "application/json"
             }
         }
-    ).then(function ({ data }) {
-        createPrependAndScrollToAlert("success", `Новина успішно змінена, `, newsForm, `/news/${data.namedId}`);
+    ).then(function ({data: {namedId}}) {
+        createPrependAndScrollToAlert("success", `Новина успішно змінена, `, newsForm, `/news/${namedId}`);
     }).catch(function (error) {
         console.error(error);
         createPrependAndScrollToAlert("danger", `Помилка при редагуванні новини. Спробуйте ще раз`, newsForm);
@@ -577,9 +608,26 @@ async function deleteNewsButtonClick() {
     }
 }
 
-newsListOpenBlockButton.on("click", (e) => {
+async function loadLatestNews() {
+    await axios.get(`api/news/pages?page=0&size=10`)
+        .then(function ({data: {content, totalPages}}) {
+            isNewsListPreloaded = true;
+            newsListFetchPageOFNewsButton.attr("data-total-pages", totalPages)
+            let newsCards = content.map(
+                (news) => createCard(news.title, news.id, editNewsButtonClick, deleteNewsButtonClick)
+            );
+            newsList.append(newsCards);
+        })
+        .catch(function (error) {
+            console.error(error);
+            createPrependAndScrollToAlert("danger", "При завантаженні інших новин сталася помилка", newsList);
+        });
+}
+
+newsListOpenBlockButton.on("click", async (e) => {
     e.preventDefault();
     hideBlocks();
+    if (!isNewsListPreloaded) await loadLatestNews();
     newsListMenu.toggle();
 });
 
@@ -602,14 +650,6 @@ newsListFetchPageOFNewsButton.on("click", async function () {
             console.error(error);
             createPrependAndScrollToAlert("danger", "При завантаженні інших новин сталася помилка", newsList);
         });
-});
-
-editNewsButtons.forEach((button) => {
-    $(button).on('click', editNewsButtonClick);
-});
-
-deleteNewsButtons.forEach((button) => {
-    $(button).on('click', deleteNewsButtonClick);
 });
 
 //----------
@@ -681,13 +721,12 @@ async function createDocument() {
     await axios.post(
         `/api/documents?sectionId=${documentSectionInput.val()}`,
         JSON.stringify(doc), {
-        headers: {
-            'Content-Type': "application/json"
+            headers: {
+                'Content-Type': "application/json"
+            }
         }
-    }
-    ).then(function ({ data }) {
-        createPrependAndScrollToAlert("success", "Документ успішно завантажено, ", documentForm, `/documents/${data.namedId}`);
-        documentsList.prepend(createCard(data.title, data.id, editDocumentButtonClick, deleteDocumentButtonClick));
+    ).then(function ({data: {namedId}}) {
+        createPrependAndScrollToAlert("success", "Документ успішно завантажено, ", documentForm, `/documents/${namedId}`);
         resetDocumentsInputsAndObject();
     }).catch(function (error) {
         console.error(error);
@@ -704,8 +743,8 @@ async function changeDocument() {
                 'Content-Type': "application/json"
             }
         }
-    ).then(function ({ data }) {
-        createPrependAndScrollToAlert("success", "Документ успішно змінений, ", documentForm, `/documents/${data.namedId}`);
+    ).then(function ({data: {namedId}}) {
+        createPrependAndScrollToAlert("success", "Документ успішно змінений, ", documentForm, `/documents/${namedId}`);
     }).catch(function (error) {
         console.error(error);
         createPrependAndScrollToAlert("danger", `Помилка при редагуванні документа. Спробуйте ще раз`, documentForm);
@@ -796,9 +835,26 @@ async function deleteDocumentButtonClick() {
     }
 }
 
-documentListOpenBlockButton.on("click", function (e) {
+async function loadLatestDocuments() {
+    await axios.get(`/api/documents/pages?page=0&size=10`)
+        .then(function ({data: {content, totalPages}}) {
+            isDocumentListPreloaded = true;
+            documentListFetchPageButton.attr("data-total-pages", totalPages);
+            let documentCards = content.map(
+                (document) => createCard(document.title, document.id, editDocumentButtonClick, deleteDocumentButtonClick)
+            );
+            documentsList.append(documentCards);
+        })
+        .catch(function (error) {
+            console.error(error);
+            createPrependAndScrollToAlert("danger", "При завантаженні інших документів сталася помилка", documentsList);
+        });
+}
+
+documentListOpenBlockButton.on("click", async function (e) {
     e.preventDefault();
     hideBlocks();
+    if (!isDocumentListPreloaded) await loadLatestDocuments();
     documentListMenu.toggle();
 });
 
@@ -812,7 +868,7 @@ documentListFetchPageButton.on("click", async function () {
     await axios.get(`/api/documents/pages?page=${documentsNextPage}&size=10`)
         .then(function (response) {
             let documentCards = response.data.content.map(
-                (document) => createCard(document.id, document.title, editDocumentButtonClick, deleteDocumentButtonClick));
+                (document) => createCard(document.title, document.id, editDocumentButtonClick, deleteDocumentButtonClick));
             documentsList.append(documentCards);
             documentsNextPage++;
         })
@@ -820,14 +876,6 @@ documentListFetchPageButton.on("click", async function () {
             console.error(error);
             createPrependAndScrollToAlert("danger", "При завантаженні інших документів сталася помилка", documentsList);
         });
-});
-
-editDocumentButtons.forEach((button) => {
-    $(button).on('click', editDocumentButtonClick);
-});
-
-deleteDocumentButtons.forEach((button) => {
-    $(button).on('click', deleteNewsButtonClick);
 });
 
 //----------
@@ -928,8 +976,8 @@ articleApplyButton.on('click', async function () {
                     'Content-Type': "application/json"
                 }
             })
-            .then(function ({ data }) {
-                createPrependAndScrollToAlert("success", "Стаття успішно змінена, ", articleForm, `/article/${data.namedId}`);
+            .then(function ({data: {namedId}}) {
+                createPrependAndScrollToAlert("success", "Стаття успішно змінена, ", articleForm, `/article/${namedId}`);
             })
             .catch(function (error) {
                 console.error(error);
@@ -1032,9 +1080,8 @@ async function createAlbum() {
                 'Content-Type': "application/json"
             }
         }
-    ).then(function ({ data }) {
-        createPrependAndScrollToAlert("success", "Альбом успішно створено, ", albumForm, `/albums/${data.namedId}`);
-        albumsList.prepend(createCard(data.title, data.id, editAlbumButtonClick, deleteAlbumButtonClick));
+    ).then(function ({data: {namedId}}) {
+        createPrependAndScrollToAlert("success", "Альбом успішно створено, ", albumForm, `/albums/${namedId}`);
         resetAlbumForm();
     }).catch(function (error) {
         console.error(error);
@@ -1051,8 +1098,8 @@ async function changeAlbum() {
                 'Content-Type': "application/json"
             }
         }
-    ).then(function ({ data }) {
-        createPrependAndScrollToAlert("success", "Альбом успішно змінено, ", albumForm, `/albums/${data.namedId}`);
+    ).then(function ({data: {namedId}}) {
+        createPrependAndScrollToAlert("success", "Альбом успішно змінено, ", albumForm, `/albums/${namedId}`);
     }).catch(function (error) {
         console.error(error);
         createPrependAndScrollToAlert("danger", "При зміненні альбому щось пішло не так, споробуйте ще раз", albumForm);
@@ -1102,7 +1149,7 @@ albumImageUploadButton.on('click', async function () {
         data: formData,
         processData: false,
         contentType: false
-    }).then(function ({ data }) {
+    }).then(function ({data}) {
         if (!album.imagesUrls.includes(data)) {
             album.imagesUrls.push(data);
             albumUploadedImageList.append(createUploadedImageCard(data));
@@ -1168,9 +1215,26 @@ async function deleteAlbumButtonClick() {
 
 }
 
-albumListOpenBlockButton.on("click", function (e) {
+async function loadLatestAlbums() {
+    await axios.get(`/api/albums/pages?page=0&size=10`)
+        .then(function ({data: {content, totalPages}}) {
+            isAlbumListPreloaded = true;
+            albumListFetchPageButton.attr("data-total-pages", totalPages)
+            let albumCards = content.map(
+                (album) => createCard(album.title, album.id, editAlbumButtonClick, deleteAlbumButtonClick)
+            );
+            albumsList.append(albumCards);
+        })
+        .catch(function (error) {
+            console.error(error);
+            createPrependAndScrollToAlert("danger", "При завантаженні інших альбомів сталася помилка", albumsList);
+        });
+}
+
+albumListOpenBlockButton.on("click", async function (e) {
     e.preventDefault();
     hideBlocks();
+    if (!isAlbumListPreloaded) await loadLatestAlbums();
     albumListMenu.toggle();
 });
 
@@ -1194,12 +1258,242 @@ albumListFetchPageButton.on("click", async function () {
         });
 });
 
-editAlbumButtons.forEach((button) => {
-    $(button).on('click', editAlbumButtonClick);
+//----------
+
+function resetBroadcastInputsAndObject() {
+    broadcast = {
+        churchFrom: "",
+        churchName: "",
+        churchTown: "",
+        imageUrl: "",
+        schedule: "",
+        youtubeLink: "",
+        instagramLink: ""
+    };
+    broadcastBlockTitle.text("Додати трансляцію");
+    broadcastImageInput.val("").keyup();
+    broadcastImageInput.next(".custom-file-label").html("Виберіть зображення");
+    broadcastImagePreview[0].src = "./imgs/uploadPhoto.png";
+    broadcastFromInput.val("").keyup();
+    broadcastChurchInput.val("").keyup();
+    broadcastTownInput.val("").keyup();
+    broadcastScheduleInput.val("").keyup();
+    broadcastYoutubeInput.val("").keyup();
+    broadcastInstagramInput.val("").keyup();
+    broadcastApplyButton.text("Створити");
+    broadcastApplyButton.attr("data-purpose", "create");
+}
+
+function prepareFormToEditBroadcast() {
+    broadcastBlockTitle.text("Редагування трансляції");
+    broadcastImageInput.next(".custom-file-label").html("Виберіть зображення");
+    broadcastImagePreview[0].src = broadcast.imageUrl;
+    broadcastFromInput.val(broadcast.churchFrom).keyup();
+    broadcastChurchInput.val(broadcast.churchName).keyup();
+    broadcastTownInput.val(broadcast.churchTown).keyup();
+    broadcastScheduleInput.val(broadcast.schedule).keyup();
+    broadcastYoutubeInput.val(broadcast.youtubeLink).keyup();
+    broadcastInstagramInput.val(broadcast.instagramLink).keyup();
+    broadcastApplyButton.text("Редагувати");
+    broadcastApplyButton.attr("data-purpose", "change");
+}
+
+function isOneOfBroadcastFieldsIsEmpty() {
+    return broadcast.churchFrom.length === 0 ||
+        broadcast.churchName.length === 0 ||
+        broadcast.churchTown.length === 0 ||
+        broadcast.schedule.length === 0 &&
+        (broadcast.youtubeLink.length === 0 || broadcast.instagramLink.length === 0);
+}
+
+function isOneOfBroadcastFieldsIsReachSymbolsLimit() {
+    return broadcast.churchFrom.length > CONTACT_FIELDS_MAX_LENGTH ||
+        broadcast.churchName.length > CONTACT_FIELDS_MAX_LENGTH ||
+        broadcast.churchTown.length > CONTACT_FIELDS_MAX_LENGTH ||
+        broadcast.schedule.length > DESCRIPTION_MAX_LENGTH ||
+        broadcast.youtubeLink.length > URL_MAX_LENGTH ||
+        broadcast.instagramLink.length > URL_MAX_LENGTH;
+}
+
+function isOneOfBroadcastFieldIsEmptyOrReachSymbolsLimit() {
+    if (isOneOfBroadcastFieldsIsEmpty()) {
+        createPrependAndScrollToAlert("warning", " Заповніть порожні поля!", broadcastForm);
+        return true;
+    } else if (isOneOfBroadcastFieldsIsReachSymbolsLimit()) {
+        createPrependAndScrollToAlert("warning", " Деякі поля перевищили ліміт символів!", broadcastForm);
+        return true;
+    }
+    return false;
+}
+
+function broadcastImageInputChange() {
+    imageInputChange(broadcastImageInput[0], broadcastImagePreview[0]);
+}
+
+async function createBroadcast() {
+    await axios.post(
+        "/api/broadcasts",
+        JSON.stringify(broadcast), {
+            headers: {
+                'Content-Type': "application/json"
+            }
+        }
+    ).then(function () {
+        createPrependAndScrollToAlert("success", "Трансляція успішно створена!", broadcastForm);
+        resetBroadcastInputsAndObject();
+    }).catch(function (error) {
+        console.error(error)
+        createPrependAndScrollToAlert("danger", `Помилка при створенні трансляції. Спробуйте ще раз`, broadcastForm);
+    });
+}
+
+async function changeBroadcast() {
+    await axios.put(
+        "/api/broadcasts",
+        JSON.stringify(broadcast),
+        {
+            headers: {
+                'Content-Type': "application/json"
+            }
+        }
+    ).then(function () {
+        createPrependAndScrollToAlert("success", "Трансляція успішно змінена, ", broadcastForm);
+    }).catch(function (error) {
+        console.error(error);
+        createPrependAndScrollToAlert("danger", "При зміненні трансляції щось пішло не так, споробуйте ще broadcastForm", albumForm);
+    });
+}
+
+broadcastOpenBlockButton.on("click", (e) => {
+    e.preventDefault();
+    hideBlocks();
+    resetBroadcastInputsAndObject();
+    broadcastMenu.toggle();
 });
 
-deleteAlbumButtons.forEach((button) => {
-    $(button).on('click', deleteAlbumButtonClick);
+broadcastFromInput.on('keyup', function () {
+    inputKeyUp(this, broadcast, "churchFrom", CONTACT_FIELDS_MAX_LENGTH);
+});
+
+broadcastChurchInput.on('keyup', function () {
+    inputKeyUp(this, broadcast, "churchName", CONTACT_FIELDS_MAX_LENGTH);
+});
+
+broadcastTownInput.on('keyup', function () {
+    inputKeyUp(this, broadcast, "churchTown", CONTACT_FIELDS_MAX_LENGTH);
+});
+
+broadcastImageInput.on('change', broadcastImageInputChange);
+
+broadcastScheduleInput.on('keyup', function () {
+    inputKeyUp(this, broadcast, "schedule", CONTACT_FIELDS_MAX_LENGTH);
+});
+
+broadcastYoutubeInput.on('keyup', function () {
+    inputKeyUp(this, broadcast, "youtubeLink", URL_MAX_LENGTH);
+})
+
+broadcastInstagramInput.on('keyup', function () {
+    inputKeyUp(this, broadcast, "instagramLink", URL_MAX_LENGTH);
+})
+
+broadcastApplyButton.on("click", async function () {
+    if (isOneOfBroadcastFieldIsEmptyOrReachSymbolsLimit()) {
+        return;
+    }
+
+    let buttonPurpose = this.dataset.purpose;
+
+    if (buttonPurpose === "create") {
+        if (await confirmAction("Додати трансляцію?", "Перевірте правильність введених данних!")) {
+            if (await uploadImage(broadcast, broadcastImageInput[0])) {
+                await createBroadcast();
+            }
+        }
+    } else if (buttonPurpose === "change") {
+        if (await confirmAction("Редагувати трансляцію?", "Перевірте правильність введених данних!")) {
+            if (broadcastImageInput[0].files.length !== 0) {
+                await uploadImage(broadcast, broadcastImageInput[0]);
+            }
+            await changeBroadcast();
+        }
+    }
+});
+
+//----------
+
+async function editBroadcastButtonClick() {
+    let broadcastId = $(this)[0].dataset.id;
+
+    if (await confirmAction("Ви дійсно бажаете редагувати цей альбом?")) {
+        await axios.get(`/api/broadcasts/${broadcastId}`).then(function ({data}) {
+            broadcast = data;
+            prepareFormToEditBroadcast();
+            hideBlocks();
+            broadcastMenu.toggle();
+        }).catch(function (error) {
+            console.error(error);
+            createPrependAndScrollToAlert("danger", "Сталася помилка. Перезавантажте сторінку та спробуйте ще раз!", broadcastList);
+        });
+    }
+}
+
+async function deleteBroadcastButtonClick() {
+    let broadcastId = $(this)[0].dataset.id;
+    let card = $(this).parent().parent().parent();
+
+    if (await confirmAction("Ви дійсно бажаете видалити цю трансляцію?")) {
+        await axios.delete(`/api/broadcasts/${broadcastId}`).then(function () {
+            card.toggle();
+        }).catch(function (error) {
+            console.error(error);
+            createPrependAndScrollToAlert("danger", "При видаленні сталася помилка.", broadcastList);
+        });
+    }
+
+}
+
+async function loadLatestBroadcasts() {
+    await axios.get(
+        "/api/broadcasts/page?page=0&size=10"
+    ).then(({data: {content, totalPages}}) => {
+        isBroadcastListPreloaded = true;
+        broadcastListMoreBtn.attr("data-total-pages", totalPages)
+        let broadcastsCards = content.map(
+            (brcast) => createCard("Трансляція " + brcast.churchFrom + " " + brcast.churchName, brcast.id, editBroadcastButtonClick, deleteBroadcastButtonClick)
+        );
+        broadcastList.append(broadcastsCards);
+    }).catch((error) => {
+        console.error(error);
+        createPrependAndScrollToAlert("danger", "При завантаженні трансляцій щось пішло не так. Спробуйте ще раз", broadcastList)
+    })
+}
+
+broadcastListOpenBlockBtn.on('click', async (e) => {
+    e.preventDefault();
+    hideBlocks();
+    if (!isBroadcastListPreloaded) await loadLatestBroadcasts();
+    broadcastListMenu.toggle();
+})
+
+broadcastListMoreBtn.on("click", async function () {
+    if (this.dataset.totalPages.toString() === broadcastListNextPage.toString()) {
+        this.setAttribute("disabled", "");
+        createPrependAndScrollToAlert("warning", "Загружені всі альбоми! ", albumsList);
+        return;
+    }
+
+    await axios.get(`/api/broadcasts/page?page=${broadcastListNextPage}&size=10`)
+        .then(function ({data}) {
+            let broadcastsCards = data.content.map(
+                (album) => createCard(album.title, album.id, editBroadcastButtonClick, deleteBroadcastButtonClick));
+            broadcastList.append(broadcastsCards);
+            broadcastListNextPage++;
+        })
+        .catch(function (error) {
+            console.error(error);
+            createPrependAndScrollToAlert("danger", "При завантаженні інших трансляцій сталася помилка", broadcastList);
+        });
 });
 
 //----------
@@ -1352,4 +1646,3 @@ credentialApplyButton.on('click', async function () {
         }
     }
 });
-

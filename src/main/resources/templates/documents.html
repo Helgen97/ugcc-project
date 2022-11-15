@@ -6,8 +6,8 @@
 <!--/*@thymesVar id="url" type="java.lang.String"*/-->
 <!--/*@thymesVar id="metaImage" type="java.lang.String"*/-->
 <!--/*@thymesVar id="document" type="com.project.ugcc.DTO.DocumentDTO"*/-->
-<!--/*@thymesVar id="documentsOfExarchate" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.DocumentDTO>"*/-->
-<!--/*@thymesVar id="documentsOfChurch" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.DocumentDTO>"*/-->
+<!--/*@thymesVar id="documentsOfExarchate" type="java.util.List<com.project.ugcc.DTO.DocumentDTO>"*/-->
+<!--/*@thymesVar id="documentsOfChurch" type="java.util.List<com.project.ugcc.DTO.DocumentDTO>"*/-->
 
 <head>
     <meta charset="UTF-8"/>
@@ -66,7 +66,7 @@
                 <div class="documents__col__title">
                     <h2>Документи Екзархату</h2>
                 </div>
-                <a th:each="document : ${documentsOfExarchate.content}" th:href="@{/documents/{namedId}(namedId=${document.namedId})}"
+                <a th:each="document : ${documentsOfExarchate}" th:href="@{/documents/{namedId}(namedId=${document.namedId})}"
                    class="document">
                     <div class="document__icon">
                     </div>
@@ -81,7 +81,7 @@
                 <div class="documents__col__title">
                     <h2>Документи Церкви</h2>
                 </div>
-                <a th:each="document : ${documentsOfChurch.content}" th:href="@{/documents/{namedId}(namedId=${document.namedId})}"
+                <a th:each="document : ${documentsOfChurch}" th:href="@{/documents/{namedId}(namedId=${document.namedId})}"
                    class="document">
                     <div class="document__icon">
                     </div>

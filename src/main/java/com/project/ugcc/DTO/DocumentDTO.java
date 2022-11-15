@@ -17,31 +17,21 @@ public class DocumentDTO extends TypeDTO {
     private String documentUrl;
     private String creationDate;
 
-    private DocumentDTO(Long ID,
-                        String namedId,
-                        String title,
-                        SectionDTO section,
-                        String description,
-                        String imageUrl,
-                        String documentUrl,
-                        String creationDate) {
-        super(ID, namedId, title, section);
-        this.description = description;
-        this.imageUrl = imageUrl;
-        this.documentUrl = documentUrl;
-        this.creationDate = creationDate;
-    }
-
-    public static DocumentDTO of(Document document) {
-        return new DocumentDTO(
+    private DocumentDTO(Document document) {
+        super(
                 document.getId(),
                 document.getNamedId(),
                 document.getTitle(),
-                SectionDTO.of(document.getSection()),
-                document.getDescription(),
-                document.getImageUrl(),
-                document.getDocumentUrl(),
-                document.getCreationDate());
+                SectionDTO.of(document.getSection())
+        );
+        this.description = document.getDescription();
+        this.imageUrl = document.getImageUrl();
+        this.documentUrl = document.getDocumentUrl();
+        this.creationDate = document.getCreationDate();
+    }
+
+    public static DocumentDTO of(Document document) {
+        return new DocumentDTO(document);
     }
 
 }

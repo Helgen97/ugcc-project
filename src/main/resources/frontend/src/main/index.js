@@ -1,6 +1,6 @@
 import '../styles/css/normalize.css';
 import '../styles/css/itc-slider.min.css';
-import '../styles/css/index.css';
+import '../styles/scss/index.scss';
 
 import $ from 'jquery';
 import '../lib/slider/itc-slider.min.js';
@@ -22,7 +22,17 @@ let desktopSearchButton = $("#desktop_search_button");
 
 let modalContent = $(".modal__dialog-content");
 
-function createBroadcastCard(broadcastTitle, imageSource, broadcastLink) {
+let isBroadcastsLoaded = false;
+
+function createBroadcastCard({
+                                 churchFrom,
+                                 churchName,
+                                 churchTown,
+                                 imageUrl,
+                                 schedule = "",
+                                 youtubeLink,
+                                 instagramLink
+                             }) {
     let card = document.createElement("div");
     card.setAttribute("class", "modal__dialog-content__block");
 
@@ -30,24 +40,69 @@ function createBroadcastCard(broadcastTitle, imageSource, broadcastLink) {
     title.setAttribute("class", "modal__dialog-content__block-title");
     title.innerText = "Трансляція";
 
+    let churchFromParagraph = document.createElement("p");
+    churchFromParagraph.innerText = churchFrom;
+
+    let churchNameParagraph = document.createElement("p");
+    churchNameParagraph.innerText = churchName;
+
+    let churchTownParagraph = document.createElement("p");
+    churchTownParagraph.innerText = `(${churchTown})`;
+
     let image = document.createElement("img");
-    image.setAttribute("src", imageSource);
-    image.setAttribute("alt", broadcastTitle);
+    image.setAttribute("src", imageUrl);
+    image.setAttribute("alt", `Трансляція ${churchFrom} ${churchName}`);
     image.setAttribute("class", "modal__dialog-content__block-image");
 
-    let link = document.createElement("a");
-    link.setAttribute("href", broadcastLink);
-    link.setAttribute("target", "_blank");
-    link.setAttribute("class", "social-btn youtube");
-    link.innerText = "YouTube";
+    let scheduleTitleParagraph = document.createElement("p");
+    scheduleTitleParagraph.innerText = "Розклад";
 
-    card.append(title, image, link);
+    let scheduleParagraphs = schedule.split("\n").map((schedulePart) => {
+        let p = document.createElement("p");
+        p.innerText = schedulePart;
+        return p;
+    })
+
+    card.append(title, churchFromParagraph, churchNameParagraph, image, scheduleTitleParagraph);
+    scheduleParagraphs.forEach(paragraph => card.append(paragraph));
+
+    if (youtubeLink) {
+        let youtubeLinkElement = document.createElement("a");
+        youtubeLinkElement.setAttribute("href", youtubeLink);
+        youtubeLinkElement.setAttribute("target", "_blank");
+        youtubeLinkElement.setAttribute("class", "social-btn youtube");
+        youtubeLinkElement.innerText = "YouTube";
+        card.append(youtubeLinkElement);
+    }
+
+    if (instagramLink) {
+        let link = document.createElement("a");
+        link.setAttribute("href", instagramLink);
+        link.setAttribute("target", "_blank");
+        link.setAttribute("class", "social-btn instagram");
+        link.innerText = "Instagram";
+        card.append(link);
+    }
+
     return card;
 }
 
+async function loadBroadcasts() {
+    await fetch("/api/broadcasts")
+        .then((response) => {
+            return response.json();
+        }).then((broadcasts) => {
+            isBroadcastsLoaded = true;
+            let broadcastCards = broadcasts.map((broadcast) => createBroadcastCard(broadcast));
+            modalContent.append(broadcastCards);
+        }).catch((error) => {
+            console.error(error);
+        });
+}
 
-modalOpenButton.on("click", (event) => {
+modalOpenButton.on("click", async (event) => {
     event.preventDefault();
+    if (!isBroadcastsLoaded) await loadBroadcasts();
     modalWindowContainer.addClass("isActive");
 });
 

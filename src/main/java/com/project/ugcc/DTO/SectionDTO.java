@@ -18,14 +18,14 @@ public class SectionDTO {
     private String namedId;
     private Category category;
 
-    private SectionDTO(Long id, String title, String namedId, Category category) {
-        this.id = id;
-        this.title = title;
-        this.namedId = namedId;
-        this.category = category;
+    private SectionDTO(Section section) {
+        this.id = section.getId();
+        this.title = section.getTitle();
+        this.namedId = section.getNamedId();
+        this.category = section.getCategory();
     }
 
     public static SectionDTO of(Section section) {
-        return new SectionDTO(section.getId(), section.getTitle(), section.getNamedId(), section.getCategory());
+        return new SectionDTO(section);
     }
 }

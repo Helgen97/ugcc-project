@@ -16,17 +16,13 @@ public class SiteUserDTO {
     private String login;
     private String role;
 
-    private SiteUserDTO(Long id, String login, String role) {
-        this.id = id;
-        this.login = login;
-        this.role = role;
+    private SiteUserDTO(SiteUser siteUser) {
+        this.id = siteUser.getId();
+        this.login = siteUser.getLogin();
+        this.role = siteUser.getRole();
     }
 
     public static SiteUserDTO of(SiteUser siteUser) {
-        return new SiteUserDTO(
-                siteUser.getId(),
-                siteUser.getLogin(),
-                siteUser.getRole()
-        );
+        return new SiteUserDTO(siteUser);
     }
 }

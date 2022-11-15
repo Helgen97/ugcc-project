@@ -60,6 +60,15 @@
     0px 5px 4px $blockShadowColor,
     30px
   );
+
+  p {
+    margin: .3em 0;
+  }
+
+  .instagram {
+    @include centerBlock(80%);
+    margin-top: .5em;
+  }
 }
 
 .modal__dialog-content__block-title {
@@ -72,15 +81,6 @@
   border-radius: 30px;
 }
 
-.youtube {
-  @include centerBlock(80%);
-  @include socialButtonStyle(
-    $youTubeButtonBackgroundColor,
-    $youTubeButtonShadowColor,
-    url(../../imgs/svg-sprite.svg) 215px 0
-  );
-}
-
 @media screen and (min-width: $mobile) and (max-width: $tablet) {
   .modal__dialog {
     width: 40em;
@@ -90,7 +90,6 @@
   .modal__dialog-content {
     justify-content: space-between;
   }
-  
 }
 
 @media screen and (max-width: $mobile) {

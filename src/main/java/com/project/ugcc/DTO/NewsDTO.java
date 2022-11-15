@@ -17,31 +17,15 @@ public class NewsDTO extends TypeDTO {
     private String text;
     private String creationDate;
 
-    private NewsDTO(
-            Long id,
-            String namedId,
-            String title,
-            SectionDTO section,
-            String description,
-            String imageUrl,
-            String text,
-            String creationDate) {
-        super(id, namedId, title, section);
-        this.description = description;
-        this.imageUrl = imageUrl;
-        this.text = text;
-        this.creationDate = creationDate;
+    private NewsDTO(News news) {
+        super(news.getId(), news.getNamedId(), news.getTitle(), SectionDTO.of(news.getSection()));
+        this.description = news.getDescription();
+        this.imageUrl = news.getImageUrl();
+        this.text = news.getText();
+        this.creationDate = news.getCreationDate();
     }
 
     public static NewsDTO of(News news) {
-        return new NewsDTO(
-                news.getId(),
-                news.getNamedId(),
-                news.getTitle(),
-                SectionDTO.of(news.getSection()),
-                news.getDescription(),
-                news.getImageUrl(),
-                news.getText(),
-                news.getCreationDate());
+        return new NewsDTO(news);
     }
 }

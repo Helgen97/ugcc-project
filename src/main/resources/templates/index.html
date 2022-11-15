@@ -59,7 +59,8 @@
                 <h1>Новини екзархату</h1>
             </div>
             <div class="main-section__content">
-                <a th:each="news,iStat : ${newsPageOfExarchate.content}" th:href="@{/news/{namedId}(namedId=${news.namedId})}" class="section">
+                <a th:each="news,iStat : ${newsPageOfExarchate.content}"
+                   th:href="@{/news/{namedId}(namedId=${news.namedId})}" class="section">
                     <div class="section__image-container">
                         <img th:src="${news.imageUrl}" loading="lazy" th:alt="${news.title}" class="section__image">
                     </div>
@@ -82,7 +83,8 @@
                 <h2>Новини Церкви</h2>
             </div>
             <div class="sections__list">
-                <a th:each="news : ${newsPageOfChurch.content}" th:href="@{/news/{namedId}(namedId=${news.namedId})}" class="section">
+                <a th:each="news : ${newsPageOfChurch.content}" th:href="@{/news/{namedId}(namedId=${news.namedId})}"
+                   class="section">
                     <div class="section__image-container">
                         <img th:src="${news.imageUrl}" loading="lazy" th:alt="${news.title}" class="section__image">
                     </div>
@@ -105,7 +107,8 @@
                 <h2>Публікації</h2>
             </div>
             <div class="sections__list">
-                <a th:each="news : ${newsPageOfPublications.content}" th:href="@{/news/{namedId}(namedId=${news.namedId})}" class="section">
+                <a th:each="news : ${newsPageOfPublications.content}"
+                   th:href="@{/news/{namedId}(namedId=${news.namedId})}" class="section">
                     <div class="section__image-container">
                         <img th:src="${news.imageUrl}" loading="lazy" th:alt="${news.title}" class="section__image">
                     </div>

@@ -163,3 +163,48 @@ main {
   color: $secondTextColor;
   transition: box-shadow 0.2s linear;
 }
+
+.youtube {
+  @include centerBlock(80%);
+  @include socialButtonStyle(
+                  $youTubeButtonBackgroundColor,
+                  $youTubeButtonShadowColor,
+                  url(../../imgs/svg-sprite.svg) 215px 0
+  );
+}
+
+.photo {
+  @include socialButtonStyle(
+                  $hoverColor,
+                  $hoverShadowColor,
+                  url(../../imgs/svg-sprite.svg) 21px 0
+  );
+  margin-bottom: 0.5em;
+}
+
+.video {
+  @include socialButtonStyle(
+                  $hoverColor,
+                  $hoverShadowColor,
+                  url(../../imgs/svg-sprite.svg) 52px 0
+  );
+  margin-bottom: 0.5em;
+}
+
+.facebook {
+  @include socialButtonStyle(
+                  $facebookButtonBackgroundColor,
+                  $facebookButtonShadowColor,
+                  url(../../imgs/svg-sprite.svg) 83px 0
+  );
+  margin-bottom: 0.5em;
+}
+
+.instagram {
+  @include socialButtonStyle(
+                  $instagramButtonBackgroundColor,
+                  $instagramButtonShadowColor,
+                  url(../../imgs/svg-sprite.svg) 149px 0
+  );
+  margin-bottom: 0.5em;
+}

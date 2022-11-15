@@ -5,12 +5,6 @@
 <!--/*@thymesVar id="newsList" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.NewsDTO>"*/-->
 <!--/*@thymesVar id="news" type="com.project.ugcc.DTO.NewsDTO"*/-->
 <!--/*@thymesVar id="documentSections" type="java.util.List<com.project.ugcc.models.Section>"*/-->
-<!--/*@thymesVar id="documentsList" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.DocumentDTO>"*/-->
-<!--/*@thymesVar id="document" type="com.project.ugcc.DTO.DocumentDTO"*/-->
-<!--/*@thymesVar id="articlesList" type="java.util.List<com.project.ugcc.models.Article>"*/-->
-<!--/*@thymesVar id="albumsSections" type="java.util.List<com.project.ugcc.models.Album>"*/-->
-<!--/*@thymesVar id="albumsList" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.AlbumDTO>"*/-->
-<!--/*@thymesVar id="album" type="com.project.ugcc.DTO.AlbumDTO"*/-->
 
 <head>
     <meta charset="UTF-8">
@@ -184,24 +178,9 @@
                 <h4>Список новини</h4>
             </div>
             <div id="newsList">
-                <div class="card mb-3" th:each="news : ${newsList.content}">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${news.id} + '. ' + ${news.title}"></h5>
-                        <div class="d-flex justify-content-between text-center">
-                            <button class="w-75 mr-2 btn btn-primary edit-btn"
-                                    th:attr="data-id=${news.id}">Редагувати
-                            </button>
-                            <button class="w-25 ml-2 btn btn-danger delete-btn"
-                                    th:attr="data-id=${news.id}">Видалити
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="w-100 text-center">
-                <button type="button" class="w-50 btn btn-primary" id="newsList-moreBtn"
-                        th:data-total-pages="${newsList.totalPages}">Показати ще
-                </button>
+                <button type="button" class="w-50 btn btn-primary" id="newsList-moreBtn">Показати ще</button>
             </div>
         </div>
         <div id="document-menu" class="p-1" style="display: none;">
@@ -282,24 +261,9 @@
                 <h4>Список документів</h4>
             </div>
             <div id="documentsList">
-                <div class="card mb-3" th:each="document : ${documentsList.content}">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${document.id} + '. ' + ${document.title}"></h5>
-                        <div class="d-flex justify-content-between text-center">
-                            <button class="w-75 mr-2 btn btn-primary edit-btn" th:attr="data-id=${document.id}">
-                                Редагувати
-                            </button>
-                            <button class="w-25 ml-2 btn btn-danger delete-btn" th:attr="data-id=${document.id}">
-                                Видалити
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="w-100 text-center">
-                <button type="button" class="w-50 btn btn-primary" id="documentList-moreBtn"
-                        th:data-total-pages="${documentsList.totalPages}">Показати ще
-                </button>
+                <button type="button" class="w-50 btn btn-primary" id="documentList-moreBtn">Показати ще</button>
             </div>
         </div>
         <div id="article-menu" class="p-1" style="display: none;">
@@ -420,22 +384,109 @@
                 <h4>Список альбомів</h4>
             </div>
             <div id="albumList">
-                <div class="card mb-3" th:each="album : ${albumsList.content}">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${album.id} + '. ' + ${album.title}"></h5>
-                        <div class="d-flex justify-content-between text-center">
-                            <button class="w-75 mr-2 btn btn-primary edit-btn" th:attr="data-id=${album.id}">Редагувати
-                            </button>
-                            <button class="w-25 ml-2 btn btn-danger delete-btn" th:attr="data-id=${album.id}">Видалити
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="w-100 text-center">
-                <button type="button" class="w-50 btn btn-primary" id="albumList-moreBtn"
-                        th:data-total-pages="${albumsList.totalPages}">Показати ще
-                </button>
+                <button type="button" class="w-50 btn btn-primary" id="albumList-moreBtn">Показати ще</button>
+            </div>
+        </div>
+        <div id="broadcast-menu" class="p-1" style="display: none;">
+            <div class="panel__block__title text-center border-bottom border-dark">
+                <h4 id="broadcast-blockTitle">Додати трансляцію</h4>
+            </div>
+            <div id="broadcastForm">
+                <div class="mb-3">
+                    <div class="w-100 p-1 text-center">
+                        <h5>Звідки трансляція?</h5>
+                    </div>
+                    <input id="broadcast-fromInput" type="text" class="form-control"
+                           placeholder="Звідки йде трансляція?"
+                           aria-describedby="broadcast-fromHelp">
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
+                    <small id="broadcast-fromHelp" class="form-text text-muted">Наприклад: "з Парафії"</small>
+                </div>
+                <div class="mb-3">
+                    <div class="w-100 p-1 text-center">
+                        <h5>Назва церкви</h5>
+                    </div>
+                    <input id="broadcast-churchInput" type="text" class="form-control" placeholder="Назва церкви:"
+                           aria-describedby="broadcast-churchHelp">
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
+                    <small id="broadcast-churchHelp" class="form-text text-muted">Наприклад: "Покрова Пресвятої
+                        Богородиці"</small>
+                </div>
+                <div class="mb-3">
+                    <div class="w-100 p-1 text-center">
+                        <h5>Назва міста</h5>
+                    </div>
+                    <input id="broadcast-townInput" type="text" class="form-control" placeholder="Назва міста:"
+                           aria-describedby="broadcast-townHelp">
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
+                    <small id="broadcast-townHelp" class="form-text text-muted">Наприклад: "м. Дніпро"</small>
+                </div>
+                <div class="input-group panel__block__input-container">
+                    <div class="w-100 p-1 text-center">
+                        <h5>Зображення трансляції:</h5>
+                    </div>
+                    <div class="custom-file mb-3">
+                        <input type="file" class="custom-file-input" id="broadcast-imageInput"
+                               accept="image/*">
+                        <label class="custom-file-label" for="broadcast-imageInput">Виберіть фото</label>
+                    </div>
+                    <div class="w-100 mt-3 text-center">
+                        <h6 class="w-100">Превью зображення</h6>
+                        <img id="broadcast-imagePreview" class="w-25" alt="Превью завантаженого зображення"
+                             th:src="@{./imgs/uploadPhoto.png}">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="w-100 p-1 text-center">
+                        <h5>Розклад:</h5>
+                    </div>
+                    <textarea id="broadcast-scheduleInput" class="form-control" rows="4"
+                              placeholder="Короткий опис" aria-describedby="news-descriptionHelp"></textarea>
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
+                    <small id="broadcast-scheduleIHelp" class="form-text text-muted">
+                        Важливо! щоб кожен рядок був с нової строчки. Наприклад: <br>
+                        "Будні:<br>
+                        8:00 - Божествення Літургія<br>
+                        Неділя:<br>
+                        8:30 - Утреня<br>
+                        10:00 - Божественна Літургія<br>
+                        Щосуботи і напередодні свят:<br>
+                        19:00 - Вечірня"<br>
+                    </small>
+                </div>
+                <div class="mb-3">
+                    <div class="w-100 p-1 text-center">
+                        <h5>Посилання на YouTube</h5>
+                    </div>
+                    <input id="broadcast-youtubeInput" type="text" class="form-control" placeholder="Посилання на YouTube:"
+                           aria-describedby="broadcast-youtubeHelp">
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
+                    <small id="broadcast-youtubeHelp" class="form-text text-muted">Наприклад: "https://www.youtube.com/channel/UCzln429edg6YNMKYLGWtq2A"</small>
+                </div>
+                <div class="mb-3">
+                    <div class="w-100 p-1 text-center">
+                        <h5>Посилання на Instagram</h5>
+                    </div>
+                    <input id="broadcast-instagramInput" type="text" class="form-control" placeholder="Посилання на Instagram:"
+                           aria-describedby="broadcast-instagramHelp">
+                    <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
+                    <small id="broadcast-instagramHelp" class="form-text text-muted">Наприклад: "https://www.instagram.com/svtr.org.ua/"</small>
+                </div>
+                <div class="mb-3 text-center">
+                    <button id="broadcast-btn" type="button" class="w-50 btn btn-primary">Створити</button>
+                </div>
+            </div>
+        </div>
+        <div id="broadcastList-menu" class="p-1" style="display: none;">
+            <div class="panel__block__title text-center border-bottom border-dark">
+                <h4>Список новини</h4>
+            </div>
+            <div id="broadcastList">
+            </div>
+            <div class="w-100 text-center">
+                <button type="button" class="w-50 btn btn-primary" id="broadcastList-moreBtn">Показати ще</button>
             </div>
         </div>
         <div id="contacts-menu" class="p-1" style="display: none;">

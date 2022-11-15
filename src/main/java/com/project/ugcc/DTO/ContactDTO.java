@@ -19,23 +19,16 @@ public class ContactDTO {
     private String phone;
     private String email;
 
-    private ContactDTO(Long id, String townAndIndex, String address, String country, String phone, String email) {
-        this.id = id;
-        this.townAndIndex = townAndIndex;
-        this.address = address;
-        this.country = country;
-        this.phone = phone;
-        this.email = email;
+    private ContactDTO(Contact contact) {
+        this.id = contact.getId();
+        this.townAndIndex = contact.getTownAndIndex();
+        this.address = contact.getAddress();
+        this.country = contact.getCountry();
+        this.phone = contact.getPhone();
+        this.email = contact.getEmail();
     }
 
     public static ContactDTO of(Contact contact) {
-        return new ContactDTO(
-                contact.getId(),
-                contact.getTownAndIndex(),
-                contact.getAddress(),
-                contact.getCountry(),
-                contact.getPhone(),
-                contact.getEmail()
-        );
+        return new ContactDTO(contact);
     }
 }

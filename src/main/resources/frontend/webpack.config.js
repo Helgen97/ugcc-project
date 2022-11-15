@@ -9,6 +9,7 @@ module.exports = {
         panel: './src/panel/panel.js',
         index: './src/main/index.js',
         login: './src/login/login.js',
+        error: './src/error/error.js'
     },
     output: {
         filename: 'scripts/[name].js',
@@ -23,7 +24,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.(sa|sc|c)ss$/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
@@ -36,7 +37,9 @@ module.exports = {
                         options: {
                             sourceMap: true
                         }
-                    }
+                    },
+                    "postcss-loader",
+                    "sass-loader",
                 ],
             },
         ],
