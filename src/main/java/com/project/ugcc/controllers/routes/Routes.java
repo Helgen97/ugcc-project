@@ -3,6 +3,7 @@ package com.project.ugcc.controllers.routes;
 import com.project.ugcc.DTO.*;
 import com.project.ugcc.services.modelsService.*;
 import com.project.ugcc.utils.SiteMapGenerator;
+import com.project.ugcc.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.print.Doc;
 import java.util.List;
 import java.util.Map;
 
@@ -219,10 +219,7 @@ public class Routes {
 
     @GetMapping("/a-panel")
     public String aPanelPage(Model model) {
-        model.addAttribute("newsSections", sectionService.getAllByCategory("NEWS"));
-        model.addAttribute("documentSections", sectionService.getAllByCategory("DOCUMENTS"));
         model.addAttribute("articlesList", articleService.getAll());
-        model.addAttribute("albumsSections", sectionService.getAllByCategory("MEDIA"));
         return "panel";
     }
 
@@ -231,5 +228,12 @@ public class Routes {
     public String sitemap() {
         String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
         return siteMapGenerator.generateSiteMap(baseUrl);
+    }
+
+    @GetMapping(value = "robots.txt", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    public String robots() {
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        return Utils.generateRobotsFile(baseUrl);
     }
 }

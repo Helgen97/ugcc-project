@@ -1,12 +1,34 @@
 package com.project.ugcc.utils;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Utils {
 
     private final static String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
+
     private final static int RANDOM_STRING_LENGTH = 20;
+
+    private final static String ROBOTS = "User-agent: Googlebot\n" +
+                                         "Disallow: /a-panel\n" +
+                                         "Disallow: /login\n" +
+                                         "\n" +
+                                         "User-agent: *\n" +
+                                         "Allow: /\n" +
+                                         "Allow: /news\n" +
+                                         "Allow: /news/\n" +
+                                         "Allow: /news/section/\n" +
+                                         "Allow: /documents\n" +
+                                         "Allow: /documents/\n" +
+                                         "Allow: /article/\n" +
+                                         "Allow: /kahetyzm-ugcc\n" +
+                                         "Allow: /kahehyzm\n" +
+                                         "Allow: /gallery\n" +
+                                         "Allow: /gallery/\n" +
+                                         "Allow: /albums/\n" +
+                                         "Allow: /contacts\n" +
+                                         "\n" +
+                                         "Sitemap: %s/sitemap.txt\n";
+
 
     private Utils() {
     }
@@ -31,8 +53,8 @@ public class Utils {
         if (date == null) date = LocalDateTime.of(2022, 1, 1, 1, 1);
 
         return date.getDayOfMonth() + " " +
-                convertIntMonthToUkraineMonth(date.getMonthValue()) + " " +
-                date.getYear();
+               convertIntMonthToUkraineMonth(date.getMonthValue()) + " " +
+               date.getYear();
     }
 
     private static String convertIntMonthToUkraineMonth(int month) {
@@ -51,5 +73,9 @@ public class Utils {
         }
 
         return randomString.toString();
+    }
+
+    public static String generateRobotsFile(String url) {
+        return String.format(ROBOTS, url);
     }
 }

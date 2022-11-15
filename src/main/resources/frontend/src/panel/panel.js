@@ -24,6 +24,7 @@ let blocks = [...$("#blocks>div")];
 
 //------------
 
+let isNewsSectionsLoaded = false;
 let newsOpenBlockButton = $("#news-openBlockBtn");
 let newsMenu = $("#news-menu");
 let newsBlockTitle = $("#news-blockTitle");
@@ -47,6 +48,7 @@ let newsListFetchPageOFNewsButton = $("#newsList-moreBtn");
 
 //------------
 
+let isDocumentSectionsLoaded = false;
 let documentsOpenBlockButton = $("#document-openBlockBtn");
 let documentMenu = $("#document-menu");
 let documentBlockTitle = $("#document-blockTitle");
@@ -83,6 +85,7 @@ let articleApplyButton = $("#article-editBtn");
 
 //------------
 
+let isAlbumSectionsLoaded = false;
 let albumOpenBlockButton = $("#album-openBlockBtn");
 let albumMenu = $("#album-menu");
 let albumBlockTitle = $("#album-blockTitle");
@@ -410,7 +413,25 @@ async function uploadFile() {
 
 //----------
 
-function resetNewsInputsAndObject() {
+async function loadNewsSections() {
+    await axios.get("/api/sections?category=NEWS")
+        .then(({data}) => {
+            isNewsSectionsLoaded = true;
+            let options = data.map((section) => {
+                let option = document.createElement("option");
+                option.setAttribute("value", section.id);
+                option.innerText = section.title;
+                return option;
+            })
+            newsSectionInput.append(options);
+        }).catch((error) => {
+            console.error(error);
+            createPrependAndScrollToAlert("danger", "При завантаженні розділів сталася помилка. Перезавантажте сторінку.", newsForm)
+        });
+}
+
+async function resetNewsInputsAndObject() {
+    if (!isNewsSectionsLoaded) await loadNewsSections();
     news = {
         title: "",
         description: "",
@@ -432,7 +453,8 @@ function resetNewsInputsAndObject() {
     newsApplyButton.attr("data-purpose", "create");
 }
 
-function prepareFormToEditNews() {
+async function prepareFormToEditNews() {
+    if (!isNewsSectionsLoaded) await loadNewsSections();
     newsBlockTitle.text("Редагування новини");
     newsSectionInput.val(news.section.id).change();
     newsImageInput.next(".custom-file-label").html(news.imageUrl);
@@ -507,10 +529,10 @@ async function changeNews() {
     });
 }
 
-newsOpenBlockButton.on("click", (e) => {
+newsOpenBlockButton.on("click", async (e) => {
     e.preventDefault();
     hideBlocks();
-    resetNewsInputsAndObject();
+    await resetNewsInputsAndObject();
     newsMenu.toggle();
 });
 
@@ -580,9 +602,9 @@ async function editNewsButtonClick() {
     let card = $(this).parent().parent().parent();
 
     if (await confirmAction("Ви дійсно бажаєте редагувати цю новину?")) {
-        await axios.get(`/api/news/${newsID}`).then(function (response) {
+        await axios.get(`/api/news/${newsID}`).then(async function (response) {
             news = response.data;
-            prepareFormToEditNews();
+            await prepareFormToEditNews();
             hideBlocks();
             newsMenu.toggle();
         }).catch(function (error) {
@@ -654,7 +676,25 @@ newsListFetchPageOFNewsButton.on("click", async function () {
 
 //----------
 
-function resetDocumentsInputsAndObject() {
+async function loadDocumentSections() {
+    await axios.get("/api/sections?category=DOCUMENTS")
+        .then(({data}) => {
+            isDocumentSectionsLoaded = true;
+            let options = data.map((section) => {
+                let option = document.createElement("option");
+                option.setAttribute("value", section.id);
+                option.innerText = section.title;
+                return option;
+            })
+            documentSectionInput.append(options);
+        }).catch((error) => {
+            console.error(error);
+            createPrependAndScrollToAlert("danger", "При завантаженні розділів сталася помилка. Перезавантажте сторінку.", documentForm)
+        });
+}
+
+async function resetDocumentsInputsAndObject() {
+    if (!isDocumentSectionsLoaded) await loadDocumentSections();
     doc = {
         title: "",
         section: {
@@ -677,7 +717,8 @@ function resetDocumentsInputsAndObject() {
     documentApplyButton.attr("data-purpose", "create");
 }
 
-function prepareFormToEditDocument() {
+async function prepareFormToEditDocument() {
+    if (!isDocumentSectionsLoaded) await loadDocumentSections();
     documentBlockTitle.text("Редагувати документ");
     documentSectionInput.val(doc.section.id).change();
     documentTitleInput.val(doc.title).keyup();
@@ -809,9 +850,9 @@ documentApplyButton.on('click', async function () {
 async function editDocumentButtonClick() {
     let documentID = $(this)[0].dataset.id;
     if (await confirmAction("Ви дійсно бажаєте редагувати цей документ?")) {
-        await axios.get(`/api/documents/${documentID}`).then(function (response) {
+        await axios.get(`/api/documents/${documentID}`).then(async function (response) {
             doc = response.data;
-            prepareFormToEditDocument();
+            await prepareFormToEditDocument();
             hideBlocks();
             documentMenu.toggle();
         }).catch(function (error) {
@@ -988,7 +1029,25 @@ articleApplyButton.on('click', async function () {
 
 //----------
 
-function resetAlbumForm() {
+async function loadAlbumSections() {
+    await axios.get("/api/sections?category=MEDIA")
+        .then(({data}) => {
+            isAlbumSectionsLoaded = true;
+            let options = data.map((section) => {
+                let option = document.createElement("option");
+                option.setAttribute("value", section.id);
+                option.innerText = section.title;
+                return option;
+            })
+            albumSectionInput.append(options);
+        }).catch((error) => {
+            console.error(error);
+            createPrependAndScrollToAlert("danger", "При завантаженні розділів сталася помилка. Перезавантажте сторінку.", albumForm)
+        });
+}
+
+async function resetAlbumForm() {
+    if (!isAlbumSectionsLoaded) loadAlbumSections();
     album = {
         id: 0,
         title: "",
@@ -1010,7 +1069,8 @@ function resetAlbumForm() {
     albumApplyButton.attr("data-purpose", "create");
 }
 
-function prepareFormToEditAlbum() {
+async function prepareFormToEditAlbum() {
+    if (!isAlbumSectionsLoaded) loadAlbumSections();
     albumBlockTitle.text("Редагування альбому");
     albumSectionInput.val(album.section.id).change();
     albumTitleInput.val(album.title).keyup();
@@ -1188,9 +1248,9 @@ async function editAlbumButtonClick() {
     let albumID = $(this)[0].dataset.id;
 
     if (await confirmAction("Ви дійсно бажаете редагувати цей альбом?")) {
-        await axios.get(`/api/albums/${albumID}`).then(function (response) {
+        await axios.get(`/api/albums/${albumID}`).then(async function (response) {
             album = response.data;
-            prepareFormToEditAlbum();
+            await prepareFormToEditAlbum();
             hideBlocks();
             albumMenu.toggle();
         }).catch(function (error) {

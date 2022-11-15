@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="uk" xmlns:th="http://www.thymeleaf.org">
 
-<!--/*@thymesVar id="newsSections" type="java.util.List<com.project.ugcc.models.News>"*/-->
-<!--/*@thymesVar id="newsList" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.NewsDTO>"*/-->
-<!--/*@thymesVar id="news" type="com.project.ugcc.DTO.NewsDTO"*/-->
-<!--/*@thymesVar id="documentSections" type="java.util.List<com.project.ugcc.models.Section>"*/-->
+<!--/*@thymesVar id="articlesList" type="java.util.List<com.project.ugcc.DTO.ArticleDTO>"*/-->
 
 <head>
     <meta charset="UTF-8">
@@ -114,8 +111,6 @@
                     </div>
                     <select id="news-sectionInput" class="custom-select">
                         <option value="0" selected>Розділ...</option>
-                        <option th:each="newsSection : ${newsSections}" th:value="${newsSection.id}"
-                                th:text="${newsSection.title}"></option>
                     </select>
                 </div>
                 <div class="input-group panel__block__input-container">
@@ -194,11 +189,7 @@
                     </div>
                     <select id="document-sectionInput" class="custom-select">
                         <option value="0" selected>Розділ...</option>
-                        <option th:each="docSection : ${documentSections}" th:value="${docSection.id}"
-                                th:text="${docSection.title}">
-                        </option>
                     </select>
-
                 </div>
                 <div class="mb-3">
                     <div class="w-100 p-1 text-center">
@@ -323,8 +314,6 @@
                     </div>
                     <select id="album-sectionInput" class="custom-select">
                         <option value="0" selected>Розділ...</option>
-                        <option th:each="albumsSection : ${albumsSections}" th:value="${albumsSection.id}"
-                                th:text="${albumsSection.title}"></option>
                     </select>
                 </div>
             </div>
@@ -332,7 +321,7 @@
                 <div class="w-100 p-1 text-center">
                     <h5>Назва альбому</h5>
                 </div>
-                <input id="album-titleInput" type="text" class="form-control" placeholder="Назва новини"
+                <input id="album-titleInput" type="text" class="form-control" placeholder="Назва альбому"
                        aria-describedby="album-titleHelp">
                 <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
                 <small id="album-titleHelp" class="form-text text-muted">Наприклад: "«Карітас Кам’янське»:
@@ -443,7 +432,7 @@
                         <h5>Розклад:</h5>
                     </div>
                     <textarea id="broadcast-scheduleInput" class="form-control" rows="4"
-                              placeholder="Короткий опис" aria-describedby="news-descriptionHelp"></textarea>
+                              placeholder="Короткий опис" aria-describedby="broadcast-scheduleIHelp"></textarea>
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="broadcast-scheduleIHelp" class="form-text text-muted">
                         Важливо! щоб кожен рядок був с нової строчки. Наприклад: <br>
@@ -460,19 +449,23 @@
                     <div class="w-100 p-1 text-center">
                         <h5>Посилання на YouTube</h5>
                     </div>
-                    <input id="broadcast-youtubeInput" type="text" class="form-control" placeholder="Посилання на YouTube:"
+                    <input id="broadcast-youtubeInput" type="text" class="form-control"
+                           placeholder="Посилання на YouTube:"
                            aria-describedby="broadcast-youtubeHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
-                    <small id="broadcast-youtubeHelp" class="form-text text-muted">Наприклад: "https://www.youtube.com/channel/UCzln429edg6YNMKYLGWtq2A"</small>
+                    <small id="broadcast-youtubeHelp" class="form-text text-muted">Наприклад:
+                        "https://www.youtube.com/channel/UCzln429edg6YNMKYLGWtq2A"</small>
                 </div>
                 <div class="mb-3">
                     <div class="w-100 p-1 text-center">
                         <h5>Посилання на Instagram</h5>
                     </div>
-                    <input id="broadcast-instagramInput" type="text" class="form-control" placeholder="Посилання на Instagram:"
+                    <input id="broadcast-instagramInput" type="text" class="form-control"
+                           placeholder="Посилання на Instagram:"
                            aria-describedby="broadcast-instagramHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
-                    <small id="broadcast-instagramHelp" class="form-text text-muted">Наприклад: "https://www.instagram.com/svtr.org.ua/"</small>
+                    <small id="broadcast-instagramHelp" class="form-text text-muted">Наприклад:
+                        "https://www.instagram.com/svtr.org.ua/"</small>
                 </div>
                 <div class="mb-3 text-center">
                     <button id="broadcast-btn" type="button" class="w-50 btn btn-primary">Створити</button>
@@ -497,7 +490,7 @@
                 <div class="form-group panel__block__input-container">
                     <label for="contacts-townInput">Місто та почтовий індекс</label>
                     <input type="text" class="form-control" id="contacts-townInput"
-                           aria-describedby="contacts-townInputHelp">
+                           placeholder="Місто та почтовий індекс" aria-describedby="contacts-townInputHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="contacts-townInputHelp" class="form-text text-muted">Наприклад: м. Запоріжжя,
                         69095</small>
@@ -505,7 +498,7 @@
                 <div class="form-group panel__block__input-container">
                     <label for="contacts-addressInput">Адреса</label>
                     <input type="text" class="form-control" id="contacts-addressInput"
-                           aria-describedby="contacts-addressInputHelp">
+                           placeholder="Адреса" aria-describedby="contacts-addressInputHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="contacts-addressInputHelp" class="form-text text-muted">Наприклад: вул.
                         Вербова,11</small>
@@ -513,14 +506,14 @@
                 <div class="form-group panel__block__input-container">
                     <label for="contacts-countryInput">Країна</label>
                     <input type="text" class="form-control" id="contacts-countryInput"
-                           aria-describedby="country-countryInputHelp">
+                           placeholder="Країна" aria-describedby="country-countryInputHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="contacts-countryInputHelp" class="form-text text-muted">Наприклад: Україна</small>
                 </div>
                 <div class="form-group panel__block__input-container">
                     <label for="contacts-phoneInput">Телефон</label>
                     <input type="text" class="form-control" id="contacts-phoneInput"
-                           aria-describedby="contacts-phoneInputHelp">
+                           placeholder="Телефон" aria-describedby="contacts-phoneInputHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="contacts-phoneInputHelp" class="form-text text-muted">Наприклад: +38 (098) 23 096
                         19</small>
@@ -528,7 +521,7 @@
                 <div class="form-group panel__block__input-container">
                     <label for="contacts-emailInput">Електронна адреса</label>
                     <input type="text" class="form-control" id="contacts-emailInput"
-                           aria-describedby="contacts-emailInputHelp">
+                           placeholder="Електронна адреса" aria-describedby="contacts-emailInputHelp">
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="contacts-emailInputHelp" class="form-text text-muted">Наприклад:
                         press.don.ugcc@gmail.com</small>
