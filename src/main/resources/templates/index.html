@@ -5,9 +5,6 @@
 <!--/*@thymesVar id="url" type="java.lang.String"*/-->
 <!--/*@thymesVar id="metaImage" type="java.lang.String"*/-->
 <!--/*@thymesVar id="newsPageOfExarchate" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.NewsDTO>"*/-->
-<!--/*@thymesVar id="newsPageOfChurch" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.NewsDTO>"*/-->
-<!--/*@thymesVar id="newsPageOfPublications" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.NewsDTO>"*/-->
-<!--/*@thymesVar id="news" type="com.project.ugcc.DTO.NewsDTO"*/-->
 
 <head>
     <meta charset="UTF-8"/>
@@ -41,6 +38,9 @@
 
     <meta name="author" content="Dmytro Donchenko"/>
     <meta name="copyright" content="2016 Донецький екзархат УГКЦ"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 
     <link rel="stylesheet" type="text/css" th:href="@{/styles/index.css}"/>
 </head>
@@ -78,49 +78,23 @@
                 </a>
             </div>
         </div>
+        <span id="churchNewsBlockStart"></span>
         <div class="sections block">
             <div class="block-title">
                 <h2>Новини Церкви</h2>
             </div>
-            <div class="sections__list">
-                <a th:each="news : ${newsPageOfChurch.content}" th:href="@{/news/{namedId}(namedId=${news.namedId})}"
-                   class="section">
-                    <div class="section__image-container">
-                        <img th:src="${news.imageUrl}" loading="lazy" th:alt="${news.title}" class="section__image">
-                    </div>
-                    <div class="section__info">
-                        <div class="section__info__date">
-                            <p th:text="${news.creationDate}"></p>
-                        </div>
-                        <div class="section__info__title">
-                            <p th:text="${news.title}"></p>
-                        </div>
-                    </div>
-                </a>
+            <div id="churchSectionsContainer" class="sections__list">
             </div>
             <div class="main-btn">
                 <a th:href="@{/news/section/{namedId}(namedId=news-of-church)}">Більше новин...</a>
             </div>
         </div>
+        <span id="publicationNewsBlockStart"></span>
         <div class="sections block">
             <div class="block-title">
                 <h2>Публікації</h2>
             </div>
-            <div class="sections__list">
-                <a th:each="news : ${newsPageOfPublications.content}"
-                   th:href="@{/news/{namedId}(namedId=${news.namedId})}" class="section">
-                    <div class="section__image-container">
-                        <img th:src="${news.imageUrl}" loading="lazy" th:alt="${news.title}" class="section__image">
-                    </div>
-                    <div class="section__info">
-                        <div class="section__info__date">
-                            <p th:text="${news.creationDate}"></p>
-                        </div>
-                        <div class="section__info__title">
-                            <p th:text="${news.title}"></p>
-                        </div>
-                    </div>
-                </a>
+            <div id="publicationSectionsContainer" class="sections__list">
             </div>
             <div class="main-btn">
                 <a th:href="@{/news/section/{namedId}(namedId=publications)}">Більше публікацій...</a>
@@ -135,6 +109,7 @@
 <footer th:replace="fragments/footer.html"></footer>
 
 <script th:src="@{/scripts/index.js}" defer></script>
+<script th:src="@{/scripts/indexObserver.js}"></script>
 </body>
 
 </html>

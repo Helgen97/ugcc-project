@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,6 +69,18 @@ public class NewsService implements TypeService<News, NewsDTO> {
     }
 
     @Transactional(readOnly = true)
+    public Page<NewsDTO> getFourRandomNews() {
+        LOGGER.info("Getting four random news.");
+        long allNewsCount = newsRepository.count();
+        long pageCounter = allNewsCount / 4;
+        int page = (int) (Math.random() * pageCounter);
+
+        Page<News> newsPage = newsRepository.findAll(PageRequest.of(page, 4));
+
+        return newsPage.map(NewsDTO::of);
+    }
+
+    @Transactional(readOnly = true)
     public Page<NewsDTO> getPageOfNewsBySearchQuery(String query, int page, int size) {
         LOGGER.info(String.format("Page of news by search query. Query: %s. Page: %d. Size: %d", query, page, size));
         Page<News> newsPage = newsRepository.findAllByTitleContainingIgnoreCase(query,
@@ -100,7 +111,7 @@ public class NewsService implements TypeService<News, NewsDTO> {
     public NewsDTO create(News news) {
         LOGGER.info("Creating new news");
         news.setNamedId(Utils.transliterateStringFromCyrillicToLatinChars(news.getTitle()));
-        news.setCreationDate(Utils.convertDateToUkrainianDateString(LocalDateTime.now()));
+        news.setCreationDate(Utils.convertDateToStringWithUkrainianMonth(LocalDateTime.now()));
         return NewsDTO.of(newsRepository.save(news));
     }
 

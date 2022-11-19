@@ -15,8 +15,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.nio.file.*;
-import java.util.UUID;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
 @Service
 public class FileStorageService implements FileService {
@@ -30,6 +33,8 @@ public class FileStorageService implements FileService {
         LOGGER.info("Initializing base upload directory.");
         try {
             Files.createDirectories(baseLocation);
+            Files.createDirectories(Paths.get(baseLocation + File.separator + "images"));
+            Files.createDirectories(Paths.get(baseLocation + File.separator + "file"));
             LOGGER.info("Initializing base upload directory - success.");
         } catch (IOException exception) {
             LOGGER.error("Initializing base upload directory - error.", exception);
@@ -68,10 +73,9 @@ public class FileStorageService implements FileService {
 
 
         try {
-            Path destinationFile = baseLocation.resolve(getFolderBasedOnFileContentType(file.getContentType()) + File.separator
-                    + Paths.get(generateRandomFileName(file.getOriginalFilename())))
+            Path destinationFile = baseLocation.resolve(getFolderBasedOnFileContentType(Objects.requireNonNull(file.getContentType())) + File.separator
+                                                        + Paths.get(generateRandomFileName(Objects.requireNonNull(file.getOriginalFilename()))))
                     .normalize().toAbsolutePath();
-
 
 
             if (!destinationFile.getParent().toString().equals(baseLocation.toAbsolutePath() + File.separator + getFolderBasedOnFileContentType(file.getContentType()))) {
@@ -80,7 +84,7 @@ public class FileStorageService implements FileService {
                         "Cannot store file outside current directory.");
             }
 
-            try ( InputStream inputStream = file.getInputStream()) {
+            try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, destinationFile,
                         StandardCopyOption.REPLACE_EXISTING);
                 return getPathOfUploadedFile(destinationFile);

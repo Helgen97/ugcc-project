@@ -30,6 +30,11 @@ public class NewsController {
         return newsService.getOneById(id);
     }
 
+    @GetMapping("/pages/random")
+    public Page<NewsDTO> getFourRandomNews() {
+        return newsService.getFourRandomNews();
+    }
+
     @GetMapping("/pages")
     public Page<NewsDTO> getNewsPage(@RequestParam(required = false) Long sectionId,
                                      @RequestParam int page,

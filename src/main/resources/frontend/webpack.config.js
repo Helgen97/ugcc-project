@@ -9,7 +9,13 @@ module.exports = {
         panel: './src/panel/panel.js',
         index: './src/main/index.js',
         login: './src/login/login.js',
-        error: './src/error/error.js'
+        error: './src/error/error.js',
+        indexObserver: './src/observers/indexObserver.js',
+        newsPageObserver: "./src/observers/newsPageObserver.js",
+        documentPageObserver: "./src/observers/documentPageObserver.js",
+        albumPageObserver: "./src/observers/albumPageObserver.js",
+        articlePageObserver: "./src/observers/articlePageObserver.js",
+        allNewsPageObserver: "./src/observers/allNewsPageObserver.js"
     },
     output: {
         filename: 'scripts/[name].js',

@@ -17,7 +17,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,10 +58,15 @@ public class ArticleService implements TypeService<Article, ArticleDTO> {
     }
 
     @Transactional(readOnly = true)
-    public List<ArticleDTO> getFourRandomArticleExceptArticleWithId(Long id) {
-        List<Article> articleList = articleRepository.findAll().stream().filter(article -> !article.getId().equals(id)).collect(Collectors.toList());
-        Collections.shuffle(articleList);
-        return articleList.stream().limit(4).map(ArticleDTO::of).collect(Collectors.toList());
+    public Page<ArticleDTO> getFourRandomArticles() {
+        LOGGER.info("Getting four random articles.");
+        long allArticlesCount = articleRepository.count();
+        long pageCounter = allArticlesCount / 4;
+        int page = (int) (Math.random() * pageCounter);
+
+        Page<Article> articlePage = articleRepository.findAll(PageRequest.of(page, 4));
+
+        return articlePage.map(ArticleDTO::of);
     }
 
     @Transactional(readOnly = true)

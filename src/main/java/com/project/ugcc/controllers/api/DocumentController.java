@@ -30,6 +30,11 @@ public class DocumentController {
         return documentService.getOneById(id);
     }
 
+    @GetMapping("/pages/random")
+    public Page<DocumentDTO> getFourRandomDocuments() {
+        return documentService.getFourRandomDocuments();
+    }
+
     @GetMapping("/pages")
     public Page<DocumentDTO> getPageOfDocuments(@RequestParam(required = false) Long sectionId,
                                                 @RequestParam int page,

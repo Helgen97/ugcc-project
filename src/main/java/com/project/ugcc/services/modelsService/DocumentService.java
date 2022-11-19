@@ -18,7 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,7 +62,6 @@ public class DocumentService implements TypeService<Document, DocumentDTO> {
     }
 
     /**
-     *
      * @return
      */
     @Transactional(readOnly = true)
@@ -86,16 +88,15 @@ public class DocumentService implements TypeService<Document, DocumentDTO> {
     }
 
     @Transactional(readOnly = true)
-    public List<DocumentDTO> getListWithMainDocumentAndFourRandomDocuments(String namedId) {
-        List<DocumentDTO> documentList = documentRepository.findAll().stream().
-                map(DocumentDTO::of)
-                .collect(Collectors.toList());
+    public Page<DocumentDTO> getFourRandomDocuments() {
+        LOGGER.info("Getting four random documents.");
+        long allDocumentsCount = documentRepository.count();
+        long pageCounter = allDocumentsCount / 4;
+        int page = (int) (Math.random() * pageCounter);
 
-        List<DocumentDTO> neededDocuments = new ArrayList<>();
+        Page<Document> documentPage = documentRepository.findAll(PageRequest.of(page, 4));
 
-
-
-        return neededDocuments;
+        return documentPage.map(DocumentDTO::of);
     }
 
     @Transactional(readOnly = true)
@@ -120,7 +121,7 @@ public class DocumentService implements TypeService<Document, DocumentDTO> {
     public DocumentDTO create(Document document) {
         LOGGER.info("Creating new document");
         document.setNamedId(Utils.transliterateStringFromCyrillicToLatinChars(document.getTitle()));
-        document.setCreationDate(Utils.convertDateToUkrainianDateString(LocalDateTime.now()));
+        document.setCreationDate(Utils.convertDateToStringWithUkrainianMonth(LocalDateTime.now()));
         return DocumentDTO.of(documentRepository.save(document));
     }
 

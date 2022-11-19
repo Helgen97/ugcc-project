@@ -30,6 +30,11 @@ public class AlbumController {
         return albumService.getAll();
     }
 
+    @GetMapping("/pages/random")
+    public Page<AlbumDTO> getFourRandomDocuments() {
+        return albumService.getFourRandomAlbums();
+    }
+
     @GetMapping("/pages")
     public Page<AlbumDTO> getPageOfAlbums(@RequestParam(required = false) Long sectionId,
                                           @RequestParam int page,

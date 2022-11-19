@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,10 +75,16 @@ public class AlbumService implements TypeService<Album, AlbumDTO> {
         return albumsPage.map(AlbumDTO::of);
     }
 
-    public List<AlbumDTO> getThreeRandomAlbumExceptAlbumWithId(Long id) {
-        List<Album> albumList = albumRepository.findAll().stream().filter(album -> !album.getId().equals(id)).collect(Collectors.toList());
-        Collections.shuffle(albumList);
-        return albumList.stream().limit(4).map(AlbumDTO::of).collect(Collectors.toList());
+    @Transactional(readOnly = true)
+    public Page<AlbumDTO> getFourRandomAlbums() {
+        LOGGER.info("Getting four random albums.");
+        long allAlbumsCount = albumRepository.count();
+        long pageCounter = allAlbumsCount / 4;
+        int page = (int) (Math.random() * pageCounter);
+
+        Page<Album> albumPage = albumRepository.findAll(PageRequest.of(page, 4));
+
+        return albumPage.map(AlbumDTO::of);
     }
 
     @Override
@@ -87,7 +92,7 @@ public class AlbumService implements TypeService<Album, AlbumDTO> {
     public AlbumDTO create(Album album) {
         LOGGER.info("Creating new album");
         album.setNamedId(Utils.transliterateStringFromCyrillicToLatinChars(album.getTitle()));
-        album.setCreationDate(Utils.convertDateToUkrainianDateString(LocalDateTime.now()));
+        album.setCreationDate(Utils.convertDateToStringWithUkrainianMonth(LocalDateTime.now()));
         return AlbumDTO.of(albumRepository.save(album));
     }
 

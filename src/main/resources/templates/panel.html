@@ -44,7 +44,7 @@
             </button>
             <div class="dropdown-menu w-100 text-left">
                 <a class="dropdown-item" id="document-openBlockBtn" href="#">Додати документ</a>
-                <a class="dropdown-item" id="documentList-openBlockBtn" href="#">Cписок документів</a>
+                <a class="dropdown-item" id="documentList-openBlockBtn" href="#">Список документів</a>
             </div>
         </div>
         <div class="dropdown mb-3 text-center">
@@ -64,7 +64,7 @@
             </button>
             <div class="dropdown-menu w-100 text-left">
                 <a class="dropdown-item" id="album-openBlockBtn" href="#">Додати альбом</a>
-                <a class="dropdown-item" id="albumList-openBlockBtn" href="#">Cписок альбомів</a>
+                <a class="dropdown-item" id="albumList-openBlockBtn" href="#">Список альбомів</a>
             </div>
         </div>
         <div class="dropdown mb-3 text-center">
@@ -74,7 +74,7 @@
             </button>
             <div class="dropdown-menu w-100 text-left">
                 <a class="dropdown-item" id="broadcast-openBlockBtn" href="#">Додати трансляцію</a>
-                <a class="dropdown-item" id="broadcastList-openBlockBtn" href="#">Cписок трансляцій</a>
+                <a class="dropdown-item" id="broadcastList-openBlockBtn" href="#">Список трансляцій</a>
             </div>
         </div>
         <div class="mb-3 text-center">
@@ -96,8 +96,62 @@
             <div class="panel__block__title text-center border-bottom border-dark">
                 <h4>Панель керування сайтом</h4>
             </div>
-            <div class="text-center">
+            <div class="text-center border-bottom border-dark">
                 <p>Виберіть пункт з меню для початку роботи з сайтом</p>
+            </div>
+            <div class="text-center p-2">
+                <h4>Важливо для ознайомлення!</h4>
+                <h4>Перед тим, як додавати щось на сайт - прочитайте дану інформацію.&nbsp;</h4>
+            </div>
+            <div>
+                <ol>
+                    <li>При завантаженні фотографії або файлу, переконайтесь, що їх <strong>розмір не перевищує
+                        50МБ</strong>.
+                    </li>
+                    <li>Для швидкого завантаження картинки на сайті,&nbsp;<strong>дуже бажано</strong>, щоб розміри
+                        картинки були приблизно 600х500. Це покращить швидке завантаження сторінок на усіх пристроях.
+                        Надаю декілька сервісів, для змінювання розмірів зображень.
+                        <ul>
+                            <li><a href="https://photo-resizer.ru">https://photo-resizer.ru</a></li>
+                            <li><a href="https://www.iloveimg.com/ru/resize-image">https://www.iloveimg.com/ru/resize-image</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Також рекомендую зжимати розмір фото, перед завантаженням. Надаю декілька безкоштовних ресурсів,
+                        для цього.
+                        <ul style="list-style-type: disc;">
+                            <li><a href="https://tinyjpg.com" target="_blank">https://tinyjpg.com</a></li>
+                            <li><a href="https://tinypng.com">https://tinypng.com</a></li>
+                            <li><a href="https://www.iloveimg.com/ru/compress-image">https://www.iloveimg.com/ru/compress-image</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>При додаванні трансляції, у полі вводу розкладу,&nbsp;<strong>важливо</strong>, писати розклад з
+                        нового рядка. Під полем вводу є підказка, ознайомтесь, будь ласка.&nbsp;
+                    </li>
+                    <li>При додаванні тексту до новин, статей є вкладка додати зображення. Там є пункт, де можна вибрати
+                        файл з комп'ютера. <strong>Не бажано і не рекомендую</strong> користуватися. Використовується
+                        багато символів для цього. Краще додайте зображення через посилання.&nbsp;
+                    </li>
+                    <li>Для того, щоб додати відео в альбом: на сторінці з відео
+                        <ul style="list-style-type: disc;">
+                            <li><strong>Натисніть <em>поділитися</em> - <em>вставити</em> - <em>скопіюйте код&nbsp;</em>для
+                                вставки і <em>вставте</em> його у поле вводу.</strong></li>
+                        </ul>
+                    </li>
+                    <li>При появі помилок при створенні або завантаженні будь-чого:&nbsp;<br/>
+                        <ol>
+                            <li>Перезавантажте сторінку, та спробуйте ще раз.&nbsp;</li>
+                            <li>Якщо проблема не зникла - вийдіть з акаунту, закрийте сторінку, і зайдіть знову і
+                                спробуйте додати ще раз.&nbsp;
+                            </li>
+                            <li>Якщо все ж таки не працює, відкрийте консоль у браузері(права кнопка миші по сторінці -
+                                перевірити об'єкт - консоль), скопіюйте помилку(виділено червоним), та напишіть <strong><a
+                                        href="https://helgen97.github.io/Portfolio/">мені</a></strong> - я допоможу.
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
             </div>
         </div>
         <div id="news-menu" class="p-1" style="display: none;">
@@ -146,7 +200,7 @@
                               placeholder="Короткий опис" aria-describedby="news-descriptionHelp"></textarea>
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="news-descriptionHelp" class="form-text text-muted">Наприклад: "Після 24 лютого місто
-                        Кам’янське, що на Дніпропетровщині, стало одним із місць транзиту і притулку для тих, хто
+                        Кам’янське, що на Дніпровщині, стало одним із місць транзиту і притулку для тих, хто
                         втікає від війни. Сюди прибуло понад 20 тисяч переселенців. Місцевий осередок благодійного
                         фонду Карітас, що діє при греко-католицькій парафії Преображення Господнього, був однією із
                         перших організацій, що відгукнулися на потреби переселенців, допомагаючи їм ліками,
@@ -211,7 +265,7 @@
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="document-descriptionHelp" class="form-text text-muted">Наприклад: "Господь Бог наділив
                         нашого
-                        славного попередника Блаженнішого Любомира Гузара, главу УГКЦ в 2001–2011 роках, багатьма
+                        славного попередника Блаженнішого Любомира Гузара, главу УГКЦ у 2001–2011 роках, багатьма
                         талантами, які він упродовж свого життя і служіння рясно примножив. Він був не лише
                         очільником Церкви, а й мірилом моральності людських вчинків. Маючи глибоку віру, патріарх
                         навчав слова Євангелія про найбільшу заповідь любові до Бога і ближнього."</small>
@@ -356,16 +410,18 @@
             </div>
             <div class="mb-3">
                 <div class="w-100 p-1 text-center">
-                    <h5>Посилання на відео</h5>
+                    <h5>Код для вставки відео</h5>
                 </div>
-                <input id="album-videoUrlInput" type="text" class="form-control" placeholder="Посилання на відео"
+                <input id="album-videoUrlInput" type="text" class="form-control" placeholder="Код для вставки відео"
                        aria-describedby="album-videoUrlHelp">
                 <small class="form-text text-muted inputMaxLength">Залишилось символів:</small>
                 <small id="album-videoUrlHelp" class="form-text text-muted">Наприклад:
-                    "https://www.youtube.com/watch?v=sjpBgPKQQhw"</small>
+                    "&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/sjpBgPKQQhw" title="YouTube
+                    video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+                    gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;"</small>
             </div>
             <div class="mb-3 text-center">
-                <button id="album-applyBtn" type="button" class="w-50 btn btn-primary">Cтворити альбом</button>
+                <button id="album-applyBtn" type="button" class="w-50 btn btn-primary">Створити альбом</button>
             </div>
         </div>
         <div id="albumList-menu" class="p-1" style="display: none">
@@ -435,9 +491,9 @@
                               placeholder="Короткий опис" aria-describedby="broadcast-scheduleIHelp"></textarea>
                     <small class="form-text text-muted inputMaxLength">Залишилось символів: </small>
                     <small id="broadcast-scheduleIHelp" class="form-text text-muted">
-                        Важливо! щоб кожен рядок був с нової строчки. Наприклад: <br>
+                        Важливо! щоб кожен рядок був с нового рядка. Наприклад: <br>
                         "Будні:<br>
-                        8:00 - Божествення Літургія<br>
+                        8:00 - Божественна Літургія<br>
                         Неділя:<br>
                         8:30 - Утреня<br>
                         10:00 - Божественна Літургія<br>

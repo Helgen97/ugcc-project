@@ -1,3 +1,8 @@
+.DS_Store
+.idea/
+.classpath
+.project
+.settings/
 
 /shelf/
 /workspace.xml
@@ -6,30 +11,9 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
-.DS_Store
-styles/css/contacts.css
-styles/css/documents.css
-styles/css/footer.css
-styles/css/friends.css
-styles/css/header.css
-styles/css/main.css
-styles/css/mixins.css
-styles/css/modal.css
-styles/css/navigation.css
-styles/css/news-list.css
-styles/css/news-page.css
-styles/css/section.css
-styles/css/sidebar.css
-styles/css/universal.css
-styles/css/vars.css
-styles/css/e-books.css
-styles/css/kahetyzm.css
-styles/css/allmedia.css
+
 uploads/
-.idea/
 logs/
-/src/main/resources/frontend/node_modules/
-.classpath
-.project
-.settings/
 target/
+/src/main/resources/frontend/node_modules/
+/src/main/resources/frontend/node/

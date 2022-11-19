@@ -2,6 +2,7 @@ package com.project.ugcc.security.configuration;
 
 import com.project.ugcc.security.service.UserDetailService;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -32,6 +33,8 @@ public class WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .authorizeRequests().antMatchers(HttpMethod.GET, "/api/**").permitAll()
+                .and()
                 .authorizeRequests().antMatchers("/api/**").authenticated()
                 .and()
                 .authorizeRequests().antMatchers("/public/**").permitAll()

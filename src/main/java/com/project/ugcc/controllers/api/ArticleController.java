@@ -41,6 +41,11 @@ public class ArticleController {
                 articleService.getPageOfArticlesBySectionId(sectionId, page, size);
     }
 
+    @GetMapping("/pages/random")
+    public Page<ArticleDTO> getFourRandomDocuments() {
+        return articleService.getFourRandomArticles();
+    }
+
     @PostMapping
     public ArticleDTO create(@RequestBody Article article, @RequestParam Long sectionId) {
         Article articleWithSection = articleService.setSectionToModel(article, sectionId);

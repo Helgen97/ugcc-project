@@ -6,8 +6,6 @@
 <!--/*@thymesVar id="url" type="java.lang.String"*/-->
 <!--/*@thymesVar id="metaImage" type="java.lang.String"*/-->
 <!--/*@thymesVar id="mainAlbum" type="com.project.ugcc.DTO.AlbumDTO"*/-->
-<!--/*@thymesVar id="otherAlbums" type="java.util.List<com.project.ugcc.DTO.AlbumDTO>"*/-->
-
 
 <head>
     <meta charset="UTF-8"/>
@@ -44,7 +42,6 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
     <link rel="stylesheet" th:href="@{/styles/index.css}"/>
 </head>
@@ -93,27 +90,15 @@
             <div th:if="${!mainAlbum.videoSource.isEmpty()}" class="media__block-title">
                 <h2>Відео:</h2>
             </div>
-            <div th:if="${!mainAlbum.videoSource.isEmpty()}" class="media__video-container" th:utext="${mainAlbum.videoSource}"></div>
+            <div th:if="${!mainAlbum.videoSource.isEmpty()}" class="media__video-container"
+                 th:utext="${mainAlbum.videoSource}"></div>
         </div>
+        <span id="mainAlbumEnd"></span>
         <div class="other-albums block">
             <div class="block-title">
                 <h2>Інші альбоми</h2>
             </div>
-            <div class="media__list">
-                <a th:each="album : ${otherAlbums}" th:href="@{/albums/{namedId}(namedId=${album.namedId})}"
-                   class="section">
-                    <div class="section__image-container">
-                        <img th:src="${album.imagesUrls.get(0)}" th:alt="${album.title}" class="section__image" loading='lazy'>
-                    </div>
-                    <div class="section__info">
-                        <div class="section__info__date">
-                            <p th:text="${album.creationDate}"></p>
-                        </div>
-                        <div class="section__info__title">
-                            <p th:text="${album.title}"></p>
-                        </div>
-                    </div>
-                </a>
+            <div id="otherAlbumsContainer" class="media__list">
             </div>
         </div>
     </div>
@@ -127,6 +112,7 @@
 
 
 <script th:src="@{/scripts/index.js}"></script>
+<script th:src="@{/scripts/albumPageObserver.js}"></script>
 </body>
 
 </html>

@@ -5,6 +5,7 @@ import com.project.ugcc.services.modelsService.*;
 import com.project.ugcc.utils.SiteMapGenerator;
 import com.project.ugcc.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,8 +54,6 @@ public class Routes {
         model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
         model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
         model.addAttribute("newsPageOfExarchate", newsService.getPageOfNewsBySectionId(1L, 0, 5));
-        model.addAttribute("newsPageOfChurch", newsService.getPageOfNewsBySectionId(2L, 0, 4));
-        model.addAttribute("newsPageOfPublications", newsService.getPageOfNewsBySectionId(3L, 0, 4));
         return "index";
     }
 
@@ -64,11 +63,8 @@ public class Routes {
         model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
         model.addAttribute("description", "Останні новини за розділами. Новини Донецького екзархату. Україньська Греко-Католицька Церква.");
         model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
-        model.addAttribute("pagesOfNewsBySections", List.of(
-                newsService.getPageOfNewsBySectionId(1L, 0, 5),
-                newsService.getPageOfNewsBySectionId(2L, 0, 5),
-                newsService.getPageOfNewsBySectionId(3L, 0, 5)
-        ));
+        model.addAttribute("newsPageOfExarchate", newsService.getPageOfNewsBySectionId(1L, 0, 5));
+
         return "news";
     }
 
@@ -80,7 +76,6 @@ public class Routes {
         model.addAttribute("description", news.getDescription());
         model.addAttribute("metaImage", news.getImageUrl());
         model.addAttribute("mainNews", news);
-        model.addAttribute("otherNews", newsService.getPageOfNewsBySectionId(news.getSection().getId(), 0, 4));
         return "news-page";
     }
 
@@ -88,14 +83,21 @@ public class Routes {
     public String newsBySectionPage(Model model,
                                     @PathVariable String namedId,
                                     @RequestParam(required = false, defaultValue = "0") int page) {
-        SectionDTO section = sectionService.getByNamedId(namedId);
+
+        Page<NewsDTO> newsPage = newsService.getPageOfNewsBySectionNamedId(namedId, page, 6);
+
+        SectionDTO section = newsPage.getContent().isEmpty()
+                ? sectionService.getByNamedId(namedId)
+                : newsPage.getContent().get(0).getSection();
+
         model.addAttribute("title", section.getTitle() + " - Донецький екзархат - УГКЦ");
         model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
         model.addAttribute("description", String.format("Новини за розділом. %s. Донецький Екзархат Української Греко-Католицької Церкви.", section.getTitle()));
         model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
         model.addAttribute("pageTitle", section.getTitle());
         model.addAttribute("namedId", namedId);
-        model.addAttribute("newsPage", newsService.getPageOfNewsBySectionNamedId(namedId, page, 6));
+        model.addAttribute("newsPage", newsPage);
+
         return "news-list";
     }
 
@@ -135,19 +137,20 @@ public class Routes {
         model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
         model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
         model.addAttribute("mainDocument", document);
-        model.addAttribute("otherDocuments", documentService.getListWithMainDocumentAndFourRandomDocuments(namedId));
+
         return "document";
     }
 
     @GetMapping("/article/{namedId}")
     public String articlePage(Model model, @PathVariable String namedId) {
         ArticleDTO article = articleService.getByNamedId(namedId);
+
         model.addAttribute("title", article.getTitle() + " - Донецький екзархат - УГКЦ");
         model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
         model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
         model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
         model.addAttribute("article", article);
-        model.addAttribute("otherArticles", articleService.getFourRandomArticleExceptArticleWithId(article.getId()));
+
         return "article";
     }
 
@@ -161,7 +164,7 @@ public class Routes {
         return "kahetyzm-ugcc";
     }
 
-    @GetMapping("/kahehyzm")
+    @GetMapping("/kahetyzm")
     public String kahetyzmPage(Model model) {
         model.addAttribute("title", "Катехизм Католицької Церкви (ККЦ) - Донецький екзархат - УГКЦ");
         model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
@@ -185,12 +188,13 @@ public class Routes {
     @GetMapping("/albums/{namedId}")
     public String albumPage(Model model, @PathVariable String namedId) {
         AlbumDTO album = albumService.getByNamedId(namedId);
+
         model.addAttribute("title", "Альбом - " + album.getTitle());
         model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
         model.addAttribute("description", "Альбом - " + album.getTitle() + ". Створено: " + album.getCreationDate());
         model.addAttribute("metaImage", album.getImagesUrls().get(0));
         model.addAttribute("mainAlbum", album);
-        model.addAttribute("otherAlbums", albumService.getThreeRandomAlbumExceptAlbumWithId(album.getId()));
+
         return "album";
     }
 

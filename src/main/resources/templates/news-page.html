@@ -5,8 +5,6 @@
 <!--/*@thymesVar id="url" type="java.lang.String"*/-->
 <!--/*@thymesVar id="metaImage" type="java.lang.String"*/-->
 <!--/*@thymesVar id="mainNews" type="com.project.ugcc.DTO.NewsDTO"*/-->
-<!--/*@thymesVar id="otherNews" type="org.springframework.data.domain.Page<com.project.ugcc.DTO.NewsDTO>"*/-->
-
 
 <head>
     <meta charset="UTF-8"/>
@@ -43,7 +41,6 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
     <link rel="stylesheet" th:href="@{/styles/index.css}"/>
 </head>
@@ -68,24 +65,12 @@
                 <img th:src="${mainNews.imageUrl}" th:alt="${mainNews.title}" class="news__main-image" loading='lazy'>
             </div>
             <div class="news_text" th:utext="${mainNews.text}"></div>
+            <span id="mainNewsEnd"></span>
         </div>
         <div class="other-news block">
             <div class="block-title"><h1>Дивіться також:</h1></div>
-            <div class="sections">
-                <a th:each="news : ${otherNews.content}" th:href="@{/news/{namedId}(namedId=${news.namedId})}"
-                   class="section">
-                    <div class="section__image-container">
-                        <img th:src="${news.imageUrl}" th:alt="${news.title}" class="section__image" loading='lazy'>
-                    </div>
-                    <div class="section__info">
-                        <div class="section__info__date">
-                            <p th:text="${news.creationDate}"></p>
-                        </div>
-                        <div class="section__info__title">
-                            <p th:text="${news.title}"></p>
-                        </div>
-                    </div>
-                </a>
+            <div id="otherNewsListContainer" class="sections">
+
             </div>
             <div class="main-btn">
                 <a th:href="@{/news/section/{namedId}(namedId=${mainNews.section.namedId})}">Дивитись ще...</a>
@@ -100,6 +85,7 @@
 <footer th:replace="fragments/footer.html"></footer>
 
 <script th:src="@{/scripts/index.js}"></script>
+<script th:src="@{/scripts/newsPageObserver.js}"></script>
 </body>
 
 </html>

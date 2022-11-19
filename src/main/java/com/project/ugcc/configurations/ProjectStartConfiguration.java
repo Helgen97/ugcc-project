@@ -5,6 +5,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Before run of project initialize upload directories
+ */
 @Configuration
 public class ProjectStartConfiguration {
 

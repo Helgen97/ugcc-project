@@ -5,7 +5,6 @@
 <!--/*@thymesVar id="url" type="java.lang.String"*/-->
 <!--/*@thymesVar id="metaImage" type="java.lang.String"*/-->
 <!--/*@thymesVar id="mainDocument" type="com.project.ugcc.DTO.DocumentDTO"*/-->
-<!--/*@thymesVar id="otherDocuments" type="java.util.List<com.project.ugcc.DTO.DocumentDTO>"*/-->
 
 <head>
     <meta charset="UTF-8"/>
@@ -42,7 +41,6 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
     <link rel="stylesheet" th:href="@{/styles/index.css}"/>
 </head>
@@ -61,7 +59,8 @@
                 <h1 th:text="${mainDocument.title}"></h1>
             </div>
             <div class="main-document__image-container">
-                <img th:src="${mainDocument.imageUrl}" th:alt="${mainDocument.title}" class="main-document__image"/ loading='lazy'>
+                <img th:src="${mainDocument.imageUrl}" th:alt="${mainDocument.title}" class="main-document__image"/
+                loading='lazy'>
             </div>
             <div class="main-document__info">
                 <div class="main-document__info__date">
@@ -78,19 +77,12 @@
                 </a>
             </div>
         </div>
+        <span id="mainDocumentEnd"></span>
         <div class="other-documents block">
             <div class="block-title">
                 <h2>Інші документи</h2>
             </div>
-            <div class="other-documents__container">
-                <a th:each="document : ${otherDocuments}" th:href="@{/documents/{namedId}(namedId=${document.namedId})}" class="document">
-                    <div class="document__icon">
-                    </div>
-                    <div class="document__info">
-                        <p class="document__info__title" th:text="${document.title}"></p>
-                        <p class="document__info__date" th:text="${document.creationDate}"></p>
-                    </div>
-                </a>
+            <div id="otherDocumentsContainer" class="other-documents__container">
             </div>
         </div>
     </div>
@@ -102,6 +94,7 @@
 <footer th:replace="fragments/footer.html"></footer>
 
 <script th:src="@{/scripts/index.js}"></script>
+<script th:src="@{/scripts/documentPageObserver.js}"></script>
 </body>
 
 </html>

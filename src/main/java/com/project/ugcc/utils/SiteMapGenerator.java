@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SiteMapGenerator {
-    
 
     private final static Logger LOGGER = LogManager.getLogger(SiteMapGenerator.class.getName());
 

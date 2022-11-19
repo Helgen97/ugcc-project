@@ -49,7 +49,7 @@ public class Utils {
         return builder.toString();
     }
 
-    public static String convertDateToUkrainianDateString(LocalDateTime date) {
+    public static String convertDateToStringWithUkrainianMonth(LocalDateTime date) {
         if (date == null) date = LocalDateTime.of(2022, 1, 1, 1, 1);
 
         return date.getDayOfMonth() + " " +

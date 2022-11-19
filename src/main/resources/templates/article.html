@@ -5,7 +5,6 @@
 <!--/*@thymesVar id="url" type="java.lang.String"*/-->
 <!--/*@thymesVar id="metaImage" type="java.lang.String"*/-->
 <!--/*@thymesVar id="article" type="com.project.ugcc.DTO.ArticleDTO"*/-->
-<!--/*@thymesVar id="otherArticles" type="java.util.List<com.project.ugcc.DTO.ArticleDTO>"*/-->
 
 <head>
     <meta charset="UTF-8"/>
@@ -42,7 +41,6 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
     <link rel="stylesheet" th:href="@{/styles/index.css}"/>
 </head>
@@ -62,24 +60,20 @@
             </div>
             <div class="article">
                 <div class="article__image-container">
-                    <img th:src="${article.imageUrl}" th:alt="${article.imageDescription}" class="article__image" loading='lazy'>
+                    <img th:src="${article.imageUrl}" th:alt="${article.imageDescription}" class="article__image"
+                         loading='lazy'>
                     <p class="article__image-description" th:text="${article.imageDescription}"></p>
                 </div>
                 <div th:utext="${article.text}"></div>
             </div>
         </div>
+        <span id="mainArticleEnd"></span>
         <div class="other-articles block">
             <div class="block-title">
                 <h2>Читайте також:</h2>
             </div>
-            <div class="other-articles__container">
-                <a th:each="otherArticle : ${otherArticles}" th:href="@{/article/{namedId}(namedId=${otherArticle.namedId})}"
-                   class="other-article">
-                    <div class="other-article__icon"></div>
-                    <div class="other-article__title" th:text="${otherArticle.title}"></div>
-                </a>
+            <div id="otherArticleContainer" class="other-articles__container">
             </div>
-
         </div>
     </div>
 
@@ -92,6 +86,7 @@
 <footer th:replace="fragments/footer.html"></footer>
 
 <script th:src="@{/scripts/index.js}"></script>
+<script th:src="@{/scripts/articlePageObserver.js}"></script>
 
 </body>
 

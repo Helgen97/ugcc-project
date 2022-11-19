@@ -36,7 +36,7 @@ class UtilsTest {
     void testConvertDateToUkrainianDateString() {
         LocalDateTime date = LocalDateTime.of(2022, 1, 10, 10, 10);
         String expected = "10 січня 2022";
-        String actual = Utils.convertDateToUkrainianDateString(date);
+        String actual = Utils.convertDateToStringWithUkrainianMonth(date);
 
         assertEquals(expected, actual);
     }
@@ -44,7 +44,7 @@ class UtilsTest {
     @Test
     void testConvertDateToUkrainianDateStringTakesNull() {
         String expected = "1 січня 2022";
-        String actual = Utils.convertDateToUkrainianDateString(null);
+        String actual = Utils.convertDateToStringWithUkrainianMonth(null);
 
         assertEquals(expected, actual);
     }
