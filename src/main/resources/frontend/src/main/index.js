@@ -63,7 +63,7 @@ function createBroadcastCard({
         return p;
     })
 
-    card.append(title, churchFromParagraph, churchNameParagraph, image, scheduleTitleParagraph);
+    card.append(title, churchFromParagraph, churchNameParagraph, churchTownParagraph, image, scheduleTitleParagraph);
     scheduleParagraphs.forEach(paragraph => card.append(paragraph));
 
     if (youtubeLink) {

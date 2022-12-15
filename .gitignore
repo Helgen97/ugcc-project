@@ -17,3 +17,4 @@ logs/
 target/
 /src/main/resources/frontend/node_modules/
 /src/main/resources/frontend/node/
+!/ugcc.iml

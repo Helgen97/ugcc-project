@@ -50,9 +50,9 @@ public class Routes {
     @GetMapping("/")
     public String indexPage(Model model) {
         model.addAttribute("title", "Донецький екзархат - Українська Греко-Католицька Церква");
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
+        model.addAttribute("url", getCurrentHttpsUrl());
         model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
-        model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
+        model.addAttribute("metaImage", getBaseHttpsUrl() + "/imgs/MetaImage.png");
         model.addAttribute("newsPageOfExarchate", newsService.getPageOfNewsBySectionId(1L, 0, 5));
         return "index";
     }
@@ -60,9 +60,9 @@ public class Routes {
     @GetMapping("/news")
     public String allNewsPage(Model model) {
         model.addAttribute("title", "Останні новини за розділами - Донецький екзархат - УКГЦ");
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
+        model.addAttribute("url", getCurrentHttpsUrl());
         model.addAttribute("description", "Останні новини за розділами. Новини Донецького екзархату. Україньська Греко-Католицька Церква.");
-        model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
+        model.addAttribute("metaImage", getBaseHttpsUrl() + "/imgs/MetaImage.png");
         model.addAttribute("newsPageOfExarchate", newsService.getPageOfNewsBySectionId(1L, 0, 5));
 
         return "news";
@@ -72,9 +72,9 @@ public class Routes {
     public String newsPage(Model model, @PathVariable String namedId) {
         NewsDTO news = newsService.getByNamedId(namedId);
         model.addAttribute("title", news.getTitle());
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
+        model.addAttribute("url", getCurrentHttpsUrl());
         model.addAttribute("description", news.getDescription());
-        model.addAttribute("metaImage", news.getImageUrl());
+        model.addAttribute("metaImage", getBaseHttpsUrl() + news.getImageUrl());
         model.addAttribute("mainNews", news);
         return "news-page";
     }
@@ -91,9 +91,9 @@ public class Routes {
                 : newsPage.getContent().get(0).getSection();
 
         model.addAttribute("title", section.getTitle() + " - Донецький екзархат - УГКЦ");
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
+        model.addAttribute("url", getCurrentHttpsUrl());
         model.addAttribute("description", String.format("Новини за розділом. %s. Донецький Екзархат Української Греко-Католицької Церкви.", section.getTitle()));
-        model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
+        model.addAttribute("metaImage", getBaseHttpsUrl() + "/imgs/MetaImage.png");
         model.addAttribute("pageTitle", section.getTitle());
         model.addAttribute("namedId", namedId);
         model.addAttribute("newsPage", newsPage);
@@ -103,12 +103,12 @@ public class Routes {
 
     @GetMapping("/search")
     public String searchPage(Model model,
-                             @RequestParam String query,
+                             @RequestParam(required = false, defaultValue = "") String query,
                              @RequestParam(required = false, defaultValue = "0") int page) {
-        model.addAttribute("title", "Донецький екзархат - Українська Греко-Католицька Церква");
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
-        model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
-        model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
+        model.addAttribute("title", "Пошук новин - Донецький екзархат - Українська Греко-Католицька Церква");
+        model.addAttribute("url", getCurrentHttpsUrl());
+        model.addAttribute("description", "Пошук по всім новинам Донецького Екзархату. Знайти новини, публікації.");
+        model.addAttribute("metaImage", getBaseHttpsUrl() + "/imgs/MetaImage.png");
         model.addAttribute("pageTitle", "Результати пошуку:");
         model.addAttribute("query", query);
         model.addAttribute("newsPage", newsService.getPageOfNewsBySearchQuery(query, page, 6));
@@ -120,9 +120,9 @@ public class Routes {
         Map<String, List<DocumentDTO>> documents = documentService.getAllDocumentsFilteredBySection();
 
         model.addAttribute("title", "Документи - Донецький екзархат - Українська Греко-Католицька Церква");
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
-        model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
-        model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
+        model.addAttribute("url", getCurrentHttpsUrl());
+        model.addAttribute("description", "Документи Донецького Екзархату Української Греко-Католицької Церкви. Всі додані документи Екзархату.");
+        model.addAttribute("metaImage", getBaseHttpsUrl() + "/imgs/MetaImage.png");
         model.addAttribute("documentsOfExarchate", documents.get("documentsOfExarchate"));
         model.addAttribute("documentsOfChurch", documents.get("documentsOfChurch"));
         return "documents";
@@ -133,9 +133,9 @@ public class Routes {
         DocumentDTO document = documentService.getByNamedId(namedId);
 
         model.addAttribute("title", document.getTitle() + " - Донецький екзархат - УГКЦ");
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
-        model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
-        model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
+        model.addAttribute("url", getCurrentHttpsUrl());
+        model.addAttribute("description", document.getDescription());
+        model.addAttribute("metaImage", getBaseHttpsUrl() + document.getImageUrl());
         model.addAttribute("mainDocument", document);
 
         return "document";
@@ -146,9 +146,9 @@ public class Routes {
         ArticleDTO article = articleService.getByNamedId(namedId);
 
         model.addAttribute("title", article.getTitle() + " - Донецький екзархат - УГКЦ");
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
-        model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
-        model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
+        model.addAttribute("url", getCurrentHttpsUrl());
+        model.addAttribute("description", article.getTitle() + " - Донецький екзархат - УГКЦ. Стаття Донецького Екзархату. Читайте, якщо бажаєте дізнатися про нас більше. ");
+        model.addAttribute("metaImage", getBaseHttpsUrl() + "/imgs/MetaImage.png");
         model.addAttribute("article", article);
 
         return "article";
@@ -157,20 +157,20 @@ public class Routes {
     @GetMapping("/kahetyzm-ugcc")
     public String kahetyzmUgccPage(Model model) {
         model.addAttribute("title", "Катехизм “Христос — наша Пасха” - Донецький екзархат - УКГЦ");
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
+        model.addAttribute("url", getCurrentHttpsUrl());
         model.addAttribute("description",
                 "Катехизм “Христос — наша Пасха” - офіційний текст віровчення Української Греко-Католицької Церкви. Книга розкриває особливість богословської традиції УГКЦ, спираючись на Святе Письмо, спадщину Отців Церкви, душпастирів УГКЦ, рішень Вселенських та Помісних Соборів, богослужбових творів, та ін.");
-        model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
+        model.addAttribute("metaImage", getBaseHttpsUrl() + "/imgs/MetaImage.png");
         return "kahetyzm-ugcc";
     }
 
     @GetMapping("/kahetyzm")
     public String kahetyzmPage(Model model) {
         model.addAttribute("title", "Катехизм Католицької Церкви (ККЦ) - Донецький екзархат - УГКЦ");
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
+        model.addAttribute("url", getCurrentHttpsUrl());
         model.addAttribute("description",
                 "Катехизм Католицької Церкви (ККЦ) — книга, що містить стислий виклад основних положень католицької віри. Катехизм пропонує органічний і синтетичний виклад найважливішого змісту католицького віровчення – як у тому, що стосується віри, так і в питаннях моралі – у світлі ІІ Ватиканського собору і всієї церковної Традиції. Його головні джерела – це Святе Письмо, тексти Отців, літургія й учення Церкви.");
-        model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
+        model.addAttribute("metaImage", getBaseHttpsUrl() + "/imgs/MetaImage.png");
         return "kahetyzm";
     }
 
@@ -178,9 +178,9 @@ public class Routes {
     public String galleryPage(Model model,
                               @RequestParam(defaultValue = "0", required = false) int page) {
         model.addAttribute("title", "Галерея - Донецький екзархат - УГКЦ");
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
-        model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
-        model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
+        model.addAttribute("url", getCurrentHttpsUrl());
+        model.addAttribute("description", "Галерея Донецького Екзархату Української Греко-Католицької Церкви. Останні додані фото та відеоматеріали Екзархату та Української Греко-Католицької церкви.");
+        model.addAttribute("metaImage", getBaseHttpsUrl() + "/imgs/MetaImage.png");
         model.addAttribute("albums", albumService.getPageOfAlbums(page, 9));
         return "gallery";
     }
@@ -190,9 +190,9 @@ public class Routes {
         AlbumDTO album = albumService.getByNamedId(namedId);
 
         model.addAttribute("title", "Альбом - " + album.getTitle());
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
+        model.addAttribute("url", getCurrentHttpsUrl());
         model.addAttribute("description", "Альбом - " + album.getTitle() + ". Створено: " + album.getCreationDate());
-        model.addAttribute("metaImage", album.getImagesUrls().get(0));
+        model.addAttribute("metaImage", getBaseHttpsUrl() + album.getImagesUrls().get(0));
         model.addAttribute("mainAlbum", album);
 
         return "album";
@@ -201,9 +201,9 @@ public class Routes {
     @GetMapping("/contacts")
     public String contactsPage(Model model) {
         model.addAttribute("title", "Наші контакти - Донецький екзархат - УГКЦ");
-        model.addAttribute("url", ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString());
-        model.addAttribute("description", "Головна сторінка Донецького Екзархату Української Греко-Католицької Церкви.");
-        model.addAttribute("metaImage", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/imgs/MetaImage.png");
+        model.addAttribute("url", getCurrentHttpsUrl());
+        model.addAttribute("description", "Як з нами зв'язатися? Тут наші контакти. Контактні дані Донецького Екзархату Української Греко-Католицької Церкви. ");
+        model.addAttribute("metaImage", getBaseHttpsUrl() + "/imgs/MetaImage.png");
         model.addAttribute("contacts", contactsService.getOneById(1L));
         return "contacts";
     }
@@ -227,17 +227,23 @@ public class Routes {
         return "panel";
     }
 
-    @GetMapping(value = "/sitemap.txt", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/sitemap.xml", produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
     public String sitemap() {
-        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-        return siteMapGenerator.generateSiteMap(baseUrl);
+        return siteMapGenerator.generateSiteMap(getBaseHttpsUrl());
     }
 
     @GetMapping(value = "robots.txt", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     public String robots() {
-        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-        return Utils.generateRobotsFile(baseUrl);
+        return Utils.generateRobotsFile(getBaseHttpsUrl());
+    }
+
+    private String getCurrentHttpsUrl() {
+        return ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString().replace("http://", "https://");
+    }
+
+    private String getBaseHttpsUrl() {
+        return ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString().replace("http://", "https://");
     }
 }

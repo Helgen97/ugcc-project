@@ -27,7 +27,7 @@ public class Article extends Type {
     @Column(length = 120)
     private String imageDescription;
 
-    @Column(length = 40000)
+    @Column(length = 40000, columnDefinition = "LONGTEXT")
     private String text;
 
     @Override

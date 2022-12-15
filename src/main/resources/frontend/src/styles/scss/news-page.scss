@@ -38,8 +38,12 @@
   .other-news {
     @include centerBlock(90%);
 
-    .section {
-      margin: 1em 0 2em;
+    .sections {
+      flex-direction: column;
+      .section {
+        margin: 1em 0 2em;
+        flex: 1 0 100%;
+      }
     }
   }
 }

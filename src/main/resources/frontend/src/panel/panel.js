@@ -379,6 +379,30 @@ async function uploadImage(objectToPutData, imageInput) {
     return isSuccess;
 }
 
+async function summernoteUploadImage(image, summernote) {
+    let data = new FormData();
+    data.append("file", image);
+
+    await axios({
+        method: "post",
+        url: "/api/upload",
+        enctype: 'multipart/form-data',
+        cache: false,
+        data: data,
+        processData: false,
+        contentType: false
+    }).then(function ({data}) {
+        let img = document.createElement("img");
+        img.setAttribute("src", data);
+        img.setAttribute('loading', 'lazy')
+        img.setAttribute('alt', "image")
+
+        $(summernote).summernote('insertNode', img);
+    }).catch(function (error) {
+        console.error(error);
+    });
+}
+
 async function uploadFile() {
     let isSuccess = false;
     const [file] = documentFileInput[0].files;
@@ -555,6 +579,8 @@ newsTextInput.summernote({
     tabsize: 3,
     height: 300,
     lang: "uk-UA",
+    fontNames: ['Arial', 'Arial Black', 'Times New Roman', 'Courier New', 'Tahoma', 'Bitter'],
+    fontNamesIgnoreCheck: ['Bitter'],
     toolbar: [
         ["fontstyle", ["bold", "italic", "underline", "clear"]],
         ["fontsize", ["fontsize"]],
@@ -568,6 +594,9 @@ newsTextInput.summernote({
     callbacks: {
         onKeyup: function () {
             summernoteInputKeyUp(this, news, "text", TEXT_MAX_LENGTH);
+        },
+        onImageUpload: async function(image) {
+            await summernoteUploadImage(image[0], this)
         }
     }
 });
@@ -982,6 +1011,8 @@ articleTextInput.summernote({
     tabsize: 3,
     height: 300,
     lang: "uk-UA",
+    fontNames: ['Arial', 'Arial Black', 'Times New Roman', 'Courier New', 'Tahoma', 'Bitter'],
+    fontNamesIgnoreCheck: ['Bitter'],
     toolbar: [
         ["fontstyle", ["bold", "italic", "underline", "clear"]],
         ["fontsize", ["fontsize"]],
@@ -995,6 +1026,9 @@ articleTextInput.summernote({
     callbacks: {
         onKeyup: function () {
             summernoteInputKeyUp(this, article, "text", TEXT_MAX_LENGTH)
+        },
+        onImageUpload: async function(image) {
+            await summernoteUploadImage(image[0], this)
         }
     }
 })

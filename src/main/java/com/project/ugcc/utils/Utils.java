@@ -8,26 +8,14 @@ public class Utils {
 
     private final static int RANDOM_STRING_LENGTH = 20;
 
-    private final static String ROBOTS = "User-agent: Googlebot\n" +
+    private final static String ROBOTS = "User-agent: *\n" +
                                          "Disallow: /a-panel\n" +
                                          "Disallow: /login\n" +
                                          "\n" +
                                          "User-agent: *\n" +
                                          "Allow: /\n" +
-                                         "Allow: /news\n" +
-                                         "Allow: /news/\n" +
-                                         "Allow: /news/section/\n" +
-                                         "Allow: /documents\n" +
-                                         "Allow: /documents/\n" +
-                                         "Allow: /article/\n" +
-                                         "Allow: /kahetyzm-ugcc\n" +
-                                         "Allow: /kahehyzm\n" +
-                                         "Allow: /gallery\n" +
-                                         "Allow: /gallery/\n" +
-                                         "Allow: /albums/\n" +
-                                         "Allow: /contacts\n" +
                                          "\n" +
-                                         "Sitemap: %s/sitemap.txt\n";
+                                         "Sitemap: %s/sitemap.xml\n";
 
 
     private Utils() {

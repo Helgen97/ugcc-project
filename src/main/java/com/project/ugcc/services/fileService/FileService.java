@@ -9,8 +9,6 @@ public interface FileService {
 
     void init();
 
-    void createDirectory(String path);
-
     String saveFile(MultipartFile file);
 
     Path load(String filePath);

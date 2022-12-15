@@ -18,7 +18,16 @@
     <meta name="msapplication-config" content="./imgs/favicons/browserconfig.xml"/>
     <meta name="theme-color" content="#ffffff"/>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/styles/panel.css}">
+
+    <style>
+        * {
+            font-family: "Bitter", serif;
+        }
+    </style>
 </head>
 
 <body>
@@ -87,7 +96,7 @@
             </button>
         </div>
         <div class="mb-3 text-center">
-            <a href="/login?logout=true" class="w-100 btn btn-info btn-m active" role="button" aria-pressed="true">Вихід
+            <a href="/logout" class="w-100 btn btn-info btn-m active" role="button" aria-pressed="true">Вихід
                 з панелі</a>
         </div>
     </div>
@@ -128,10 +137,6 @@
                     </li>
                     <li>При додаванні трансляції, у полі вводу розкладу,&nbsp;<strong>важливо</strong>, писати розклад з
                         нового рядка. Під полем вводу є підказка, ознайомтесь, будь ласка.&nbsp;
-                    </li>
-                    <li>При додаванні тексту до новин, статей є вкладка додати зображення. Там є пункт, де можна вибрати
-                        файл з комп'ютера. <strong>Не бажано і не рекомендую</strong> користуватися. Використовується
-                        багато символів для цього. Краще додайте зображення через посилання.&nbsp;
                     </li>
                     <li>Для того, щоб додати відео в альбом: на сторінці з відео
                         <ul style="list-style-type: disc;">

@@ -5,6 +5,8 @@ import com.project.ugcc.exceptions.StorageFileNotFoundException;
 import com.project.ugcc.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -22,11 +24,16 @@ import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 
 @Service
+@PropertySource("classpath:upload-properties.properties")
 public class FileStorageService implements FileService {
 
     private static final Logger LOGGER = LogManager.getLogger(FileStorageService.class.getName());
 
-    private final Path baseLocation = Paths.get("uploads");
+    private final Path baseLocation;
+
+    public FileStorageService(@Value("${upload.path}") String uploadPath) {
+        this.baseLocation = Paths.get(uploadPath);
+    }
 
     @Override
     public void init() {
@@ -38,18 +45,6 @@ public class FileStorageService implements FileService {
             LOGGER.info("Initializing base upload directory - success.");
         } catch (IOException exception) {
             LOGGER.error("Initializing base upload directory - error.", exception);
-            throw new StorageException("Could not initialize storage", exception);
-        }
-    }
-
-    @Override
-    public void createDirectory(String path) {
-        LOGGER.info("Initializing file upload directory.");
-        try {
-            Files.createDirectories(Paths.get(path));
-            LOGGER.info("Initializing file upload directory - success.");
-        } catch (IOException exception) {
-            LOGGER.info("Initializing file upload directory - error.", exception);
             throw new StorageException("Could not initialize storage", exception);
         }
     }

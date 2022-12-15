@@ -48,7 +48,9 @@ public class WebSecurityConfiguration {
                         .defaultSuccessUrl("/a-panel", true)
                         .failureUrl("/login?error=true")
                         .permitAll())
-                .logout((logout) -> logout.logoutUrl("/login?logout=true").permitAll());
+                .logout((logout) -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout=true"));
 
         return http.build();
     }
